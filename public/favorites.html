@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Favorite Images</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+   
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+   body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(-45deg, #050816, #0b0c2a, #1e215d, #0b0c2a);
+  background-size: 300% 300%;
+  animation: gradientBG 10s ease infinite;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Faster background gradient animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #050816;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  color: #00d1ff;
+  transition: opacity 0.4s ease;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Content over background */
+header, .hero, .search-container, .results, footer {
+  position: relative;
+  z-index: 1;
+}
+
+.main-header,
+.footer,
+.favorites-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* UPDATED HEADER */
+/* Updated header styling */
+/* Professional Header Design */
+/* ========== Fixed Header ========== */
+.main-header {
+  background: #08092c;
+  box-shadow: 0 4px 10px rgba(0, 209, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+}
+
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-text {
+  color: #00d1ff;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+.menu-toggle {
+  background-color: #1a1f4d;
+  color: white;
+  font-size: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: none; /* hidden by default */
+}
+.menu-toggle-wrap {
+  padding: 0 20px;
+  margin-top: 4px;
+}
+
+.logout-btn {
+  background: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+.nav-box {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #00d1ff;
+}
+
+
+.nav-box.show {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.nav-menu .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #00d1ff;
+  transition: width 0.3s ease;
+}
+
+.nav-menu .nav-link:hover::after {
+  width: 100%;
+}
+
+.action-section {
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #00d1ff, #0099cc);
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #00a8d4;
+  transform: translateY(-1px);
+}
+
+
+  
+    .favorites-container {
+      padding: 20px 20px 40px; /* 🆙 Move heading up */
+    }
+    .favorites-container h1 {
+  text-align: center;
+  margin-top: 10px; /* 🆙 Moved more up */
+  margin-bottom: 30px; /* Good space before cards */
+  font-size: 36px;
+  color: #ffffff; /* 🤍 Pure White color */
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px #00ffe1; /* Subtle glow */
+}
+
+
+  
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 💡 4 cards per row */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  justify-items: center; /* center cards when less than 4 */
+}
+
+
+
+
+
+
+  
+.card {
+  background-color: #1a1f4d;
+  border: 1px solid #00ffe1;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  height: 340px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0; /* Remove padding to prevent background gap */
+  box-sizing: border-box;
+}
+
+
+
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 12px #00ffe1;
+    }
+    .card img {
+  flex: 1;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  height: 240px; /* Fixed consistent height */
+  margin: 0;
+  padding: 0;
+}
+
+.card p {
+  height: 60px; /* Fixed height */
+  margin: 0;
+  background-color: #0d112b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.view-btn {
+  margin: 8px auto 12px;
+  padding: 6px 14px;
+  background-color: #1f7aec;
+  color: white;
+  font-size: 13px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  width: fit-content;
+}
+
+.view-btn:hover {
+  background-color: #005eff;
+  transform: scale(1.05);
+}
+
+  
+    /* Remove Button */
+    .remove-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    .remove-btn:hover { background-color: darkred; }
+  
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .modal-content {
+      background: #1a1f4d;
+      width: 90%;
+      max-width: 600px;
+      height: 500px;
+      border-radius: 12px;
+      padding: 20px;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .modal-content img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    #modalTitle {
+      margin: 15px 0 5px;
+      color: #00ffe1;
+      font-size: 20px;
+    }
+    #modalDesc {
+      font-size: 14px;
+      padding: 10px;
+      overflow-y: auto;
+      max-height: 180px;
+      text-align: left;
+      line-height: 1.4;
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+    }
+   /* Logout Modal */
+.logout-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s;
+}
+
+.logout-modal-content {
+  background: #1a1f4d;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 15px #00ffe1;
+  animation: slideDown 0.5s;
+}
+
+.logout-modal-content h2 {
+  margin-bottom: 10px;
+  color: #00ffe1;
+}
+
+.logout-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.logout-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yes-btn {
+  background-color: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+}
+
+.no-btn {
+  background-color: #d9534f;
+  color: white;
+  font-weight: bold;
+}
+
+.yes-btn:hover {
+  background-color: #00a8d4;
+}
+
+.no-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Smooth Fade Animation */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* Smooth Slide Animation */
+@keyframes slideDown {
+  from {transform: translateY(-50px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+
+    /* ===== FOOTER STYLES ===== */
+.footer {
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  padding: 20px 40px;
+  border-top: 1px solid #1a1f4d;
+  margin-top: 355px !important;
+  opacity: 0;
+  pointer-events: none; /* optional for cleaner fade-in */
+  transition: opacity 0.4s ease-in-out;
+
+}
+
+footer.show {
+  opacity: 1;
+  pointer-events: auto;
+
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  gap: 20px;
+  text-align: left;
+}
+
+.footer-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 240px;
+}
+
+.footer-logo-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-logo {
+  width: 32px;
+  height: auto;
+}
+
+.footer-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00d1ff;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.footer-links h4,
+.footer-social h4 {
+  color: #00d1ff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 6px;
+}
+
+.footer-links ul li a {
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #00d1ff;
+}
+
+.footer-social {
+  min-width: 120px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icons a {
+  color: #ffffff;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #00d1ff;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: #ffc506;
+  padding-top: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #1a1f4d;
+}
+
+/* ✅ Responsive Styles */
+@media (max-width: 1024px) {
+  .main-header .container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .results {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 30px 10px;
+  }
+
+  .modal-content {
+    width: 95%;
+    height: auto;
+  }
+}
+
+/* Tablet & Mobile Fixes (768px and below) */
+/* === RESPONSIVE FIXES FOR TABLETS & MOBILES (768px and below) === */
+@media (max-width: 768px) {
+
+
+/* Header container stacks */
+.main-header .container {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+/* Logo and text left aligned */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Menu toggle under logo */
+.menu-toggle {
+  display: block;
+  font-size: 24px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-left: 4px;
+}
+
+/* Navigation collapses into column */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 0;
+  background: #0b0c2a;
+  border-top: 1px solid #1a1f4d;
+}
+
+.nav-menu.show {
+  display: flex;
+}
+
+.nav-link {
+  padding-left: 20px;
+}
+
+/* Logout button to the right below nav */
+.action-section {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Hero adjustments */
+.hero h1 {
+  font-size: 28px;
+  text-align: center;
+}
+
+.hero p {
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Search: input + button side-by-side and responsive */
+.search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 10px;
+}
+
+#searchInput {
+  flex: 1;
+  min-width: 180px;
+  max-width: 300px;
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 50px;
+  border: 2px solid #00d1ff;
+  background: #0d112b;
+  color: white;
+}
+
+#searchButton {
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 50px;
+  background: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Results grid tighter */
+.results {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px 12px;
+}
+
+/* Modal responsiveness */
+.modal-content {
+  width: 95%;
+  height: auto;
+}
+
+/* Footer layout stacked */
+.footer-container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.footer-branding, .footer-links, .footer-social {
+  width: 100%;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+/* Logout modal */
+.logout-modal-content {
+  width: 90%;
+  padding: 20px;
+}
+}
+
+/* Hide mobile nav & toggle on desktop */
+/* ====== Desktop (≥ 768px) ====== */
+/* ===== Desktop ===== */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-box {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .mobile-controls {
+    order: 2;
+  }
+}
+
+/* Hide desktop nav on mobile */
+@media (max-width: 767px) {
+  .nav-box {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    right: 12px;
+    background: #0b0c2a;
+    padding: 12px 20px;
+    border: 1px solid #1a1f4d;
+    border-radius: 12px;
+    z-index: 999;
+  }
+
+  .nav-box.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 20px;
+    padding: 6px 12px;
+    background-color: #1a1f4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .logout-btn {
+    font-size: 13px;
+    margin-top: -100px;
+    padding: 6px 12px;
+    background-color: #00d1ff;
+    color: #0b0c2a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .mobile-controls {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-branding {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links,
+  .footer-social {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links ul {
+    padding-left: 0;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+
+/* ========== SMALL SCREEN FIX (≤ 614px) ========== */
+@media (max-width: 614px) {
+  /* ✅ Search container fix */
+  .search-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto 20px; /* ✅ top:10px | bottom:20px */
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+
+  #searchInput {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 50px;
+    border: 2px solid #00d1ff;
+    background: #0d112b;
+    color: white;
+  }
+
+  #searchButton {
+    width: auto;
+    min-width: 120px;
+    max-width: 200px;
+    align-self: center;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    background-color: #00d1ff;
+    color: #0b0c2a;
+    transition: background-color 0.3s ease;
+  }
+
+  #searchButton:hover {
+    background-color: #00a8d4;
+  }
+
+  /* ✅ Nav box alignment fix */
+  .nav-box {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 100%;
+    background: #0b0c2a;
+    padding: 12px 20px;
+    border: 1px solid #1a1f4d;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 209, 255, 0.2);
+    z-index: 999;
+  }
+
+  .nav-box.show {
+    display: flex;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 0;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .nav-link:hover {
+    color: #00d1ff;
+  }
+}
+
+@media (max-width: 399px) {
+  .logout-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .logo-text {
+    font-size: 16px; /* optional: shrink Explore Hub text a bit */
+  }
+
+  .menu-toggle {
+    font-size: 18px;
+    padding: 5px 10px;
+  }
+}
+
+/* 🔷 From 956px to 769px → 3 cards */
+@media (max-width: 955px) {
+  .favorites-grid {
+    justify-content: center;
+  }
+
+  .card {
+    width: calc(33.33% - 20px);
+    max-width: 280px;
+  }
+}
+
+
+/* 🔷 From 768px to 600px → 2 cards */
+@media (max-width: 768px) {
+  .card {
+    width: calc(50% - 20px); /* 2 cards per row */
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+
+
+/* 🔷 Below 600px → 1 card full width */
+@media (max-width: 599px) {
+  .card {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .favorites-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 985px) {
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 🔥 force 3 cards per row */
+    gap: 20px;
+    justify-items: center;
+  }
+
+  .card {
+    width: 280px; /* ✅ fixed width for consistent design */
+  }
+}
+
+@media (max-width: 899px) {
+  .favorites-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 949px) {
+  .favorites-container {
+    padding: 20px 16px 40px; /* left and right padding added */
+  }
+}
+
+@media (max-width: 585px) {
+  .favorites-container {
+    padding: 20px 12px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    justify-items: center; /* Centers the card */
+  }
+
+  .card {
+    width: 100%;
+    max-width: 320px; /* ✅ Prevents too-stretched cards */
+    box-sizing: border-box;
+  }
+
+  .card img {
+    object-fit: cover;   /* ✅ Keeps image aspect */
+    height: 240px;
+    width: 100%;
+  }
+}
+
+
+  </style>
+  
+  
+  
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <header class="main-header">
+      <div class="header-top">
+        <div class="logo-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
+          <span class="logo-text">Explore Hub</span>
+        </div>
+
+        <div class="mobile-controls">
+          <button class="menu-toggle" onclick="toggleNav()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <button class="logout-btn" onclick="logout()">Log Out</button>
+        </div>
+
+        <nav id="navMenu" class="nav-box">
+          <a href="/home.html" class="nav-link">Home</a>
+          <a href="/favorites.html" class="nav-link">Favorites</a>
+          <a href="/mars.html" class="nav-link">Mars Rover</a>
+          <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
+
+        </nav>
+      </div>
+    </header>
+
+
+<div class="favorites-container">
+  <h1>Your Favorite Posts</h1>
+  <div id="loadingSpinner" style="text-align:center; width: 100%;">Loading favorites...</div>
+  <div id="favoritesContainer" class="favorites-grid"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+    <img id="modalImg" src="" alt="">
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
+<!-- Logout Confirmation Modal -->
+<!-- Logout Confirmation Modal -->
+<div id="logoutModal" class="logout-modal">
+  <div class="logout-modal-content">
+    <h2>Confirm Logout</h2>
+    <p>Are you sure you want to logout?</p>
+    <div class="logout-buttons">
+      <button id="confirmLogout" class="yes-btn">Yes</button>
+      <button id="cancelLogout" class="no-btn">No</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-branding">
+      <div class="footer-logo-line">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="footer-logo" />
+        <span class="footer-title">Explore Hub</span>
+      </div>
+      <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="/home.html">Home</a></li>
+        <li><a href="/favorites.html">Favorites</a></li>
+        <li><a href="/mars.html">Mars Rover</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Explore Hub. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+<script>
+  const favoritesContainer = document.getElementById('favoritesContainer');
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  
+  // ✅ Fetch user session
+  async function checkUserSession() {
+    try {
+      const res = await fetch('/api/user', { credentials: 'include' });
+      if (!res.ok) throw new Error('Not authenticated');
+      const userData = await res.json();
+      console.log('✅ Logged in as:', userData.email);
+      fetchFavorites();
+    } catch (error) {
+      console.error('❌ User not authenticated:', error);
+      window.location.href = '/';
+    }
+  }
+  
+  function fetchFavorites() {
+  const spinner = document.getElementById('loadingSpinner');
+  const footer = document.querySelector('footer');
+  spinner.style.display = 'block';
+
+  fetch('/api/favorites', { credentials: 'include' })
+    .then(response => response.json())
+    .then(data => {
+      spinner.style.display = 'none';
+      footer.classList.add('show'); // ✅ Show footer even on success
+
+      if (data.length === 0) {
+        favoritesContainer.innerHTML = '<p>No favorites added yet.</p>';
+      } else {
+        favoritesContainer.innerHTML = '';
+        data.forEach(favorite => {
+          const favoriteCard = document.createElement('div');
+          favoriteCard.className = 'card';
+          favoriteCard.innerHTML = `
+            <img src="${favorite.imgUrl}" alt="${favorite.title}">
+            <p>${favorite.title}</p>
+            <button class="remove-btn" onclick="removeFavorite('${favorite.imgUrl}', this)">✖</button>
+          `;
+          favoriteCard.addEventListener('click', (e) => {
+            if (e.target.closest('.remove-btn')) return;
+            showModal(favorite.imgUrl, favorite.title, favorite.desc || 'No description available.');
+          });
+          favoritesContainer.appendChild(favoriteCard);
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching favorites:', error);
+      spinner.style.display = 'none';
+      footer.classList.add('show'); // ✅ Also show on error
+      favoritesContainer.innerHTML = '<p style="color:red;">Failed to load favorites.</p>';
+    });
+}
+
+
+
+  
+  // ✅ Show modal
+  function showModal(imgUrl, title, desc) {
+    modal.style.display = 'flex';
+    modalImg.src = imgUrl;
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+  }
+  
+  // ✅ Remove favorite + Notify Home Page
+  function removeFavorite(imgUrl, buttonElement) {
+    fetch('/api/like', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ imgUrl }),
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message);
+      buttonElement.parentElement.remove();
+      // 🆕 Notify Home Page
+      localStorage.setItem('favoritesChanged', Date.now());
+    })
+    .catch(error => {
+      console.error('Error removing favorite:', error);
+    });
+  }
+  
+  // ✅ 🔥 Updated Logout function with confirmation
+  function logout() {
+  document.getElementById('logoutModal').style.display = 'flex';
+}
+
+document.getElementById('confirmLogout').addEventListener('click', () => {
+  fetch('/logout', { method: 'POST', credentials: 'include' })
+    .then(() => window.location.href = '/')
+    .catch(err => console.error('Logout failed:', err));
+});
+
+document.getElementById('cancelLogout').addEventListener('click', () => {
+  document.getElementById('logoutModal').style.display = 'none';
+});
+
+  
+  // ✅ Run on page load
+  window.onload = async () => {
+    await checkUserSession();
+  };
+
+  function toggleNav() {
+    document.getElementById('navMenu').classList.toggle('show');
+  }
+  </script>
+  
+
+</body>
+</html>

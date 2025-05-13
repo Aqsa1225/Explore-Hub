@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Hub - NASA Space Explorer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: black; /* Fallback */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page-wrapper {
+  flex: 1;
+}
+/* Animated gradient space background */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, #050816, #0b0c2a, #1e215d, #0b0c2a);
+  background-size: 300% 300%;
+  animation: gradientBG 12s ease infinite;
+  z-index: -2;
+  opacity: 1; /* Always visible now */
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  background:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 2px, transparent 2px),
+    radial-gradient(white 1px, transparent 1px);
+  background-size: 80px 80px, 120px 120px, 160px 160px;
+  background-repeat: repeat;
+  background-position: center top;
+  animation: twinkle 2s ease-in-out infinite alternate;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+
+
+
+@keyframes quoteGlow {
+  0% {
+    text-shadow: 0 0 6px #00ffe1;
+  }
+  100% {
+    text-shadow: 0 0 14px #00ffe1;
+  }
+}
+
+
+
+
+/* Gradient background animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Stars twinkling animation */
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
+}
+
+
+
+
+
+/* Content over background */
+header, .hero, .search-container, .results, footer {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* UPDATED HEADER */
+/* Updated header styling */
+/* Professional Header Design */
+/* ========== Fixed Header ========== */
+.main-header {
+  background: #08092c;
+  box-shadow: 0 4px 10px rgba(0, 209, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+}
+
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-text {
+  color: #00d1ff;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+.menu-toggle {
+  background-color: #1a1f4d;
+  color: white;
+  font-size: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: none; /* hidden by default */
+}
+.menu-toggle-wrap {
+  padding: 0 20px;
+  margin-top: 4px;
+}
+
+.logout-btn {
+  background: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+.nav-box {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #00d1ff;
+}
+
+
+.nav-box.show {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.nav-menu .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #00d1ff;
+  transition: width 0.3s ease;
+}
+
+.nav-menu .nav-link:hover::after {
+  width: 100%;
+}
+
+.action-section {
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #00d1ff, #0099cc);
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #00a8d4;
+  transform: translateY(-1px);
+}
+
+
+
+
+
+/* Other parts you already had */
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+  color: white;
+}
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px #00d1ff;
+}
+.hero p {
+  font-size: 18px;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #e0e0e0;
+}
+.search-container {
+  margin: 20px auto; /* 🆙 Less margin from top */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Search Input */
+#searchInput {
+  padding: 14px 18px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 50px;
+  border: 2px solid #00d1ff;
+  background: #0d112b;
+  color: white;
+  transition: border-color 0.3s;
+}
+
+#searchInput::placeholder {
+  color: #aaa;
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: #00ffe1;
+}
+
+/* Search Button */
+#searchButton {
+  padding: 14px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 50px;
+  background: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#searchButton:hover {
+  background-color: #00a8d4;
+  transform: scale(1.05);
+}
+
+
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px 20px;
+}
+.card {
+  background-color: #1a1f4d;
+  border: 1px solid #00ffe1;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 12px #00ffe1;
+}
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.card p {
+  padding: 10px;
+  font-size: 14px;
+  height: 80px;
+  overflow-y: auto;
+}
+.like-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+.like-btn i {
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 5px;
+  transition: color 0.3s, transform 0.3s;
+}
+.like-btn.liked i {
+  color: red;
+  transform: scale(1.1);
+}
+.like-btn:hover i {
+  transform: scale(1.2);
+}
+.modal {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000; /* 🛠 Add this line */
+}
+
+.modal-content {
+  background: #1a1f4d;
+  width: 90%;
+  max-width: 600px;
+  height: 500px;
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal-content img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+#modalTitle {
+  margin: 15px 0 5px;
+  color: #00ffe1;
+  font-size: 20px;
+}
+#modalDesc {
+  font-size: 14px;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 180px;
+  text-align: left;
+  line-height: 1.4;
+}
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Logout Modal */
+.logout-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s;
+}
+
+.logout-modal-content {
+  background: #1a1f4d;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 15px #00ffe1;
+  animation: slideDown 0.5s;
+}
+
+.logout-modal-content h2 {
+  margin-bottom: 10px;
+  color: #00ffe1;
+}
+
+.logout-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.logout-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yes-btn {
+  background-color: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+}
+
+.no-btn {
+  background-color: #d9534f;
+  color: white;
+  font-weight: bold;
+}
+
+.yes-btn:hover {
+  background-color: #00a8d4;
+}
+
+.no-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Smooth Fade Animation */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* Smooth Slide Animation */
+@keyframes slideDown {
+  from {transform: translateY(-50px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+
+
+.footer {
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  padding: 20px 40px;
+  border-top: 1px solid #1a1f4d;
+  margin-top: 135px !important;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  gap: 20px;
+  text-align: left; /* ✅ aligns text inside sections properly */
+}
+
+
+/* Branding (logo + text) */
+.footer-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ✅ aligns logo + text to left */
+  text-align: left;
+  max-width: 240px;
+}
+
+
+.footer-logo-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.footer-logo {
+  width: 32px;
+  height: auto;
+}
+
+
+.footer-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00d1ff;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+/* Quick Links */
+.footer-links h4,
+.footer-social h4 {
+  color: #00d1ff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-links ul li {
+  margin-bottom: 6px;
+}
+.footer-links ul li a {
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links ul li a:hover {
+  color: #00d1ff;
+}
+
+/* Social Section */
+.footer-social {
+  min-width: 120px;
+}
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+.social-icons a {
+  color: #ffffff;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+.social-icons a:hover {
+  color: #00d1ff;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: #ffc506;
+  padding-top: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #1a1f4d;
+}
+
+.menu-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    
+
+/* ✅ Responsive Styles */
+@media (max-width: 1024px) {
+  .main-header .container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .results {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 30px 10px;
+  }
+
+  .modal-content {
+    width: 95%;
+    height: auto;
+  }
+}
+
+/* Tablet & Mobile Fixes (768px and below) */
+/* === RESPONSIVE FIXES FOR TABLETS & MOBILES (768px and below) === */
+@media (max-width: 768px) {
+
+/* Header container stacks */
+.main-header .container {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+/* Logo and text left aligned */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Menu toggle under logo */
+.menu-toggle {
+  display: block;
+  font-size: 24px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-left: 4px;
+}
+
+/* Navigation collapses into column */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 0;
+  background: #0b0c2a;
+  border-top: 1px solid #1a1f4d;
+}
+
+.nav-menu.show {
+  display: flex;
+}
+
+.nav-link {
+  padding-left: 20px;
+}
+
+/* Logout button to the right below nav */
+.action-section {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Hero adjustments */
+.hero h1 {
+  font-size: 28px;
+  text-align: center;
+}
+
+.hero p {
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Search: input + button side-by-side and responsive */
+.search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 10px;
+}
+
+#searchInput {
+  flex: 1;
+  min-width: 180px;
+  max-width: 300px;
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 50px;
+  border: 2px solid #00d1ff;
+  background: #0d112b;
+  color: white;
+}
+
+#searchButton {
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 50px;
+  background: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Results grid tighter */
+.results {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px 12px;
+}
+
+/* Modal responsiveness */
+.modal-content {
+  width: 95%;
+  height: auto;
+}
+
+/* Footer layout stacked */
+.footer-container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.footer-branding, .footer-links, .footer-social {
+  width: 100%;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+/* Logout modal */
+.logout-modal-content {
+  width: 90%;
+  padding: 20px;
+}
+}
+
+/* Hide mobile nav & toggle on desktop */
+/* ====== Desktop (≥ 768px) ====== */
+/* ===== Desktop ===== */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-box {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .mobile-controls {
+    order: 2;
+  }
+}
+
+/* Hide desktop nav on mobile */
+@media (max-width: 767px) {
+  .nav-box {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    right: 12px;
+    background: #0b0c2a;
+    padding: 12px 20px;
+    border: 1px solid #1a1f4d;
+    border-radius: 12px;
+    z-index: 999;
+  }
+
+  .nav-box.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 20px;
+    padding: 6px 12px;
+    background-color: #1a1f4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .logout-btn {
+    font-size: 13px;
+    margin-top: -100px;
+    padding: 6px 12px;
+    background-color: #00d1ff;
+    color: #0b0c2a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .mobile-controls {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-branding {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links,
+  .footer-social {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links ul {
+    padding-left: 0;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+
+/* ========== SMALL SCREEN FIX (≤ 614px) ========== */
+@media (max-width: 614px) {
+  /* ✅ Search container fix */
+  .search-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto 20px; /* ✅ top:10px | bottom:20px */
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+
+  #searchInput {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 50px;
+    border: 2px solid #00d1ff;
+    background: #0d112b;
+    color: white;
+  }
+
+  #searchButton {
+    width: auto;
+    min-width: 120px;
+    max-width: 200px;
+    align-self: center;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    background-color: #00d1ff;
+    color: #0b0c2a;
+    transition: background-color 0.3s ease;
+  }
+
+  #searchButton:hover {
+    background-color: #00a8d4;
+  }
+
+  /* ✅ Nav box alignment fix */
+  .nav-box {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 100%;
+    background: #0b0c2a;
+    padding: 12px 20px;
+    border: 1px solid #1a1f4d;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 209, 255, 0.2);
+    z-index: 999;
+  }
+
+  .nav-box.show {
+    display: flex;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 0;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .nav-link:hover {
+    color: #00d1ff;
+  }
+}
+
+@media (max-width: 399px) {
+  .logout-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .logo-text {
+    font-size: 16px; /* optional: shrink Explore Hub text a bit */
+  }
+
+  .menu-toggle {
+    font-size: 18px;
+    padding: 5px 10px;
+  }
+}
+
+
+
+.space-news {
+  max-width: 950px;
+  margin: 60px auto;
+  padding: 40px 30px;
+  background: linear-gradient(145deg, #0e1229, #0b0c2a);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 255, 225, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 255, 225, 0.05);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+
+
+.space-news h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap; /* ✅ Allow wrapping on smaller screens */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.space-news h2 i {
+  font-size: 20px;
+  color: #1f7aec;
+  margin-right: 4px; /* ✅ Optional: smaller spacing */
+}
+
+
+.gradient-heading {
+  background: linear-gradient(90deg, #8e2de2, #4facfe, #00ffe1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.space-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #8e2de2, #4facfe, #00ffe1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.5px;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.news-item {
+  background: #0c1128;
+  border: 1px solid #00d1ff;
+  border-radius: 14px;
+  padding: 24px 28px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 255, 225, 0.05);
+}
+
+.news-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 255, 225, 0.08);
+  border-color: #1de9b6;
+}
+
+.news-item a {
+  font-size: 20px;
+  color: #00ffe1;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.news-item a:hover {
+  color: #1f7aec;
+  text-decoration: underline;
+}
+
+.news-item p {
+  font-size: 15px;
+  color: #d1d1d1;
+  line-height: 1.7;
+}
+
+
+@media (max-width: 1024px) {
+  .space-news {
+    margin: 40px 20px; /* Top-Bottom: 40px | Left-Right: 20px */
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .space-news {
+    margin: 30px 16px;
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .space-news h2 {
+    font-size: 22px;
+    gap: 6px;
+  }
+
+  .space-news h2 i {
+    font-size: 18px;
+  }
+}
+
+
+
+
+
+
+.view-full-btn {
+  display: inline-block;
+  margin: 5px 10px 10px;
+  padding: 6px 14px;
+  font-size: 13px;
+  background: #1f7aec;
+  color: #ffffff;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.view-full-btn:hover {
+  background-color: #005eff;
+  transform: scale(1.05);
+}
+
+
+
+.loader-wrapper {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 4000;
+    }
+
+    .loader {
+      border: 8px solid rgba(255, 255, 255, 0.2);
+      border-top: 8px solid #00d1ff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <header class="main-header">
+      <div class="header-top">
+        <div class="logo-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
+          <span class="logo-text">Explore Hub</span>
+        </div>
+
+        <div class="mobile-controls">
+          <button class="menu-toggle" onclick="toggleNav()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <button class="logout-btn" onclick="logout()">Log Out</button>
+        </div>
+
+        <nav id="navMenu" class="nav-box">
+          <a href="/home.html" class="nav-link">Home</a>
+          <a href="/favorites.html" class="nav-link">Favorites</a>
+          <a href="/mars.html" class="nav-link">Mars Rover</a>
+          <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
+
+        </nav>
+      </div>
+    </header>
+
+    <div class="hero" id="heroSection">
+      <h1>Explore Space with NASA</h1>
+      <p>Discover stunning images from space using NASA's Image Library API. Search planets, galaxies, or missions.</p>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button id="searchButton">Search</button>
+    </div>
+<div class="space-news" id="spaceNews">
+<h2><i class="fas fa-rocket"></i> <span class="gradient-heading">Latest Space News</span></h2>
+  <p class="space-subtitle">Powered by space exploration updates</p>
+  <div class="news-list" id="newsList"></div>
+</div>
+
+ <div class="loader-wrapper" id="loaderWrapper">
+      <div class="loader"></div>
+    </div>
+
+    <div class="results" id="resultsContainer"></div>
+
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+        <img id="modalImg" src="" alt="">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="logout-modal">
+      <div class="logout-modal-content">
+        <h2>Confirm Logout</h2>
+        <p>Are you sure you want to logout?</p>
+        <div class="logout-buttons">
+          <button id="confirmLogout" class="yes-btn">Yes</button>
+          <button id="cancelLogout" class="no-btn">No</button>
+        </div>
+      </div>
+    </div>
+  </div> <!-- ✅ page-wrapper closes here -->
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-branding">
+        <div class="footer-logo-line">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="footer-logo" />
+          <span class="footer-title">Explore Hub</span>
+        </div>
+        <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/home.html">Home</a></li>
+          <li><a href="/favorites.html">Favorites</a></li>
+          <li><a href="/mars.html">Mars Rover</a></li>
+
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Explore Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+
+
+  <script>
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+  const resultsContainer = document.getElementById('resultsContainer');
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const heroSection = document.getElementById('heroSection');
+  const newsList = document.getElementById('newsList');
+  const newsSection = document.getElementById('spaceNews');
+  const loaderWrapper = document.getElementById('loaderWrapper');
+
+  let likedImages = [];
+  let userId = null;
+  let lastQuery = '';
+
+  async function getLoggedInUser() {
+    try {
+      const res = await fetch('/api/user', { credentials: 'include' });
+      if (res.ok) {
+        const data = await res.json();
+        userId = data.userId;
+      } else {
+        window.location.href = '/';
+      }
+    } catch (error) {
+      console.error('❌ Failed to fetch user:', error);
+      window.location.href = '/';
+    }
+  }
+
+  function cleanDescription(desc) {
+    if (!desc) return '';
+    let cleanText = desc.replace(/http[s]?:\/\/\S+/g, '');
+    cleanText = cleanText.replace(/<[^>]*>/g, '');
+    cleanText = cleanText.replace(/\n/g, ' ').replace(/\r/g, '').replace(/\s+/g, ' ').trim();
+    return cleanText.length > 300 ? cleanText.substring(0, 300) + '...' : cleanText;
+  }
+
+  async function fetchFavorites() {
+    try {
+      const res = await fetch('/api/favorites', { credentials: 'include' });
+      const data = await res.json();
+      likedImages = data.map(item => item.imgUrl);
+    } catch (error) {
+      console.error('Failed to fetch favorites', error);
+    }
+  }
+
+  function renderCards(items) {
+    resultsContainer.innerHTML = '';
+
+    if (!items.length) {
+      resultsContainer.innerHTML = `<p style="text-align:center;">No results found.</p>`;
+      return;
+    }
+
+    items.slice(0, 20).forEach(item => {
+      if (!item.data || !item.data[0] || !item.links || !item.links[0] || !item.links[0].href) return;
+
+      const imgUrl = item.links[0].href;
+      const title = item.data[0].title.replace(/'/g, "");
+      const rawDesc = item.data[0].description;
+      const desc = cleanDescription(rawDesc);
+      const isLiked = likedImages.includes(imgUrl);
+
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.innerHTML = `
+        <img src="${imgUrl}" alt="${title}">
+        <p>${title}</p>
+        <a href="${imgUrl}" target="_blank" class="view-full-btn">View Full Image</a>
+        <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeImage(event, '${title}', '${imgUrl}', \`${desc}\`, this)">
+          <i class="fas fa-heart"></i>
+        </button>
+      `;
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.like-btn') || e.target.classList.contains('view-full-btn')) return;
+        modal.style.display = 'flex';
+        modalImg.src = imgUrl;
+        modalTitle.textContent = title;
+        modalDesc.textContent = desc || 'No description available.';
+      });
+
+      resultsContainer.appendChild(card);
+    });
+  }
+
+  async function fetchNASAImages(query) {
+    heroSection.style.display = 'none';
+    newsSection.style.display = 'none';
+    resultsContainer.innerHTML = '';
+    loaderWrapper.style.display = 'flex';
+    lastQuery = query;
+
+    try {
+      await fetchFavorites();
+      const res = await fetch(`https://images-api.nasa.gov/search?q=${encodeURIComponent(query)}&media_type=image`);
+      const data = await res.json();
+      renderCards(data.collection.items);
+    } catch (err) {
+      resultsContainer.innerHTML = '<p style="text-align:center;">❌ Failed to load data.</p>';
+      console.error(err);
+    } finally {
+      loaderWrapper.style.display = 'none';
+    }
+  }
+
+  async function likeImage(event, title, imgUrl, desc, btn) {
+    event.stopPropagation();
+    if (!userId) {
+      alert('Please log in first!');
+      return;
+    }
+
+    if (!imgUrl || !title) {
+      alert('This image is missing required data and cannot be liked.');
+      return;
+    }
+
+    const isAlreadyLiked = btn.classList.contains('liked');
+    btn.classList.toggle('liked');
+
+    const likeData = { title, imgUrl, desc };
+
+    try {
+      const res = await fetch('/api/like', {
+        method: isAlreadyLiked ? 'DELETE' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(likeData),
+        credentials: 'include'
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        if (isAlreadyLiked) {
+          likedImages = likedImages.filter(url => url !== imgUrl);
+        } else {
+          likedImages.push(imgUrl);
+        }
+      } else {
+        btn.classList.toggle('liked');
+        console.error('Server error:', data.message);
+        alert('Error: ' + data.message);
+      }
+    } catch (error) {
+      btn.classList.toggle('liked');
+      console.error('Error sending like/unlike:', error);
+    }
+  }
+
+  async function fetchSpaceNews() {
+    try {
+      const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=10');
+      const data = await res.json();
+      newsList.innerHTML = '';
+
+      const shuffled = data.results.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+      shuffled.forEach(article => {
+        const item = document.createElement("div");
+        item.className = "news-item";
+        item.innerHTML = `
+          <a href="${article.url}" target="_blank">${article.title}</a>
+          <p>${article.summary.slice(0, 150)}...</p>
+        `;
+        newsList.appendChild(item);
+      });
+    } catch (error) {
+      console.error('❌ Failed to load space news:', error);
+      newsSection.style.display = "none";
+    }
+  }
+
+  document.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible') {
+      await fetchFavorites();
+      if (lastQuery) {
+        await fetchNASAImages(lastQuery);
+      }
+    }
+  });
+
+  function logout() {
+    document.getElementById('logoutModal').style.display = 'flex';
+  }
+
+  document.getElementById('confirmLogout').addEventListener('click', () => {
+    fetch('/logout', { method: 'POST', credentials: 'include' })
+      .then(() => window.location.href = '/')
+      .catch(err => console.error('Logout failed:', err));
+  });
+
+  document.getElementById('cancelLogout').addEventListener('click', () => {
+    document.getElementById('logoutModal').style.display = 'none';
+  });
+
+  window.onload = async () => {
+    await getLoggedInUser();
+    fetchSpaceNews();
+  };
+
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      fetchNASAImages(searchInput.value);
+    }
+  });
+
+  searchButton.addEventListener('click', () => {
+    fetchNASAImages(searchInput.value);
+  });
+
+  function toggleNav() {
+    document.getElementById('navMenu').classList.toggle('show');
+  }
+</script>
+
+
+
+
+  
+
+</body>
+</html> 

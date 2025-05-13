@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit User</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Header -->
+  <header class="admin-header">
+    <h1>Edit User</h1>
+    <a href="index.html" class="add-user-btn">⬅ Back to Panel</a>
+  </header>
+
+  <!-- Edit Form -->
+  <main class="admin-form-container">
+    <h2>Update User Info</h2>
+    <form id="editUserForm">
+      <input type="hidden" id="userId">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="New Password (optional)" />
+      <button type="submit">Update User</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="admin-footer">
+    <p>&copy; 2025 Explore Space Admin Panel. All rights reserved.</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get('id');
+
+      if (!userId || userId === 'undefined' || userId.trim() === '') {
+        alert("❌ No user ID provided in the URL.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      try {
+        const res = await fetch(`/users/${userId}`);
+        const user = await res.json();
+
+        if (!res.ok || !user._id) {
+          alert("❌ Failed to load user data.");
+          window.location.href = "index.html";
+          return;
+        }
+
+        document.getElementById('userId').value = user._id;
+        document.getElementById('name').value = user.name || '';
+        document.getElementById('email').value = user.email;
+      } catch (err) {
+        console.error("❌ Error fetching user:", err);
+        alert("❌ Server error while loading user.");
+        window.location.href = "index.html";
+      }
+
+      const form = document.getElementById('editUserForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const id = document.getElementById('userId').value;
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        try {
+          const res = await fetch(`/users/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, password })
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            alert('✅ User updated successfully!');
+            window.location.href = 'index.html';
+          } else {
+            alert(data.error || '⚠️ Failed to update user.');
+          }
+        } catch (err) {
+          console.error("❌ Update error:", err);
+          alert("❌ Server error during update.");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asteroid Tracker</title>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+   
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      background: linear-gradient(-45deg, #050816, #0b0c2a, #282872, #222224);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      overflow-x: hidden;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .main-header {
+  background: #08092c;
+  box-shadow: 0 4px 10px rgba(0, 209, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+}
+
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-text {
+  color: #00d1ff;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+.menu-toggle {
+  background-color: #1a1f4d;
+  color: white;
+  font-size: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: none; /* hidden by default */
+}
+.menu-toggle-wrap {
+  padding: 0 20px;
+  margin-top: 4px;
+}
+
+.logout-btn {
+  background: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+.nav-box {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #00d1ff;
+}
+
+
+.nav-box.show {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.nav-menu .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #00d1ff;
+  transition: width 0.3s ease;
+}
+
+.nav-menu .nav-link:hover::after {
+  width: 100%;
+}
+
+.action-section {
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #00d1ff, #0099cc);
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #00a8d4;
+  transform: translateY(-1px);
+}
+
+/* Logout Modal */
+.logout-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s;
+}
+
+.logout-modal-content {
+  background: #1a1f4d;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 15px #00ffe1;
+  animation: slideDown 0.5s;
+}
+
+.logout-modal-content h2 {
+  margin-bottom: 10px;
+  color: #00ffe1;
+}
+
+.logout-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.logout-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yes-btn {
+  background-color: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+}
+
+.no-btn {
+  background-color: #d9534f;
+  color: white;
+  font-weight: bold;
+}
+
+.yes-btn:hover {
+  background-color: #00a8d4;
+}
+
+.no-btn:hover {
+  background-color: #c9302c;
+}
+
+
+
+
+.footer {
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  padding: 20px 40px;
+  border-top: 1px solid #1a1f4d;
+  margin-top: 135px !important;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  gap: 20px;
+  text-align: left; /* ✅ aligns text inside sections properly */
+}
+
+
+/* Branding (logo + text) */
+.footer-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ✅ aligns logo + text to left */
+  text-align: left;
+  max-width: 240px;
+}
+
+
+.footer-logo-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.footer-logo {
+  width: 32px;
+  height: auto;
+}
+
+
+.footer-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00d1ff;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+/* Quick Links */
+.footer-links h4,
+.footer-social h4 {
+  color: #00d1ff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-links ul li {
+  margin-bottom: 6px;
+}
+.footer-links ul li a {
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links ul li a:hover {
+  color: #00d1ff;
+}
+
+/* Social Section */
+.footer-social {
+  min-width: 120px;
+}
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+.social-icons a {
+  color: #ffffff;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+.social-icons a:hover {
+  color: #00d1ff;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: #ffc506;
+  padding-top: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #1a1f4d;
+}
+
+.menu-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    h1 {
+  text-align: center;
+  color: #ffffff;
+  margin: 20px 0;
+  font-size: 32px;
+  text-shadow: 0 0 15px #00d1ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px; /* 👈 tighter spacing between icon and text */
+  flex-wrap: wrap; /* 👈 allows wrapping on small screens */
+}
+
+h1 i {
+  color: #00d1ff;
+  font-size: 26px; /* 👈 slightly smaller on mobile */
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 26px;
+    gap: 4px;
+  }
+
+  h1 i {
+    font-size: 22px;
+  }
+}
+
+
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    .flex-layout {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .search-box {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  width: 280px;
+}
+
+.search-box input[type="date"],
+.search-box button {
+  width: 100%;
+  max-width: 240px; /* ✅ Prevents calendar input from stretching too wide */
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px; /* ✅ Slightly smaller font for compact UI */
+}
+
+.search-box input[type="date"] {
+  background-color: #1a1a2e;
+  color: #fff;
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+}
+
+.search-box input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.search-box button {
+  background: #00d1ff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-box button:hover {
+  background: #009bd4;
+}
+
+@media (max-width: 600px) {
+  .search-box input[type="date"] {
+    max-width: 220px; /* ✅ Adjust this as needed */
+    font-size: 12px;
+  }
+}
+
+
+
+
+    .alert {
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      display: none;
+      font-weight: bold;
+    }
+    .alert.danger { color: #ff5c5c; background: #330000; }
+    .alert.safe { color: #00ff99; background: #00331a; }
+    .chart-wrapper {
+        width: 800px;   /* Fixed width */
+  height: 400px;  /* Fixed height */
+
+      background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  margin: 0 auto;
+      
+      box-shadow: 0 0 20px rgba(0, 209, 255, 0.1);
+    }
+    
+    canvas {
+      max-width: 100%;
+      height: 300px !important;
+    }
+    .card-container {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .asteroid-card {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .asteroid-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 24px rgba(0, 255, 255, 0.3);
+    }
+    .asteroid-card h3 { color: #00d1ff; font-size: 15px; margin-bottom: 8px; }
+    .asteroid-card p { font-size: 13px; color: #ddd; }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #1a1f4d;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 0 20px #00d1ff;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+    }
+    .export-buttons {
+  text-align: center;
+  margin-top: 10px;
+}
+.export-buttons button {
+  margin: 5px 4px;
+  padding: 10px 16px;
+  font-family: 'Orbitron', sans-serif;
+  background: #00d1ff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  font-size: 13px;
+  transition: background 0.3s;
+}
+.export-buttons button:hover {
+  background: #00aacc;
+}
+
+/* ✅ Responsive Styles */
+@media (max-width: 1024px) {
+  .main-header .container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .results {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 30px 10px;
+  }
+
+  .modal-content {
+    width: 95%;
+    height: auto;
+  }
+}
+
+/* Tablet & Mobile Fixes (768px and below) */
+/* === RESPONSIVE FIXES FOR TABLETS & MOBILES (768px and below) === */
+@media (max-width: 768px) {
+
+/* Header container stacks */
+.main-header .container {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+/* Logo and text left aligned */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Menu toggle under logo */
+.menu-toggle {
+  display: block;
+  font-size: 24px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-left: 4px;
+}
+
+/* Navigation collapses into column */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 0;
+  background: #0b0c2a;
+  border-top: 1px solid #1a1f4d;
+}
+
+.nav-menu.show {
+  display: flex;
+}
+
+.nav-link {
+  padding-left: 20px;
+}
+
+/* Logout button to the right below nav */
+.action-section {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Hero adjustments */
+.hero h1 {
+  font-size: 28px;
+  text-align: center;
+}
+
+.hero p {
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Search: input + button side-by-side and responsive */
+.search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 10px;
+}
+
+#searchInput {
+  flex: 1;
+  min-width: 180px;
+  max-width: 300px;
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 50px;
+  border: 2px solid #00d1ff;
+  background: #0d112b;
+  color: white;
+}
+
+#searchButton {
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 50px;
+  background: #00d1ff;
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Results grid tighter */
+.results {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px 12px;
+}
+
+/* Modal responsiveness */
+.modal-content {
+  width: 95%;
+  height: auto;
+}
+
+/* Footer layout stacked */
+.footer-container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.footer-branding, .footer-links, .footer-social {
+  width: 100%;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+/* Logout modal */
+.logout-modal-content {
+  width: 90%;
+  padding: 20px;
+}
+}
+
+
+
+/* Hide mobile nav & toggle on desktop */
+/* ====== Desktop (≥ 768px) ====== */
+/* ===== Desktop ===== */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-box {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .mobile-controls {
+    order: 2;
+  }
+}
+
+/* Hide desktop nav on mobile */
+@media (max-width: 767px) {
+  .nav-box {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    right: 12px;
+    background: #0b0c2a;
+    padding: 12px 20px;
+    border: 1px solid #1a1f4d;
+    border-radius: 12px;
+    z-index: 999;
+  }
+
+  .nav-box.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 20px;
+    padding: 6px 12px;
+    background-color: #1a1f4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .logout-btn {
+    font-size: 13px;
+    margin-top: -100px;
+    padding: 6px 12px;
+    background-color: #00d1ff;
+    color: #0b0c2a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .mobile-controls {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-branding {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links,
+  .footer-social {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links ul {
+    padding-left: 0;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+
+/* ========== SMALL SCREEN FIX (≤ 614px) ========== */
+@media (max-width: 614px) {
+  /* ✅ Search container fix */
+  .search-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto 20px; /* ✅ top:10px | bottom:20px */
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+
+  #searchInput {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 50px;
+    border: 2px solid #00d1ff;
+    background: #0d112b;
+    color: white;
+  }
+
+  #searchButton {
+    width: auto;
+    min-width: 120px;
+    max-width: 200px;
+    align-self: center;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    background-color: #00d1ff;
+    color: #0b0c2a;
+    transition: background-color 0.3s ease;
+  }
+
+  #searchButton:hover {
+    background-color: #00a8d4;
+  }
+
+  /* ✅ Nav box alignment fix */
+  .nav-box {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 100%;
+    background: #0b0c2a;
+    padding: 12px 20px;
+    border: 1px solid #1a1f4d;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 209, 255, 0.2);
+    z-index: 999;
+  }
+
+  .nav-box.show {
+    display: flex;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 0;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .nav-link:hover {
+    color: #00d1ff;
+  }
+}
+
+@media (max-width: 399px) {
+  .logout-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .logo-text {
+    font-size: 16px; /* optional: shrink Explore Hub text a bit */
+  }
+
+  .menu-toggle {
+    font-size: 18px;
+    padding: 5px 10px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="main-header">
+      <div class="header-top">
+        <div class="logo-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
+          <span class="logo-text">Explore Hub</span>
+        </div>
+
+        <div class="mobile-controls">
+          <button class="menu-toggle" onclick="toggleNav()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <button class="logout-btn" onclick="logout()">Log Out</button>
+        </div>
+
+        <nav id="navMenu" class="nav-box">
+          <a href="/home.html" class="nav-link">Home</a>
+          <a href="/favorites.html" class="nav-link">Favorites</a>
+          <a href="/mars.html" class="nav-link">Mars Rover</a>
+          <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
+
+        </nav>
+      </div>
+    </header>
+  <div class="container">
+<h1><i class="fas fa-meteor"></i> Asteroid Tracker</h1>
+
+    <div class="flex-layout">
+      <div class="search-box">
+        <input type="date" id="dateInput" />
+        <button onclick="searchAsteroids()">Search</button>
+        <div id="alertBox" class="alert"></div>
+
+        <!-- ✅ Export buttons moved inside search-box below search button -->
+        <div class="export-buttons">
+          <button onclick="exportCSV()">Export CSV</button>
+          <button onclick="exportPDF()">Export PDF</button>
+        </div>
+      </div>
+
+      <div class="chart-wrapper">
+        <h3 style="text-align:center; color:#00ffff;">Asteroid Counts - Last 7 Days</h3>
+        <canvas id="countChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card-container" id="asteroidList"></div>
+  </div>
+
+  <div class="modal" id="asteroidModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDetails"></p>
+    </div>
+  </div>
+
+  <div id="logoutModal" class="logout-modal">
+    <div class="logout-modal-content">
+      <h2>Confirm Logout</h2>
+      <p>Are you sure you want to logout?</p>
+      <div class="logout-buttons">
+        <button id="confirmLogout" class="yes-btn">Yes</button>
+        <button id="cancelLogout" class="no-btn">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-branding">
+      <div class="footer-logo-line">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="footer-logo" />
+        <span class="footer-title">Explore Hub</span>
+      </div>
+      <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="/home.html">Home</a></li>
+        <li><a href="/favorites.html">Favorites</a></li>
+        <li><a href="/mars.html">Mars Rover</a></li>
+
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Explore Hub. All rights reserved.</p>
+  </div>
+</footer>
+
+
+<script>
+  const API_KEY = 'jgJCwjuV9E8w9PBlNCtnEZ3UYmSxZOepexGcdxki';
+  const chartCanvas = document.getElementById('countChart');
+  const asteroidList = document.getElementById('asteroidList');
+  const modal = document.getElementById('asteroidModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDetails = document.getElementById('modalDetails');
+  const alertBox = document.getElementById('alertBox');
+  let asteroidChart = null;
+
+  window.onload = () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateInput').setAttribute('max', today);
+    loadChart();
+  };
+
+  function loadChart() {
+    const today = new Date();
+    const start = new Date(today);
+    start.setDate(today.getDate() - 6);
+    const startDate = start.toISOString().split('T')[0];
+    const endDate = today.toISOString().split('T')[0];
+
+    fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        const labels = [];
+        const counts = [];
+        for (let d = new Date(start); d <= today; d.setDate(d.getDate() + 1)) {
+          const key = d.toISOString().split('T')[0];
+          labels.push(key);
+          counts.push(data.near_earth_objects[key]?.length || 0);
+        }
+
+        if (asteroidChart) asteroidChart.destroy();
+        asteroidChart = new Chart(chartCanvas, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'Asteroids',
+              data: counts,
+              backgroundColor: ['#00ffff','#33ccff','#3399ff','#3366ff','#3344ff','#3322ff','#3300ff'],
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            animation: { duration: 1500, easing: 'easeInOutQuart' },
+            scales: {
+              y: { beginAtZero: true, ticks: { color: '#fff' } },
+              x: { ticks: { color: '#fff' } }
+            }
+          }
+        });
+      });
+  }
+
+  function searchAsteroids() {
+    const date = document.getElementById('dateInput').value;
+    if (!date) return alert('Please select a date.');
+    alertBox.style.display = 'none';
+    alertBox.classList.remove('danger', 'safe');
+
+    fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${date}&end_date=${date}&api_key=${API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        const asteroids = data.near_earth_objects[date] || [];
+        asteroidList.innerHTML = '';
+        if (!asteroids.length) {
+          asteroidList.innerHTML = '<p style="text-align:center;">No asteroids found.</p>';
+          return;
+        }
+
+        let hasHazard = false;
+        const saveData = [];
+
+        asteroids.forEach(a => {
+          if (a.is_potentially_hazardous_asteroid) hasHazard = true;
+          const close = a.close_approach_data[0];
+
+          const div = document.createElement('div');
+          div.className = 'asteroid-card';
+          div.innerHTML = `
+            <h3>${a.name}</h3>
+            <p>${close.close_approach_date_full}</p>
+          `;
+          div.onclick = () => openModal(a);
+          asteroidList.appendChild(div);
+
+          saveData.push({
+            name: a.name,
+            date: close.close_approach_date,
+            velocity: close.relative_velocity.kilometers_per_hour,
+            missDistance: close.miss_distance.kilometers,
+            body: close.orbiting_body,
+            hazardous: a.is_potentially_hazardous_asteroid,
+            nasaUrl: a.nasa_jpl_url
+          });
+        });
+
+        // Save asteroid data to backend
+        fetch('/api/asteroids/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ asteroids: saveData })
+        })
+        .then(res => res.json())
+        .then(result => {
+          console.log('Asteroids saved:', result.saved || result.message);
+        })
+        .catch(err => console.error('Failed to save asteroids:', err));
+
+        alertBox.style.display = 'block';
+        alertBox.classList.add(hasHazard ? 'danger' : 'safe');
+        alertBox.textContent = hasHazard
+          ? '🚨 Hazardous asteroid detected on this day!'
+          : '🟢 No hazardous asteroids detected on this day.';
+      });
+  }
+
+  function openModal(asteroid) {
+    const data = asteroid.close_approach_data[0];
+    modalTitle.textContent = asteroid.name;
+    modalDetails.innerHTML = `
+      <strong>Hazardous:</strong> ${asteroid.is_potentially_hazardous_asteroid ? 'Yes 🚨' : 'No ✅'}<br>
+      <strong>Velocity:</strong> ${parseFloat(data.relative_velocity.kilometers_per_hour).toFixed(2)} km/h<br>
+      <strong>Miss Distance:</strong> ${parseFloat(data.miss_distance.kilometers).toFixed(0)} km<br>
+      <strong>Orbiting Body:</strong> ${data.orbiting_body}<br>
+      <strong>More Info:</strong> <a href="${asteroid.nasa_jpl_url}" target="_blank" style="color:#00d1ff">View on NASA →</a>
+    `;
+    modal.style.display = 'flex';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  function exportCSV() {
+    const cards = document.querySelectorAll('.asteroid-card');
+    if (!cards.length) return alert('No asteroid data to export.');
+
+    let csvContent = "data:text/csv;charset=utf-8,Name,Date\n";
+    cards.forEach(card => {
+      const name = card.querySelector('h3').innerText;
+      const date = card.querySelector('p').innerText;
+      csvContent += `${name},${date}\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "asteroid_data.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function exportPDF() {
+    const cards = document.querySelectorAll('.asteroid-card');
+    if (!cards.length) return alert('No asteroid data to export.');
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const rows = [];
+
+    cards.forEach(card => {
+      const name = card.querySelector('h3').innerText;
+      const date = card.querySelector('p').innerText;
+      rows.push([name, date]);
+    });
+
+    doc.text("Asteroid Tracker Report", 14, 15);
+    doc.autoTable({
+      startY: 20,
+      head: [['Asteroid Name', 'Close Approach Date']],
+      body: rows
+    });
+
+    doc.save("asteroid_data.pdf");
+  }
+
+  function logout() {
+    document.getElementById('logoutModal').style.display = 'flex';
+  }
+
+  document.getElementById('confirmLogout').addEventListener('click', () => {
+    fetch('/logout', { method: 'POST', credentials: 'include' })
+      .then(() => window.location.href = '/')
+      .catch(err => console.error('Logout failed:', err));
+  });
+
+  document.getElementById('cancelLogout').addEventListener('click', () => {
+    document.getElementById('logoutModal').style.display = 'none';
+  });
+
+  function toggleNav() {
+    document.getElementById('navMenu').classList.toggle('show');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Header -->
+  <header class="admin-header">
+    <h1>Admin Panel</h1>
+    <a href="add-user.html" class="add-user-btn">➕ Add New User</a>
+  </header>
+
+  <!-- User Table -->
+  <main class="admin-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        <!-- JS will load users here -->
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Footer -->
+  <footer class="admin-footer">
+    <p>&copy; 2025 Explore Space Admin Panel</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
