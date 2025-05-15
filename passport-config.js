@@ -9,17 +9,27 @@ passport.use(new GoogleStrategy({
 },
 async (accessToken, refreshToken, profile, done) => {
   try {
-    const existingUser = await User.findOne({ email: profile.emails[0].value });
+    const email = profile.emails[0].value;
+    const avatar = profile.photos?.[0]?.value || '/images/default-avatar.png';
 
-    if (existingUser) {
-      return done(null, existingUser);
+    let user = await User.findOne({ email });
+
+    if (user) {
+      // ✅ Always update avatar (for accuracy)
+      if (user.avatarUrl !== avatar) {
+        user.avatarUrl = avatar;
+        await user.save();
+      }
+      return done(null, user);
     }
 
+    // ✅ Create new user
     const newUser = await User.create({
       name: profile.displayName,
-      email: profile.emails[0].value,
+      email,
       googleId: profile.id,
-      authType: 'google' // ✅ Important: mark as Google user
+      avatarUrl: avatar,
+      authType: 'google'
     });
 
     return done(null, newUser);

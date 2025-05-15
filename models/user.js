@@ -18,20 +18,38 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     minlength: [6, 'Password must be at least 6 characters'],
-    default: null
+    default: null // Google users may not need a password
   },
   googleId: {
     type: String,
     unique: true,
-    sparse: true  // ✅ sparse = prevents duplicate null errors
-    // 🚫 No default: null
+    sparse: true // Prevents duplicate null values in Google users
   },
   authType: {
     type: String,
     enum: ['local', 'google'],
     required: true,
     default: 'local'
+  },
+  avatarUrl: {
+    type: String,
+    default: '/images/default-avatar.png'
+  },
+
+  // ✅ Optional Profile Fields
+  bio: {
+    type: String,
+    trim: true,
+    maxlength: [300, 'Bio must be under 300 characters'],
+    default: ''
+  },
+  location: {
+    type: String,
+    trim: true,
+    maxlength: [100, 'Location must be under 100 characters'],
+    default: ''
   }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

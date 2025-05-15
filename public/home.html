@@ -1168,6 +1168,130 @@ header, .hero, .search-container, .results, footer {
       100% { transform: rotate(360deg); }
     }
 
+.profile-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.profile-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #00d1ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #0d112b;
+  cursor: pointer;
+}
+
+.profile-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-icon i {
+  color: #00d1ff;
+  font-size: 18px;
+}
+
+
+.profile-box {
+  position: absolute;
+  top: 50px;
+  right: 12px;
+  width: 320px;
+  background: #10142a;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 40px rgba(0, 255, 255, 0.12);
+  border: 1px solid #00d1ff33;
+  display: none;
+  flex-direction: column;
+  z-index: 2000;
+  animation: slideFade 0.3s ease;
+}
+.profile-box::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid #10142a;
+}
+
+
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.profile-box h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #00d1ff;
+  text-align: center;
+}
+
+.profile-box label {
+  font-size: 12px;
+  margin: 6px 0 2px;
+  color: #a9dfff;
+  font-weight: 500;
+}
+
+.profile-box input,
+.profile-box textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #0b0f2a;
+  color: #ffffff;
+  margin-bottom: 12px;
+  font-size: 13px;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-box input:focus,
+.profile-box textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #00d1ff;
+}
+
+.profile-box button {
+  background: linear-gradient(135deg, #00d1ff, #1f7aec);
+  color: #0b0c2a;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.profile-box button:hover {
+  background: #00a8d4;
+  transform: translateY(-1px);
+}
+
+
 
   </style>
 </head>
@@ -1175,28 +1299,45 @@ header, .hero, .search-container, .results, footer {
 <body>
   <div class="page-wrapper">
     <header class="main-header">
-      <div class="header-top">
-        <div class="logo-wrap">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
-          <span class="logo-text">Explore Hub</span>
+  <div class="header-top">
+    <div class="logo-wrap">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
+      <span class="logo-text">Explore Hub</span>
+    </div>
+
+    <nav id="navMenu" class="nav-box">
+      <a href="/home.html" class="nav-link">Home</a>
+      <a href="/favorites.html" class="nav-link">Favorites</a>
+      <a href="/mars.html" class="nav-link">Mars Rover</a>
+      <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
+    </nav>
+
+    <div class="mobile-controls">
+      <!-- Profile Dropdown in Top-Right Now -->
+      <div class="profile-dropdown">
+        <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
+          <i class="fas fa-user"></i>
         </div>
 
-        <div class="mobile-controls">
-          <button class="menu-toggle" onclick="toggleNav()">
-            <i class="fas fa-bars"></i>
-          </button>
-          <button class="logout-btn" onclick="logout()">Log Out</button>
+        <div class="profile-box" id="profileBox">
+          <h3>Your Profile</h3>
+          <label>Email</label>
+          <input type="email" id="profileEmail" disabled />
+          <label>Name</label>
+          <input type="text" id="profileName" placeholder="Your full name" />
+          <label>Bio</label>
+          <textarea id="profileBio" rows="2" placeholder="Write something about yourself..."></textarea>
+          <label>Location</label>
+          <input type="text" id="profileLocation" placeholder="E.g. Sharjah, UAE" />
+          <button onclick="saveProfile()">Save</button>
         </div>
-
-        <nav id="navMenu" class="nav-box">
-          <a href="/home.html" class="nav-link">Home</a>
-          <a href="/favorites.html" class="nav-link">Favorites</a>
-          <a href="/mars.html" class="nav-link">Mars Rover</a>
-          <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
-
-        </nav>
       </div>
-    </header>
+
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+</header>
+
 
     <div class="hero" id="heroSection">
       <h1>Explore Space with NASA</h1>
@@ -1279,226 +1420,297 @@ header, .hero, .search-container, .results, footer {
 
 
 
-  <script>
-  const searchInput = document.getElementById('searchInput');
-  const searchButton = document.getElementById('searchButton');
-  const resultsContainer = document.getElementById('resultsContainer');
-  const modal = document.getElementById('modal');
-  const modalImg = document.getElementById('modalImg');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalDesc = document.getElementById('modalDesc');
-  const heroSection = document.getElementById('heroSection');
-  const newsList = document.getElementById('newsList');
-  const newsSection = document.getElementById('spaceNews');
-  const loaderWrapper = document.getElementById('loaderWrapper');
+ <script>
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
+const resultsContainer = document.getElementById('resultsContainer');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const heroSection = document.getElementById('heroSection');
+const newsList = document.getElementById('newsList');
+const newsSection = document.getElementById('spaceNews');
+const loaderWrapper = document.getElementById('loaderWrapper');
 
-  let likedImages = [];
-  let userId = null;
-  let lastQuery = '';
+let likedImages = [];
+let userId = null;
+let lastQuery = '';
 
-  async function getLoggedInUser() {
-    try {
-      const res = await fetch('/api/user', { credentials: 'include' });
-      if (res.ok) {
-        const data = await res.json();
-        userId = data.userId;
-      } else {
-        window.location.href = '/';
-      }
-    } catch (error) {
-      console.error('❌ Failed to fetch user:', error);
+async function getLoggedInUser() {
+  try {
+    const res = await fetch('/api/user', { credentials: 'include' });
+    if (res.ok) {
+      const data = await res.json();
+      userId = data.userId;
+    } else {
       window.location.href = '/';
     }
+  } catch (error) {
+    console.error('❌ Failed to fetch user:', error);
+    window.location.href = '/';
+  }
+}
+
+function cleanDescription(desc) {
+  if (!desc) return '';
+  let cleanText = desc.replace(/http[s]?:\/\/\S+/g, '');
+  cleanText = cleanText.replace(/<[^>]*>/g, '');
+  cleanText = cleanText.replace(/\n/g, ' ').replace(/\r/g, '').replace(/\s+/g, ' ').trim();
+  return cleanText.length > 300 ? cleanText.substring(0, 300) + '...' : cleanText;
+}
+
+async function fetchFavorites() {
+  try {
+    const res = await fetch('/api/favorites', { credentials: 'include' });
+    const data = await res.json();
+    likedImages = data.map(item => item.imgUrl);
+  } catch (error) {
+    console.error('Failed to fetch favorites', error);
+  }
+}
+
+function renderCards(items) {
+  resultsContainer.innerHTML = '';
+  if (!items.length) {
+    resultsContainer.innerHTML = `<p style="text-align:center;">No results found.</p>`;
+    return;
   }
 
-  function cleanDescription(desc) {
-    if (!desc) return '';
-    let cleanText = desc.replace(/http[s]?:\/\/\S+/g, '');
-    cleanText = cleanText.replace(/<[^>]*>/g, '');
-    cleanText = cleanText.replace(/\n/g, ' ').replace(/\r/g, '').replace(/\s+/g, ' ').trim();
-    return cleanText.length > 300 ? cleanText.substring(0, 300) + '...' : cleanText;
-  }
+  items.slice(0, 20).forEach(item => {
+    if (!item.data || !item.data[0] || !item.links || !item.links[0] || !item.links[0].href) return;
 
-  async function fetchFavorites() {
-    try {
-      const res = await fetch('/api/favorites', { credentials: 'include' });
-      const data = await res.json();
-      likedImages = data.map(item => item.imgUrl);
-    } catch (error) {
-      console.error('Failed to fetch favorites', error);
-    }
-  }
+    const imgUrl = item.links[0].href;
+    const title = item.data[0].title.replace(/'/g, "");
+    const rawDesc = item.data[0].description;
+    const desc = cleanDescription(rawDesc);
+    const isLiked = likedImages.includes(imgUrl);
 
-  function renderCards(items) {
-    resultsContainer.innerHTML = '';
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${imgUrl}" alt="${title}">
+      <p>${title}</p>
+      <a href="${imgUrl}" target="_blank" class="view-full-btn">View Full Image</a>
+      <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeImage(event, '${title}', '${imgUrl}', \`${desc}\`, this)">
+        <i class="fas fa-heart"></i>
+      </button>
+    `;
 
-    if (!items.length) {
-      resultsContainer.innerHTML = `<p style="text-align:center;">No results found.</p>`;
-      return;
-    }
-
-    items.slice(0, 20).forEach(item => {
-      if (!item.data || !item.data[0] || !item.links || !item.links[0] || !item.links[0].href) return;
-
-      const imgUrl = item.links[0].href;
-      const title = item.data[0].title.replace(/'/g, "");
-      const rawDesc = item.data[0].description;
-      const desc = cleanDescription(rawDesc);
-      const isLiked = likedImages.includes(imgUrl);
-
-      const card = document.createElement('div');
-      card.className = 'card';
-
-      card.innerHTML = `
-        <img src="${imgUrl}" alt="${title}">
-        <p>${title}</p>
-        <a href="${imgUrl}" target="_blank" class="view-full-btn">View Full Image</a>
-        <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="likeImage(event, '${title}', '${imgUrl}', \`${desc}\`, this)">
-          <i class="fas fa-heart"></i>
-        </button>
-      `;
-
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.like-btn') || e.target.classList.contains('view-full-btn')) return;
-        modal.style.display = 'flex';
-        modalImg.src = imgUrl;
-        modalTitle.textContent = title;
-        modalDesc.textContent = desc || 'No description available.';
-      });
-
-      resultsContainer.appendChild(card);
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.like-btn') || e.target.classList.contains('view-full-btn')) return;
+      modal.style.display = 'flex';
+      modalImg.src = imgUrl;
+      modalTitle.textContent = title;
+      modalDesc.textContent = desc || 'No description available.';
     });
+
+    resultsContainer.appendChild(card);
+  });
+}
+
+async function fetchNASAImages(query) {
+  heroSection.style.display = 'none';
+  newsSection.style.display = 'none';
+  resultsContainer.innerHTML = '';
+  loaderWrapper.style.display = 'flex';
+  lastQuery = query;
+
+  try {
+    await fetchFavorites();
+    const res = await fetch(`https://images-api.nasa.gov/search?q=${encodeURIComponent(query)}&media_type=image`);
+    const data = await res.json();
+    renderCards(data.collection.items);
+  } catch (err) {
+    resultsContainer.innerHTML = '<p style="text-align:center;">❌ Failed to load data.</p>';
+    console.error(err);
+  } finally {
+    loaderWrapper.style.display = 'none';
+  }
+}
+
+async function likeImage(event, title, imgUrl, desc, btn) {
+  event.stopPropagation();
+  if (!userId) {
+    alert('Please log in first!');
+    return;
   }
 
-  async function fetchNASAImages(query) {
-    heroSection.style.display = 'none';
-    newsSection.style.display = 'none';
-    resultsContainer.innerHTML = '';
-    loaderWrapper.style.display = 'flex';
-    lastQuery = query;
-
-    try {
-      await fetchFavorites();
-      const res = await fetch(`https://images-api.nasa.gov/search?q=${encodeURIComponent(query)}&media_type=image`);
-      const data = await res.json();
-      renderCards(data.collection.items);
-    } catch (err) {
-      resultsContainer.innerHTML = '<p style="text-align:center;">❌ Failed to load data.</p>';
-      console.error(err);
-    } finally {
-      loaderWrapper.style.display = 'none';
-    }
+  if (!imgUrl || !title) {
+    alert('This image is missing required data and cannot be liked.');
+    return;
   }
 
-  async function likeImage(event, title, imgUrl, desc, btn) {
-    event.stopPropagation();
-    if (!userId) {
-      alert('Please log in first!');
-      return;
-    }
+  const isAlreadyLiked = btn.classList.contains('liked');
+  btn.classList.toggle('liked');
+  const likeData = { title, imgUrl, desc };
 
-    if (!imgUrl || !title) {
-      alert('This image is missing required data and cannot be liked.');
-      return;
-    }
+  try {
+    const res = await fetch('/api/like', {
+      method: isAlreadyLiked ? 'DELETE' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(likeData),
+      credentials: 'include'
+    });
 
-    const isAlreadyLiked = btn.classList.contains('liked');
-    btn.classList.toggle('liked');
+    const data = await res.json();
 
-    const likeData = { title, imgUrl, desc };
-
-    try {
-      const res = await fetch('/api/like', {
-        method: isAlreadyLiked ? 'DELETE' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(likeData),
-        credentials: 'include'
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        if (isAlreadyLiked) {
-          likedImages = likedImages.filter(url => url !== imgUrl);
-        } else {
-          likedImages.push(imgUrl);
-        }
-      } else {
-        btn.classList.toggle('liked');
-        console.error('Server error:', data.message);
-        alert('Error: ' + data.message);
-      }
-    } catch (error) {
+    if (res.ok) {
+      likedImages = isAlreadyLiked
+        ? likedImages.filter(url => url !== imgUrl)
+        : [...likedImages, imgUrl];
+    } else {
       btn.classList.toggle('liked');
-      console.error('Error sending like/unlike:', error);
+      alert('Error: ' + data.message);
+    }
+  } catch (error) {
+    btn.classList.toggle('liked');
+    console.error('Error sending like/unlike:', error);
+  }
+}
+
+async function fetchSpaceNews() {
+  try {
+    const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=10');
+    const data = await res.json();
+    newsList.innerHTML = '';
+    const shuffled = data.results.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+    shuffled.forEach(article => {
+      const item = document.createElement("div");
+      item.className = "news-item";
+      item.innerHTML = `
+        <a href="${article.url}" target="_blank">${article.title}</a>
+        <p>${article.summary.slice(0, 150)}...</p>
+      `;
+      newsList.appendChild(item);
+    });
+  } catch (error) {
+    console.error('❌ Failed to load space news:', error);
+    newsSection.style.display = "none";
+  }
+}
+
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'visible') {
+    await fetchFavorites();
+    if (lastQuery) {
+      await fetchNASAImages(lastQuery);
     }
   }
+});
 
-  async function fetchSpaceNews() {
-    try {
-      const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=10');
+function logout() {
+  document.getElementById('logoutModal').style.display = 'flex';
+}
+
+document.getElementById('confirmLogout').addEventListener('click', () => {
+  fetch('/logout', { method: 'POST', credentials: 'include' })
+    .then(() => window.location.href = '/')
+    .catch(err => console.error('Logout failed:', err));
+});
+
+document.getElementById('cancelLogout').addEventListener('click', () => {
+  document.getElementById('logoutModal').style.display = 'none';
+});
+
+function toggleNav() {
+  document.getElementById('navMenu').classList.toggle('show');
+}
+
+function toggleProfileDropdown() {
+  const box = document.getElementById('profileBox');
+  box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// ✅ Load profile data (name, email, avatar)
+async function loadProfileData() {
+  try {
+    const res = await fetch('/api/profile', {
+      credentials: 'include',
+      headers: { 'Cache-Control': 'no-cache' }
+    });
+
+    if (res.ok) {
       const data = await res.json();
-      newsList.innerHTML = '';
 
-      const shuffled = data.results.sort(() => 0.5 - Math.random()).slice(0, 3);
+      // Set profile fields
+      document.getElementById('profileEmail').value = data.email || '';
+      document.getElementById('profileName').value = data.fullName || '';
+      document.getElementById('profileBio').value = data.bio || '';
+      document.getElementById('profileLocation').value = data.location || '';
 
-      shuffled.forEach(article => {
-        const item = document.createElement("div");
-        item.className = "news-item";
-        item.innerHTML = `
-          <a href="${article.url}" target="_blank">${article.title}</a>
-          <p>${article.summary.slice(0, 150)}...</p>
-        `;
-        newsList.appendChild(item);
-      });
-    } catch (error) {
-      console.error('❌ Failed to load space news:', error);
-      newsSection.style.display = "none";
-    }
-  }
+      // Set avatar
+      const avatarContainer = document.getElementById('avatarIcon');
+      avatarContainer.innerHTML = '';
 
-  document.addEventListener('visibilitychange', async () => {
-    if (document.visibilityState === 'visible') {
-      await fetchFavorites();
-      if (lastQuery) {
-        await fetchNASAImages(lastQuery);
+      if (data.avatarUrl && data.avatarUrl.trim() !== '' && data.avatarUrl !== '/images/default-avatar.png') {
+        const img = document.createElement('img');
+        img.src = data.avatarUrl;
+        img.alt = 'User Avatar';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.borderRadius = '50%';
+        avatarContainer.appendChild(img);
+      } else {
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-user';
+        icon.style.color = '#00d1ff';
+        icon.style.fontSize = '18px';
+        icon.style.display = 'flex';
+        icon.style.alignItems = 'center';
+        icon.style.justifyContent = 'center';
+        icon.style.width = '100%';
+        icon.style.height = '100%';
+        avatarContainer.appendChild(icon);
       }
     }
-  });
-
-  function logout() {
-    document.getElementById('logoutModal').style.display = 'flex';
+  } catch (err) {
+    console.error('❌ Error loading profile:', err);
   }
+}
 
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    fetch('/logout', { method: 'POST', credentials: 'include' })
-      .then(() => window.location.href = '/')
-      .catch(err => console.error('Logout failed:', err));
-  });
 
-  document.getElementById('cancelLogout').addEventListener('click', () => {
-    document.getElementById('logoutModal').style.display = 'none';
-  });
+// ✅ Save updated name
+async function saveProfile() {
+  const name = document.getElementById('profileName').value;
+  const bio = document.getElementById('profileBio').value;
+  const location = document.getElementById('profileLocation').value;
 
-  window.onload = async () => {
-    await getLoggedInUser();
-    fetchSpaceNews();
-  };
+  try {
+    const res = await fetch('/api/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ fullName: name, bio, location })
+    });
 
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      fetchNASAImages(searchInput.value);
+    if (res.ok) {
+      alert('✅ Profile updated!');
+    } else {
+      alert('❌ Failed to update profile.');
     }
-  });
-
-  searchButton.addEventListener('click', () => {
-    fetchNASAImages(searchInput.value);
-  });
-
-  function toggleNav() {
-    document.getElementById('navMenu').classList.toggle('show');
+  } catch (err) {
+    alert('⚠️ Error updating profile.');
   }
+}
+
+
+// ✅ Page load sequence
+window.onload = async () => {
+  await getLoggedInUser();
+  await fetchSpaceNews();
+  await fetchFavorites();
+  await loadProfileData();
+};
+
+searchInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') fetchNASAImages(searchInput.value);
+});
+searchButton.addEventListener('click', () => fetchNASAImages(searchInput.value));
 </script>
+
+
 
 
 

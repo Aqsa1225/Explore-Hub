@@ -52,6 +52,129 @@ html, body {
   flex-wrap: wrap;
 }
 
+.profile-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.profile-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #00d1ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #0d112b;
+  cursor: pointer;
+}
+
+.profile-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-icon i {
+  color: #00d1ff;
+  font-size: 18px;
+}
+
+
+.profile-box {
+  position: absolute;
+  top: 50px;
+  right: 12px;
+  width: 320px;
+  background: #10142a;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 40px rgba(0, 255, 255, 0.12);
+  border: 1px solid #00d1ff33;
+  display: none;
+  flex-direction: column;
+  z-index: 2000;
+  animation: slideFade 0.3s ease;
+}
+.profile-box::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid #10142a;
+}
+
+
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.profile-box h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #00d1ff;
+  text-align: center;
+}
+
+.profile-box label {
+  font-size: 12px;
+  margin: 6px 0 2px;
+  color: #a9dfff;
+  font-weight: 500;
+}
+
+.profile-box input,
+.profile-box textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #0b0f2a;
+  color: #ffffff;
+  margin-bottom: 12px;
+  font-size: 13px;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-box input:focus,
+.profile-box textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #00d1ff;
+}
+
+.profile-box button {
+  background: linear-gradient(135deg, #00d1ff, #1f7aec);
+  color: #0b0c2a;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.profile-box button:hover {
+  background: #00a8d4;
+  transform: translateY(-1px);
+}
+
 .mobile-controls {
   display: flex;
   align-items: center;
@@ -947,28 +1070,45 @@ html, body {
 
   <div class="page-wrapper">
     <header class="main-header">
-      <div class="header-top">
-        <div class="logo-wrap">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
-          <span class="logo-text">Explore Hub</span>
+  <div class="header-top">
+    <div class="logo-wrap">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
+      <span class="logo-text">Explore Hub</span>
+    </div>
+
+    <nav id="navMenu" class="nav-box">
+      <a href="/home.html" class="nav-link">Home</a>
+      <a href="/favorites.html" class="nav-link">Favorites</a>
+      <a href="/mars.html" class="nav-link">Mars Rover</a>
+      <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
+    </nav>
+
+    <div class="mobile-controls">
+      <!-- Profile Dropdown in Top-Right Now -->
+      <div class="profile-dropdown">
+        <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
+          <i class="fas fa-user"></i>
         </div>
 
-        <div class="mobile-controls">
-          <button class="menu-toggle" onclick="toggleNav()">
-            <i class="fas fa-bars"></i>
-          </button>
-          <button class="logout-btn" onclick="logout()">Log Out</button>
+        <div class="profile-box" id="profileBox">
+          <h3>Your Profile</h3>
+          <label>Email</label>
+          <input type="email" id="profileEmail" disabled />
+          <label>Name</label>
+          <input type="text" id="profileName" placeholder="Your full name" />
+          <label>Bio</label>
+          <textarea id="profileBio" rows="2" placeholder="Write something about yourself..."></textarea>
+          <label>Location</label>
+          <input type="text" id="profileLocation" placeholder="E.g. Sharjah, UAE" />
+          <button onclick="saveProfile()">Save</button>
         </div>
-
-        <nav id="navMenu" class="nav-box">
-          <a href="/home.html" class="nav-link">Home</a>
-          <a href="/favorites.html" class="nav-link">Favorites</a>
-          <a href="/mars.html" class="nav-link">Mars Rover</a>
-          <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
-
-        </nav>
       </div>
-    </header>
+
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+</header>
+
 
   <h1 class="page-title">Mars Rover Photos</h1>
 
@@ -1052,10 +1192,27 @@ html, body {
   const resultsHeading = document.getElementById('resultsHeading');
   const loadingSpinner = document.getElementById('loaderWrapper');
 
-  window.onload = () => {
+  // ✅ Check user login on page load + setup max date
+  window.onload = async () => {
+  try {
+    const res = await fetch('/api/user', { credentials: 'include' });
+    if (!res.ok) {
+      window.location.href = '/';
+      return;
+    }
+
+    // ✅ Load profile info after user check
+    await loadProfileData();
+
+    // ✅ Set today's max date
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('earthDate').setAttribute('max', today);
-  };
+  } catch (err) {
+    console.error('❌ Failed to verify user:', err);
+    window.location.href = '/';
+  }
+};
+
 
   function searchPhotos() {
     const date = document.getElementById('earthDate').value;
@@ -1067,14 +1224,14 @@ html, body {
   }
 
   function fetchPhotos(rover, date) {
-    loadingSpinner.style.display = 'flex'; // Show spinner
+    loadingSpinner.style.display = 'flex';
     photoGrid.innerHTML = '';
 
     fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${API_KEY}`)
       .then(res => res.json())
       .then(data => {
         const photos = data.photos;
-        loadingSpinner.style.display = 'none'; // Hide spinner
+        loadingSpinner.style.display = 'none';
         photoGrid.innerHTML = '';
 
         if (!photos.length) {
@@ -1098,7 +1255,7 @@ html, body {
       })
       .catch(err => {
         console.error(err);
-        loadingSpinner.style.display = 'none'; // Hide spinner on error
+        loadingSpinner.style.display = 'none';
         resultsHeading.style.display = 'none';
         photoGrid.innerHTML = '<p style="text-align:center;">Error loading photos.</p>';
       });
@@ -1137,7 +1294,86 @@ html, body {
   function toggleNav() {
     document.getElementById('navMenu').classList.toggle('show');
   }
+
+  function toggleProfileDropdown() {
+  const box = document.getElementById('profileBox');
+  box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// ✅ Load profile data (name, email, avatar)
+async function loadProfileData() {
+  try {
+    const res = await fetch('/api/profile', {
+      credentials: 'include',
+      headers: { 'Cache-Control': 'no-cache' }
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+
+      // Set profile fields
+      document.getElementById('profileEmail').value = data.email || '';
+      document.getElementById('profileName').value = data.fullName || '';
+      document.getElementById('profileBio').value = data.bio || '';
+      document.getElementById('profileLocation').value = data.location || '';
+
+      // Set avatar
+      const avatarContainer = document.getElementById('avatarIcon');
+      avatarContainer.innerHTML = '';
+
+      if (data.avatarUrl && data.avatarUrl.trim() !== '' && data.avatarUrl !== '/images/default-avatar.png') {
+        const img = document.createElement('img');
+        img.src = data.avatarUrl;
+        img.alt = 'User Avatar';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.borderRadius = '50%';
+        avatarContainer.appendChild(img);
+      } else {
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-user';
+        icon.style.color = '#00d1ff';
+        icon.style.fontSize = '18px';
+        icon.style.display = 'flex';
+        icon.style.alignItems = 'center';
+        icon.style.justifyContent = 'center';
+        icon.style.width = '100%';
+        icon.style.height = '100%';
+        avatarContainer.appendChild(icon);
+      }
+    }
+  } catch (err) {
+    console.error('❌ Error loading profile:', err);
+  }
+}
+
+
+// ✅ Save updated name
+async function saveProfile() {
+  const name = document.getElementById('profileName').value;
+  const bio = document.getElementById('profileBio').value;
+  const location = document.getElementById('profileLocation').value;
+
+  try {
+    const res = await fetch('/api/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ fullName: name, bio, location })
+    });
+
+    if (res.ok) {
+      alert('✅ Profile updated!');
+    } else {
+      alert('❌ Failed to update profile.');
+    }
+  } catch (err) {
+    alert('⚠️ Error updating profile.');
+  }
+}
+
 </script>
+
 
 
 
