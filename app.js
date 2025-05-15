@@ -8,10 +8,12 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const forgotRoutes = require('./routes/forgot');
 
 const User = require('./models/user');
 const Favorite = require('./models/favorite');
 const asteroidRoutes = require('./routes/asteroid');
+
 const { ensureAuthenticated } = require('./middleware/auth');
 
 const app = express();
@@ -25,6 +27,7 @@ mongoose.connect('mongodb://localhost:27017/explore-space')
 // ✅ Middleware
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));  // <--- ADD THIS LINE
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ Session Setup
@@ -218,6 +221,8 @@ app.get('/api/favorites', ensureAuthenticated, async (req, res) => {
 
 // ✅ Asteroid routes
 app.use('/api/asteroids', asteroidRoutes);
+app.use('/auth', forgotRoutes); // Now /auth/send-otp and /auth/verify-otp will work
+
 
 // ✅ Serve Pages
 app.get('/favorites.html', ensureAuthenticated, (req, res) => {
