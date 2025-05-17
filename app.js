@@ -8,12 +8,12 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const forgotRoutes = require('./routes/forgot');
 
+const forgotRoutes = require('./routes/forgot');
 const User = require('./models/user');
 const Favorite = require('./models/favorite');
 const asteroidRoutes = require('./routes/asteroid');
-
+const communityRoutes = require('./routes/community');
 const { ensureAuthenticated } = require('./middleware/auth');
 
 const app = express();
@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost:27017/explore-space')
 // ✅ Middleware
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));  // <--- ADD THIS LINE
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ Session Setup
@@ -43,6 +43,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./passport-config');
 
+// ✅ Routes
+app.use('/api/community', communityRoutes);
+app.use('/api/asteroids', asteroidRoutes);
+app.use('/auth', forgotRoutes);
+
 // ✅ Get Authenticated User Info
 app.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
@@ -52,14 +57,13 @@ app.get('/api/user', (req, res) => {
   }
 });
 
-// ✅ Get user profile (name, email, avatar, bio, location)
+// ✅ Get Profile
 app.get('/api/profile', ensureAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
-
     res.set('Cache-Control', 'no-store');
-
     res.json({
+      _id: user._id, // ✅ Add this line
       email: user.email,
       fullName: user.name || '',
       avatarUrl: user.avatarUrl || '/images/default-avatar.png',
@@ -71,10 +75,9 @@ app.get('/api/profile', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// ✅ Update profile (name, bio, location)
+// ✅ Update Profile
 app.put('/api/profile', ensureAuthenticated, async (req, res) => {
   const { fullName, bio, location } = req.body;
-
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
@@ -85,7 +88,6 @@ app.put('/api/profile', ensureAuthenticated, async (req, res) => {
       },
       { new: true }
     );
-
     res.json({
       message: 'Profile updated',
       fullName: updatedUser.name,
@@ -121,7 +123,6 @@ app.post('/signup', async (req, res) => {
     await newUser.save();
     req.login(newUser, (err) => {
       if (err) return res.status(500).json({ error: 'Auto-login failed' });
-
       res.status(201).json({
         message: 'User registered and logged in',
         userId: newUser._id,
@@ -179,13 +180,10 @@ app.post('/logout', (req, res, next) => {
 app.post('/api/like', ensureAuthenticated, async (req, res) => {
   const { title, imgUrl, desc } = req.body;
   const userId = req.user._id;
-
   if (!userId || !title || !imgUrl) return res.status(400).json({ message: 'Missing required fields.' });
-
   try {
     const existing = await Favorite.findOne({ userId, imgUrl });
     if (existing) return res.status(400).json({ message: 'Already liked' });
-
     const newFavorite = new Favorite({ userId, title, imgUrl, desc });
     await newFavorite.save();
     res.status(200).json({ message: 'Added to favorites!' });
@@ -197,9 +195,7 @@ app.post('/api/like', ensureAuthenticated, async (req, res) => {
 app.delete('/api/like', ensureAuthenticated, async (req, res) => {
   const { imgUrl } = req.body;
   const userId = req.user._id;
-
   if (!userId || !imgUrl) return res.status(400).json({ message: 'Missing required fields.' });
-
   try {
     const deleted = await Favorite.deleteOne({ userId, imgUrl });
     res.status(deleted.deletedCount > 0 ? 200 : 404).json({ message: deleted.deletedCount > 0 ? 'Removed from favorites!' : 'Favorite not found.' });
@@ -210,7 +206,6 @@ app.delete('/api/like', ensureAuthenticated, async (req, res) => {
 
 app.get('/api/favorites', ensureAuthenticated, async (req, res) => {
   const userId = req.user._id;
-
   try {
     const favorites = await Favorite.find({ userId });
     res.status(200).json(favorites);
@@ -218,11 +213,6 @@ app.get('/api/favorites', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch favorites.', error: err.message });
   }
 });
-
-// ✅ Asteroid routes
-app.use('/api/asteroids', asteroidRoutes);
-app.use('/auth', forgotRoutes); // Now /auth/send-otp and /auth/verify-otp will work
-
 
 // ✅ Serve Pages
 app.get('/favorites.html', ensureAuthenticated, (req, res) => {

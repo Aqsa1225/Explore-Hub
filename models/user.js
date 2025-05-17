@@ -18,12 +18,12 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     minlength: [6, 'Password must be at least 6 characters'],
-    default: null // Google users may not need a password
+    default: null // For Google users
   },
   googleId: {
     type: String,
     unique: true,
-    sparse: true // Prevents duplicate null values in Google users
+    sparse: true // Prevents error with multiple nulls
   },
   authType: {
     type: String,
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
   },
   avatarUrl: {
     type: String,
-    default: '/images/default-avatar.png'
+    default: 'https://ui-avatars.com/api/?name=User&background=1abc9c&color=fff&rounded=true'
   },
 
   // ✅ Optional Profile Fields

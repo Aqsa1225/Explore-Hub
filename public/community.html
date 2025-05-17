@@ -1,92 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Favorite Images</title>
+  <title>Explore Hub | Community</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
-   
-* {
-  box-sizing: border-box;
-}
+    * {
+      box-sizing: border-box;
+    }
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
 }
-   body {
+    body {
   margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(-45deg, #050816, #0b0c2a, #1e215d, #0b0c2a);
-  background-size: 300% 300%;
-  animation: gradientBG 10s ease infinite;
-  color: white;
+  padding: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  position: relative;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(-45deg, #050816, #0b0c2a, #1e215d, #0b0c2a);
+  background-size: 300% 300%;
+  animation: gradientBG 12s ease infinite;
+  color: white;
   overflow-x: hidden;
 }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-/* Faster background gradient animation */
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.page-wrapper {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-#preloader {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: #050816;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 18px;
-  color: #00d1ff;
-  transition: opacity 0.4s ease;
-}
-
-#preloader.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Content over background */
-header, .hero, .search-container, .results, footer {
-  position: relative;
-  z-index: 1;
-}
-
-.main-header,
-.footer,
-.favorites-container {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-
-/* UPDATED HEADER */
-/* Updated header styling */
-/* Professional Header Design */
-/* ========== Fixed Header ========== */
 .main-header {
   background: #08092c;
   box-shadow: 0 4px 10px rgba(0, 209, 255, 0.1);
@@ -157,84 +105,6 @@ header, .hero, .search-container, .results, footer {
 .nav-link:hover::after {
   width: 100%;
 }
-
-.mobile-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-icon {
-  width: 36px;
-  height: 36px;
-}
-
-.logo-text {
-  color: #00d1ff;
-  font-size: 20px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-
-.menu-toggle {
-  background-color: #1a1f4d;
-  color: white;
-  font-size: 20px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  display: none; /* hidden by default */
-}
-.menu-toggle-wrap {
-  padding: 0 20px;
-  margin-top: 4px;
-}
-
-.logout-btn {
-  background: #00d1ff;
-  color: #0b0c2a;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-
-
-
-
-.action-section {
-  display: flex;
-  align-items: center;
-}
-
-.logout-btn {
-  background: linear-gradient(135deg, #00d1ff, #0099cc);
-  color: #0b0c2a;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 18px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.logout-btn:hover {
-  background: #00a8d4;
-  transform: translateY(-1px);
-}
-
 
 .profile-dropdown {
   position: relative;
@@ -359,178 +229,311 @@ header, .hero, .search-container, .results, footer {
   transform: translateY(-1px);
 }
 
-  
-    .favorites-container {
-      padding: 20px 20px 40px; /* 🆙 Move heading up */
-    }
-    .favorites-container h1 {
-  text-align: center;
-  margin-top: 10px; /* 🆙 Moved more up */
-  margin-bottom: 30px; /* Good space before cards */
-  font-size: 36px;
-  color: #ffffff; /* 🤍 Pure White color */
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px #00ffe1; /* Subtle glow */
-}
-
-
-  
-.favorites-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 💡 4 cards per row */
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  justify-items: center; /* center cards when less than 4 */
-}
-
-
-
-
-
-
-  
-.card {
-  background-color: #1a1f4d;
-  border: 1px solid #00ffe1;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
-  max-width: 100%;
-  height: 340px; /* Fixed height */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0; /* Remove padding to prevent background gap */
-  box-sizing: border-box;
-}
-
-
-
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 12px #00ffe1;
-    }
-    .card img {
-  flex: 1;
-  width: 100%;
-  object-fit: cover;
-  display: block;
-  height: 240px; /* Fixed consistent height */
-  margin: 0;
-  padding: 0;
-}
-
-.card p {
-  height: 60px; /* Fixed height */
-  margin: 0;
-  background-color: #0d112b;
+.mobile-controls {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  padding: 10px;
+  gap: 10px;
 }
 
-.view-btn {
-  margin: 8px auto 12px;
-  padding: 6px 14px;
-  background-color: #1f7aec;
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-text {
+  color: #00d1ff;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+.menu-toggle {
+  font-size: 18px;
+  padding: 4px 10px;
+  background-color: #1a1f4d;
   color: white;
-  font-size: 13px;
   border: none;
-  border-radius: 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  height: 36px;
+  width: 40px;
+  text-align: center;
+  line-height: 1;
+}
+
+.menu-toggle-wrap {
+  padding: 0 20px;
+  margin-top: 4px;
+}
+
+
+
+.nav-box {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #00d1ff;
+}
+
+
+.nav-box.show {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.nav-menu .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #00d1ff;
+  transition: width 0.3s ease;
+}
+
+.nav-menu .nav-link:hover::after {
+  width: 100%;
+}
+
+.action-section {
+  display: flex;
+  align-items: center;
+}
+
+/* 👇 Place this updated section inside your <style> tag and remove duplicate logout-btn blocks */
+
+.logout-btn {
+  background: linear-gradient(135deg, #00d1ff, #0099cc);
+  color: #0b0c2a;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+  height: 36px; /* 🔽 reduced from 38px to match Favorites */
+  width: auto;
+  min-width: unset;
+  max-width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: block;
-  font-family: 'Orbitron', sans-serif;
-  width: fit-content;
 }
 
-.view-btn:hover {
-  background-color: #005eff;
-  transform: scale(1.05);
+.logout-btn:hover {
+  background: #00a8d4;
+  transform: translateY(-1px);
 }
 
-  
-    /* Remove Button */
-    .remove-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: red;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.3s ease;
-    }
-    .remove-btn:hover { background-color: darkred; }
-  
-    /* Modal */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-    .modal-content {
-      background: #1a1f4d;
-      width: 90%;
-      max-width: 600px;
-      height: 500px;
-      border-radius: 12px;
-      padding: 20px;
-      color: white;
+
+
+
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+  .logout-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 399px) {
+  .logout-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+
+.page-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.page-wrapper::after {
+  content: '';
+  flex-grow: 1;
+}
+
+ .community-container {
+  width: 95%;                    /* Use most of the screen width */
+  max-width: 1400px;             /* Allow large width on desktops */
+  margin: 4rem auto;
+  background: rgba(12, 20, 50, 0.85);
+  padding: 2.5rem 3rem;          /* More spacious padding */
+  border-radius: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 209, 255, 0.4);
+}
+
+
+
+    h1 {
       text-align: center;
-      overflow: hidden;
+      color: #00d1ff;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+
+    h1 i {
+      color: #00d1ff;
+      margin-right: 10px;
+      animation: float 1.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .post-box {
       display: flex;
       flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #00d1ff;
+      background: #11193c;
+      color: white;
+      resize: none;
+      box-shadow: 0 0 8px #00d1ff33 inset;
+    }
+
+    button {
+      align-self: flex-end;
+      width: 120px;
+      padding: 0.6rem;
+      background: linear-gradient(135deg, #00d1ff, #1f7aec);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #00a8d4;
+    }
+
+    .post {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #0d112b;
+      border-left: 4px solid #00d1ff;
+      border-radius: 0.8rem;
+      box-shadow: 0 0 10px #00d1ff22;
       position: relative;
     }
-    .modal-content img {
-      width: 100%;
-      height: 200px;
-      object-fit: contain;
-      border-radius: 10px;
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      color: #a9dfff;
     }
-    #modalTitle {
-      margin: 15px 0 5px;
-      color: #00ffe1;
-      font-size: 20px;
+
+    .user-details {
+      display: flex;
+      gap: 0.7rem;
+      flex: 1;
     }
-    #modalDesc {
-      font-size: 14px;
-      padding: 10px;
-      overflow-y: auto;
-      max-height: 180px;
-      text-align: left;
-      line-height: 1.4;
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
     }
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 24px;
+
+    .user-meta span {
+      font-size: 0.78rem;
+      color: #7bd7ff;
+      margin-top: 2px;
+    }
+
+    .info img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #00d1ff;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #ff4d4d;
+      font-size: 1.1rem;
       cursor: pointer;
-      color: white;
     }
-   /* Logout Modal */
-.logout-modal {
+
+    .comments-section input {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #00d1ff;
+      background: #0b0f2a;
+      color: white;
+      font-size: 0.9rem;
+      margin-top: 0.7rem;
+    }
+
+    .comment {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      color: #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #121f40;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .comment strong {
+      color: #00ffe1;
+    }
+
+    .comment button {
+      background: none;
+      border: none;
+      color: #ff4d4d;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+   .logout-modal {
   display: none;
   position: fixed;
   top: 0; left: 0;
@@ -582,50 +585,71 @@ header, .hero, .search-container, .results, footer {
 }
 
 .no-btn {
-  background-color: #d9534f;
-  color: white;
+  background: #d9534f !important;       /* solid red background */
+  background-image: none !important;    /* remove any gradient */
+  color: white !important;              /* white text */
   font-weight: bold;
+  border: none;
+  box-shadow: none !important;
 }
+
+
 
 .yes-btn:hover {
   background-color: #00a8d4;
 }
 
 .no-btn:hover {
-  background-color: #c9302c;
+  background-color: #c9302c !important;
 }
 
-/* Smooth Fade Animation */
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+
+
+.styled-delete-btn {
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(255, 77, 77, 0.3);
 }
 
-/* Smooth Slide Animation */
-@keyframes slideDown {
-  from {transform: translateY(-50px); opacity: 0;}
-  to {transform: translateY(0); opacity: 1;}
+.styled-delete-btn:hover {
+  background: #d93636;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 77, 77, 0.4);
 }
 
-    /* ===== FOOTER STYLES ===== */
-.footer {
+
+@keyframes modalZoom {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+    .footer {
   background: #000000;
   color: #ffffff;
   font-family: 'Orbitron', sans-serif;
   padding: 20px 40px;
   border-top: 1px solid #1a1f4d;
-  margin-top: 355px !important;
-  opacity: 0;
-  pointer-events: none; /* optional for cleaner fade-in */
-  transition: opacity 0.4s ease-in-out;
-
+  margin-top: 134px !important;
+}
+footer.footer {
+  margin-top: auto;
 }
 
-footer.show {
-  opacity: 1;
-  pointer-events: auto;
-
-}
 .footer-container {
   display: flex;
   justify-content: space-between;
@@ -635,27 +659,32 @@ footer.show {
   margin: 0 auto;
   padding: 20px 40px;
   gap: 20px;
-  text-align: left;
+  text-align: left; /* ✅ aligns text inside sections properly */
 }
 
+
+/* Branding (logo + text) */
 .footer-branding {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start; /* ✅ aligns logo + text to left */
   text-align: left;
   max-width: 240px;
 }
+
 
 .footer-logo-line {
   display: flex;
   align-items: center;
   gap: 8px;
+  justify-content: center;
 }
 
 .footer-logo {
   width: 32px;
   height: auto;
 }
+
 
 .footer-title {
   font-size: 16px;
@@ -668,6 +697,7 @@ footer.show {
   color: #ffffff;
 }
 
+/* Quick Links */
 .footer-links h4,
 .footer-social h4 {
   color: #00d1ff;
@@ -680,41 +710,37 @@ footer.show {
   padding: 0;
   margin: 0;
 }
-
 .footer-links ul li {
   margin-bottom: 6px;
 }
-
 .footer-links ul li a {
   font-size: 13px;
   color: #ffffff;
   text-decoration: none;
   transition: color 0.3s;
 }
-
 .footer-links ul li a:hover {
   color: #00d1ff;
 }
 
+/* Social Section */
 .footer-social {
   min-width: 120px;
 }
-
 .social-icons {
   display: flex;
   gap: 12px;
 }
-
 .social-icons a {
   color: #ffffff;
   font-size: 16px;
   transition: color 0.3s;
 }
-
 .social-icons a:hover {
   color: #00d1ff;
 }
 
+/* Bottom Bar */
 .footer-bottom {
   text-align: center;
   font-size: 12px;
@@ -724,7 +750,17 @@ footer.show {
   border-top: 1px solid #1a1f4d;
 }
 
-/* ✅ Responsive Styles */
+.menu-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+
+     /* ✅ Responsive Styles */
 @media (max-width: 1024px) {
   .main-header .container {
     flex-wrap: wrap;
@@ -753,7 +789,6 @@ footer.show {
 /* Tablet & Mobile Fixes (768px and below) */
 /* === RESPONSIVE FIXES FOR TABLETS & MOBILES (768px and below) === */
 @media (max-width: 768px) {
-
 
 /* Header container stacks */
 .main-header .container {
@@ -1092,100 +1127,6 @@ footer.show {
   }
 }
 
-/* 🔷 From 956px to 769px → 3 cards */
-@media (max-width: 955px) {
-  .favorites-grid {
-    justify-content: center;
-  }
-
-  .card {
-    width: calc(33.33% - 20px);
-    max-width: 280px;
-  }
-}
-
-
-/* 🔷 From 768px to 600px → 2 cards */
-@media (max-width: 768px) {
-  .card {
-    width: calc(50% - 20px); /* 2 cards per row */
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
-
-
-/* 🔷 Below 600px → 1 card full width */
-@media (max-width: 599px) {
-  .card {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .favorites-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 480px) {
-  .favorites-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 985px) {
-  .favorites-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 🔥 force 3 cards per row */
-    gap: 20px;
-    justify-items: center;
-  }
-
-  .card {
-    width: 280px; /* ✅ fixed width for consistent design */
-  }
-}
-
-@media (max-width: 899px) {
-  .favorites-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 949px) {
-  .favorites-container {
-    padding: 20px 16px 40px; /* left and right padding added */
-  }
-}
-
-@media (max-width: 585px) {
-  .favorites-container {
-    padding: 20px 12px;
-  }
-
-  .favorites-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    justify-items: center; /* Centers the card */
-  }
-
-  .card {
-    width: 100%;
-    max-width: 320px; /* ✅ Prevents too-stretched cards */
-    box-sizing: border-box;
-  }
-
-  .card img {
-    object-fit: cover;   /* ✅ Keeps image aspect */
-    height: 240px;
-    width: 100%;
-  }
-}
-
-
 @media (max-width: 768px) {
   .secondary-nav {
     position: relative;
@@ -1276,20 +1217,16 @@ footer.show {
 }
 
 @media (max-width: 768px) {
-  .favorites-container {
-    padding-top: 110px !important;
+  .community-container {
+    margin-top: 80px !important; /* Make it clearly visible */
   }
 }
 
 
   </style>
-  
-  
-  
 </head>
-
 <body>
-  <div class="page-wrapper">
+<div class="page-wrapper">
     <header class="main-header">
   <div class="header-top">
   <div class="left-group">
@@ -1342,35 +1279,25 @@ footer.show {
 </header>
 
 
-
-<div class="favorites-container">
-  <h1>Your Favorite Posts</h1>
-  <div id="loadingSpinner" style="text-align:center; width: 100%;">Loading favorites...</div>
-  <div id="favoritesContainer" class="favorites-grid"></div>
-</div>
-
-<!-- Modal -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
-    <img id="modalImg" src="" alt="">
-    <h2 id="modalTitle"></h2>
-    <p id="modalDesc"></p>
+  <div class="community-container">
+    <h1><i class="fas fa-users"></i> Space Community</h1>
+    <div class="post-box">
+      <textarea id="postContent" placeholder="Share your space thoughts... "></textarea>
+      <button onclick="submitPost()">Post</button>
+    </div>
+    <div class="posts-list" id="postsContainer"></div>
   </div>
-</div>
 
-<!-- Logout Confirmation Modal -->
-<!-- Logout Confirmation Modal -->
-<div id="logoutModal" class="logout-modal">
+  <!-- ✅ Logout Confirmation Modal -->
+<div class="logout-modal" id="logoutModal">
   <div class="logout-modal-content">
     <h2>Confirm Logout</h2>
     <p>Are you sure you want to logout?</p>
     <div class="logout-buttons">
-      <button id="confirmLogout" class="yes-btn">Yes</button>
-      <button id="cancelLogout" class="no-btn">No</button>
+      <button class="yes-btn" id="confirmLogout">Yes</button>
+      <button class="no-btn" id="cancelLogout">No</button>
     </div>
   </div>
-</div>
 </div>
 
 
@@ -1408,215 +1335,237 @@ footer.show {
   </div>
 </footer>
 
+  <script>
+  let currentUser = null;
+  let posts = [];
 
-
-<script>
-  const favoritesContainer = document.getElementById('favoritesContainer');
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modalImg');
-const modalTitle = document.getElementById('modalTitle');
-const modalDesc = document.getElementById('modalDesc');
-
-// ✅ Fetch user session
-async function checkUserSession() {
-  try {
-    const res = await fetch('/api/user', { credentials: 'include' });
-    if (!res.ok) throw new Error('Not authenticated');
-    const userData = await res.json();
-    console.log('✅ Logged in as:', userData.email);
-    fetchFavorites();
-  } catch (error) {
-    console.error('❌ User not authenticated:', error);
-    window.location.href = '/';
-  }
-}
-
-function fetchFavorites() {
-  const spinner = document.getElementById('loadingSpinner');
-  const footer = document.querySelector('footer');
-  spinner.style.display = 'block';
-
-  fetch('/api/favorites', { credentials: 'include' })
-    .then(response => response.json())
-    .then(data => {
-      spinner.style.display = 'none';
-      footer.classList.add('show'); // ✅ Show footer even on success
-
-      if (data.length === 0) {
-        favoritesContainer.innerHTML = '<p>No favorites added yet.</p>';
-      } else {
-        favoritesContainer.innerHTML = '';
-        data.forEach(favorite => {
-          const favoriteCard = document.createElement('div');
-          favoriteCard.className = 'card';
-          favoriteCard.innerHTML = `
-            <img src="${favorite.imgUrl}" alt="${favorite.title}">
-            <p>${favorite.title}</p>
-            <button class="remove-btn" onclick="removeFavorite('${favorite.imgUrl}', this)">✖</button>
-          `;
-          favoriteCard.addEventListener('click', (e) => {
-            if (e.target.closest('.remove-btn')) return;
-            showModal(favorite.imgUrl, favorite.title, favorite.desc || 'No description available.');
-          });
-          favoritesContainer.appendChild(favoriteCard);
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching favorites:', error);
-      spinner.style.display = 'none';
-      footer.classList.add('show'); // ✅ Also show on error
-      favoritesContainer.innerHTML = '<p style="color:red;">Failed to load favorites.</p>';
-    });
-}
-
-// ✅ Show modal
-function showModal(imgUrl, title, desc) {
-  modal.style.display = 'flex';
-  modalImg.src = imgUrl;
-  modalTitle.textContent = title;
-  modalDesc.textContent = desc;
-}
-
-// ✅ Remove favorite + Notify Home Page
-function removeFavorite(imgUrl, buttonElement) {
-  fetch('/api/like', {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ imgUrl }),
-    credentials: 'include'
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data.message);
-    buttonElement.parentElement.remove();
-    // 🆕 Notify Home Page
-    localStorage.setItem('favoritesChanged', Date.now());
-  })
-  .catch(error => {
-    console.error('Error removing favorite:', error);
-  });
-}
-
-// ✅ Logout confirmation modal
-function logout() {
-  document.getElementById('logoutModal').style.display = 'flex';
-}
-
-document.getElementById('confirmLogout').addEventListener('click', () => {
-  fetch('/logout', { method: 'POST', credentials: 'include' })
-    .then(() => window.location.href = '/')
-    .catch(err => console.error('Logout failed:', err));
-});
-
-document.getElementById('cancelLogout').addEventListener('click', () => {
-  document.getElementById('logoutModal').style.display = 'none';
-});
-
-function toggleProfileDropdown() {
-  const box = document.getElementById('profileBox');
-  box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
-}
-
-// ✅ Load profile data (name, email, avatar)
-async function loadProfileData() {
-  try {
-    const res = await fetch('/api/profile', {
-      credentials: 'include',
-      headers: { 'Cache-Control': 'no-cache' }
-    });
-
-    if (res.ok) {
+  async function getCurrentUser() {
+    try {
+      const res = await fetch('/api/profile', { credentials: 'include' });
       const data = await res.json();
+      currentUser = {
+        id: data._id,
+        name: data.fullName,
+        email: data.email,
+        avatar: data.avatarUrl
+      };
+      document.querySelector('.post-box').style.display = 'flex';
 
-      // Set profile fields
-      document.getElementById('profileEmail').value = data.email || '';
-      document.getElementById('profileName').value = data.fullName || '';
-      document.getElementById('profileBio').value = data.bio || '';
-      document.getElementById('profileLocation').value = data.location || '';
-
-      // Set avatar with error fallback
       const avatarContainer = document.getElementById('avatarIcon');
-      avatarContainer.innerHTML = '';
-
-      if (data.avatarUrl && data.avatarUrl.trim() !== '' && data.avatarUrl !== '/images/default-avatar.png') {
-        const img = document.createElement('img');
-        img.src = data.avatarUrl;
-        img.alt = 'User Avatar';
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.borderRadius = '50%';
-
-        // Fallback to icon if image load fails
-        img.onerror = () => {
-          avatarContainer.innerHTML = '';
+      if (avatarContainer) {
+        avatarContainer.innerHTML = '';
+        if (data.avatarUrl && data.avatarUrl.trim() !== '') {
+          const img = document.createElement('img');
+          img.src = data.avatarUrl;
+          img.alt = 'User Avatar';
+          img.onerror = () => {
+            avatarContainer.innerHTML = '<i class="fas fa-user" style="color:#00d1ff; font-size:18px;"></i>';
+          };
+          avatarContainer.appendChild(img);
+        } else {
           const icon = document.createElement('i');
           icon.className = 'fas fa-user';
           icon.style.color = '#00d1ff';
           icon.style.fontSize = '18px';
-          icon.style.display = 'flex';
-          icon.style.alignItems = 'center';
-          icon.style.justifyContent = 'center';
-          icon.style.width = '100%';
-          icon.style.height = '100%';
           avatarContainer.appendChild(icon);
-        };
-
-        avatarContainer.appendChild(img);
-      } else {
-        const icon = document.createElement('i');
-        icon.className = 'fas fa-user';
-        icon.style.color = '#00d1ff';
-        icon.style.fontSize = '18px';
-        icon.style.display = 'flex';
-        icon.style.alignItems = 'center';
-        icon.style.justifyContent = 'center';
-        icon.style.width = '100%';
-        icon.style.height = '100%';
-        avatarContainer.appendChild(icon);
+        }
       }
+
+      if (document.getElementById('profileEmail')) {
+        document.getElementById('profileEmail').value = data.email || '';
+        document.getElementById('profileName').value = data.fullName || '';
+        document.getElementById('profileBio').value = data.bio || '';
+        document.getElementById('profileLocation').value = data.location || '';
+      }
+    } catch {
+      document.querySelector('.post-box').style.display = 'none';
     }
-  } catch (err) {
-    console.error('❌ Error loading profile:', err);
+    fetchPosts();
   }
-}
 
-// ✅ Save updated profile data
-async function saveProfile() {
-  const name = document.getElementById('profileName').value;
-  const bio = document.getElementById('profileBio').value;
-  const location = document.getElementById('profileLocation').value;
+  async function submitPost() {
+    const content = document.getElementById('postContent').value.trim();
+    if (!content) return;
 
-  try {
-    const res = await fetch('/api/profile', {
-      method: 'PUT',
+    await fetch('/api/community', {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ fullName: name, bio, location })
+      body: JSON.stringify({ content })
     });
 
-    if (res.ok) {
-      alert('✅ Profile updated!');
-    } else {
-      alert('❌ Failed to update profile.');
-    }
-  } catch (err) {
-    alert('⚠️ Error updating profile.');
+    document.getElementById('postContent').value = '';
+    fetchPosts();
   }
-}
 
-// ✅ Run on page load
-window.onload = async () => {
-  await checkUserSession();
-  await loadProfileData(); // ✅ This will now load profile data properly
-};
+  async function fetchPosts() {
+    const res = await fetch('/api/community', { credentials: 'include' });
+    posts = await res.json();
+    renderPosts();
+  }
 
+  function renderPosts() {
+    const container = document.getElementById('postsContainer');
+    container.innerHTML = '';
+
+    posts.forEach((post, postIndex) => {
+      const avatar = post.userId.avatarUrl || 'https://ui-avatars.com/api/?name=User';
+      const isLiked = post.likes?.some(id => id === currentUser?.id) || false;
+      const isOwner = (post.userId._id || post.userId) === currentUser?.id;
+
+      const commentsHTML = post.comments.map((c, i) => {
+        const ownComment = c.userId === currentUser?.id;
+        return `
+          <div class="comment">
+            <span><strong>${c.name}</strong>: ${c.text}</span>
+            ${ownComment ? `<button onclick="deleteComment('${post._id}', ${i})">🗑</button>` : ''}
+          </div>`;
+      }).join('');
+
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post';
+      postDiv.innerHTML = `
+        <div class="info">
+          <div class="user-details">
+            <img src="${avatar}" />
+            <div class="user-meta">
+              <div><strong>${post.userId.name}</strong> (${post.userId.email})</div>
+              <span>${new Date(post.createdAt).toLocaleString()}</span>
+            </div>
+          </div>
+${isOwner ? `<button class="delete-btn styled-delete-btn" onclick="deletePost('${post._id}')">Delete</button>` : ''}
+        </div>
+        <p>${post.content}</p>
+        <div style="display:flex; align-items:center; gap: 10px; margin-top: 0.5rem;">
+          <button class="like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post._id}')">
+            ❤ <span>${post.likes.length}</span>
+          </button>
+        </div>
+        <div class="comments-section">
+          <input type="text" placeholder="Write a comment..." onkeydown="if(event.key==='Enter') addComment('${post._id}', this)">
+          <div class="comments-list">${commentsHTML}</div>
+        </div>
+      `;
+      container.appendChild(postDiv);
+    });
+  }
+
+  async function toggleLike(postId) {
+    try {
+      const res = await fetch(`/api/community/${postId}/like`, {
+        method: 'POST',
+        credentials: 'include'
+      });
+
+      if (res.ok) {
+        fetchPosts(); // ✅ Reload full post list to avoid stale document errors
+      }
+    } catch (err) {
+      console.error('Error toggling like:', err);
+    }
+  }
+
+  async function deletePost(id) {
+    await fetch(`/api/community/${id}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+    fetchPosts();
+  }
+
+  async function deleteComment(postId, index) {
+    await fetch(`/api/community/${postId}/comment/${index}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+    toast('Comment deleted!');
+    fetchPosts();
+  }
+
+  async function addComment(postId, inputEl) {
+    const text = inputEl.value.trim();
+    if (!text) return;
+
+    await fetch(`/api/community/${postId}/comment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ text })
+    });
+
+    inputEl.value = '';
+    toast('Comment posted!');
+    fetchPosts();
+  }
+
+  function toast(msg) {
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.position = 'fixed';
+    t.style.bottom = '30px';
+    t.style.left = '50%';
+    t.style.transform = 'translateX(-50%)';
+    t.style.background = '#1abc9c';
+    t.style.color = '#fff';
+    t.style.padding = '10px 20px';
+    t.style.borderRadius = '8px';
+    t.style.fontSize = '14px';
+    t.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+    t.style.zIndex = '9999';
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+  }
+
+  function toggleProfileDropdown() {
+    const box = document.getElementById('profileBox');
+    if (box) box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  async function saveProfile() {
+    const name = document.getElementById('profileName').value;
+    const bio = document.getElementById('profileBio').value;
+    const location = document.getElementById('profileLocation').value;
+
+    try {
+      const res = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ fullName: name, bio, location })
+      });
+
+      if (res.ok) {
+        alert('✅ Profile updated!');
+      } else {
+        alert('❌ Failed to update profile.');
+      }
+    } catch (err) {
+      alert('⚠️ Error updating profile.');
+    }
+  }
+
+  function logout() {
+    document.getElementById('logoutModal').style.display = 'flex';
+  }
+
+  document.getElementById('confirmLogout')?.addEventListener('click', () => {
+    fetch('/logout', { method: 'POST', credentials: 'include' })
+      .then(() => window.location.href = '/')
+      .catch(err => console.error('Logout failed:', err));
+  });
+
+  document.getElementById('cancelLogout')?.addEventListener('click', () => {
+    document.getElementById('logoutModal').style.display = 'none';
+  });
 function toggleNav() {
-  document.getElementById('navMenu').classList.toggle('show');
+  const navMenu = document.getElementById('navMenu');
+  navMenu.classList.toggle('show');
 }
 
-  </script>
-  
+
+  window.onload = getCurrentUser;
+</script>
+
 
 </body>
 </html>

@@ -129,6 +129,96 @@ header, .hero, .search-container, .results, footer {
   flex-wrap: wrap;
 }
 
+.secondary-nav {
+  background: #0d102b;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 66px;
+  z-index: 900;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid #1a1f4d;
+  border-bottom: 1px solid #1a1f4d;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.nav-box {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  color: #ffffff;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #00d1ff;
+}
+
+.nav-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #00d1ff;
+  transition: width 0.3s;
+  margin-top: 4px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+
+.menu-toggle {
+  display: none;
+  font-size: 20px;
+  padding: 6px 12px;
+  background-color: #1a1f4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Responsive toggle menu for mobile */
+@media (max-width: 768px) {
+  .nav-box {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #0b0c2a;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 209, 255, 0.08);
+  }
+
+  .nav-box.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+
 .mobile-controls {
   display: flex;
   align-items: center;
@@ -181,44 +271,7 @@ header, .hero, .search-container, .results, footer {
 }
 
 
-.nav-box {
-  display: flex;
-  gap: 20px;
-}
 
-.nav-link {
-  color: white;
-  font-size: 15px;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #00d1ff;
-}
-
-
-.nav-box.show {
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-.nav-menu .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  height: 2px;
-  width: 0;
-  background: #00d1ff;
-  transition: width 0.3s ease;
-}
-
-.nav-menu .nav-link:hover::after {
-  width: 100%;
-}
 
 .action-section {
   display: flex;
@@ -820,53 +873,51 @@ header, .hero, .search-container, .results, footer {
 }
 
 /* Hide desktop nav on mobile */
-@media (max-width: 767px) {
-  .nav-box {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 12px;
-    right: 12px;
-    background: #0b0c2a;
-    padding: 12px 20px;
-    border: 1px solid #1a1f4d;
-    border-radius: 12px;
-    z-index: 999;
-  }
+.left-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .nav-box.show {
+@media (max-width: 767px) {
+  .header-top {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    flex-wrap: nowrap;
   }
 
   .menu-toggle {
     display: block;
     font-size: 20px;
-    padding: 6px 12px;
     background-color: #1a1f4d;
     color: white;
+    padding: 6px 12px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
   }
 
-  .logout-btn {
-    font-size: 13px;
-    margin-top: -100px;
-    padding: 6px 12px;
-    background-color: #00d1ff;
-    color: #0b0c2a;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .mobile-controls {
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logout-btn {
+    padding: 6px 10px;
+    font-size: 13px;
   }
 }
+
+
 
 @media (max-width: 768px) {
   .footer-container {
@@ -1291,6 +1342,75 @@ header, .hero, .search-container, .results, footer {
   transform: translateY(-1px);
 }
 
+@media (max-width: 768px) {
+  .secondary-nav {
+    position: relative;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 16px;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 22px;
+    background-color: #1a1f4d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .nav-box {
+    display: none !important; /* hide by default */
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px); /* ✅ Prevent overflow */
+    background: #10142a;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 20px rgba(0, 209, 255, 0.12);
+    border: 1px solid #1a1f4d;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+    overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+  }
+
+  .nav-box.show {
+    display: flex !important; /* only show when toggled */
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px 0;
+    transition: 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #00d1ff;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-box {
+    right: 8px !important;     /* Add space from right edge */
+    left: auto;
+    width: 90vw;               /* Adjust width for small screens */
+    max-width: 320px;          /* Maintain max width */
+  }
+
+  .profile-box::before {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
 
 
   </style>
@@ -1298,45 +1418,58 @@ header, .hero, .search-container, .results, footer {
 
 <body>
   <div class="page-wrapper">
-    <header class="main-header">
+    <!-- 🔹 Top Header: Logo + Profile + Logout -->
+<header class="main-header">
   <div class="header-top">
+  <div class="left-group">
     <div class="logo-wrap">
       <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
       <span class="logo-text">Explore Hub</span>
     </div>
-
-    <nav id="navMenu" class="nav-box">
-      <a href="/home.html" class="nav-link">Home</a>
-      <a href="/favorites.html" class="nav-link">Favorites</a>
-      <a href="/mars.html" class="nav-link">Mars Rover</a>
-      <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
-    </nav>
-
-    <div class="mobile-controls">
-      <!-- Profile Dropdown in Top-Right Now -->
-      <div class="profile-dropdown">
-        <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
-          <i class="fas fa-user"></i>
-        </div>
-
-        <div class="profile-box" id="profileBox">
-          <h3>Your Profile</h3>
-          <label>Email</label>
-          <input type="email" id="profileEmail" disabled />
-          <label>Name</label>
-          <input type="text" id="profileName" placeholder="Your full name" />
-          <label>Bio</label>
-          <textarea id="profileBio" rows="2" placeholder="Write something about yourself..."></textarea>
-          <label>Location</label>
-          <input type="text" id="profileLocation" placeholder="E.g. Sharjah, UAE" />
-          <button onclick="saveProfile()">Save</button>
-        </div>
-      </div>
-
-      <button class="logout-btn" onclick="logout()">Log Out</button>
-    </div>
   </div>
+
+  <div class="mobile-controls">
+    <div class="profile-dropdown">
+      <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="profile-box" id="profileBox">
+         <h3>User Profile</h3>
+  <label for="profileEmail">Email</label>
+  <input type="email" id="profileEmail" readonly />
+
+  <label for="profileName">Name</label>
+  <input type="text" id="profileName" placeholder="Your name" />
+
+  <label for="profileBio">Bio</label>
+  <textarea id="profileBio" rows="2" placeholder="Tell us about yourself"></textarea>
+
+  <label for="profileLocation">Location</label>
+  <input type="text" id="profileLocation" placeholder="City, Country" />
+
+  <button onclick="saveProfile()">Save Profile</button>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+  </div>
+</div>
+
+<nav class="secondary-nav">
+  <!-- ✅ Visible always -->
+  <button class="menu-toggle" onclick="toggleNav()">☰</button>
+
+  <!-- ✅ Initially hidden on mobile -->
+  <div id="navMenu" class="nav-box">
+    <a href="/home.html" class="nav-link">Home</a>
+    <a href="/favorites.html" class="nav-link">Favorites</a>
+    <a href="/mars.html" class="nav-link">Mars Rover</a>
+    <a href="/AsteroidTracker.html" class="nav-link">Asteroid Tracker</a>
+    <a href="/community.html" class="nav-link">Community</a>
+  </div>
+</nav>
+
 </header>
+
 
 
     <div class="hero" id="heroSection">
@@ -1651,6 +1784,22 @@ async function loadProfileData() {
         img.style.width = '100%';
         img.style.height = '100%';
         img.style.borderRadius = '50%';
+
+        // Handle error if image fails (e.g. rate limiting)
+        img.onerror = () => {
+          avatarContainer.innerHTML = '';
+          const icon = document.createElement('i');
+          icon.className = 'fas fa-user';
+          icon.style.color = '#00d1ff';
+          icon.style.fontSize = '18px';
+          icon.style.display = 'flex';
+          icon.style.alignItems = 'center';
+          icon.style.justifyContent = 'center';
+          icon.style.width = '100%';
+          icon.style.height = '100%';
+          avatarContainer.appendChild(icon);
+        };
+
         avatarContainer.appendChild(img);
       } else {
         const icon = document.createElement('i');
@@ -1669,7 +1818,6 @@ async function loadProfileData() {
     console.error('❌ Error loading profile:', err);
   }
 }
-
 
 // ✅ Save updated name
 async function saveProfile() {
@@ -1695,7 +1843,6 @@ async function saveProfile() {
   }
 }
 
-
 // ✅ Page load sequence
 window.onload = async () => {
   await getLoggedInUser();
@@ -1708,14 +1855,10 @@ searchInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') fetchNASAImages(searchInput.value);
 });
 searchButton.addEventListener('click', () => fetchNASAImages(searchInput.value));
+
 </script>
 
 
-
-
-
-
-  
 
 </body>
 </html> 

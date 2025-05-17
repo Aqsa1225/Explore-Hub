@@ -52,6 +52,62 @@ html, body {
   flex-wrap: wrap;
 }
 
+.secondary-nav {
+  background: #0d102b;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 66px;
+  z-index: 900;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid #1a1f4d;
+  border-bottom: 1px solid #1a1f4d;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.nav-box {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  color: #ffffff;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #00d1ff;
+}
+
+.nav-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #00d1ff;
+  transition: width 0.3s;
+  margin-top: 4px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+
 .profile-dropdown {
   position: relative;
   display: flex;
@@ -1064,6 +1120,102 @@ html, body {
     padding: 5px 10px;
   }
 }
+
+@media (max-width: 768px) {
+  .secondary-nav {
+    position: relative;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 16px;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 22px;
+    background-color: #1a1f4d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .nav-box {
+    display: none !important; /* hide by default */
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px); /* ✅ Prevent overflow */
+    background: #10142a;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 20px rgba(0, 209, 255, 0.12);
+    border: 1px solid #1a1f4d;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+    overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+  }
+
+  .nav-box.show {
+    display: flex !important; /* only show when toggled */
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px 0;
+    transition: 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #00d1ff;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-box {
+    right: 8px !important;     /* Add space from right edge */
+    left: auto;
+    width: 90vw;               /* Adjust width for small screens */
+    max-width: 320px;          /* Maintain max width */
+  }
+
+  .profile-box::before {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-controls {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .profile-dropdown {
+    margin-left: 0; /* Remove unnecessary margin */
+  }
+
+  .logout-btn {
+    margin-top: 0; /* Remove forced vertical spacing */
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    margin-top: 120px !important; /* Adjust as needed to push it below both headers */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1071,42 +1223,53 @@ html, body {
   <div class="page-wrapper">
     <header class="main-header">
   <div class="header-top">
+  <div class="left-group">
     <div class="logo-wrap">
       <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
       <span class="logo-text">Explore Hub</span>
     </div>
-
-    <nav id="navMenu" class="nav-box">
-      <a href="/home.html" class="nav-link">Home</a>
-      <a href="/favorites.html" class="nav-link">Favorites</a>
-      <a href="/mars.html" class="nav-link">Mars Rover</a>
-      <a href="/AsteroidTracker.html" class="nav-link">AsteroidTracker</a>
-    </nav>
-
-    <div class="mobile-controls">
-      <!-- Profile Dropdown in Top-Right Now -->
-      <div class="profile-dropdown">
-        <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
-          <i class="fas fa-user"></i>
-        </div>
-
-        <div class="profile-box" id="profileBox">
-          <h3>Your Profile</h3>
-          <label>Email</label>
-          <input type="email" id="profileEmail" disabled />
-          <label>Name</label>
-          <input type="text" id="profileName" placeholder="Your full name" />
-          <label>Bio</label>
-          <textarea id="profileBio" rows="2" placeholder="Write something about yourself..."></textarea>
-          <label>Location</label>
-          <input type="text" id="profileLocation" placeholder="E.g. Sharjah, UAE" />
-          <button onclick="saveProfile()">Save</button>
-        </div>
-      </div>
-
-      <button class="logout-btn" onclick="logout()">Log Out</button>
-    </div>
   </div>
+
+  <div class="mobile-controls">
+    <div class="profile-dropdown">
+      <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="profile-box" id="profileBox">
+         <h3>User Profile</h3>
+  <label for="profileEmail">Email</label>
+  <input type="email" id="profileEmail" readonly />
+
+  <label for="profileName">Name</label>
+  <input type="text" id="profileName" placeholder="Your name" />
+
+  <label for="profileBio">Bio</label>
+  <textarea id="profileBio" rows="2" placeholder="Tell us about yourself"></textarea>
+
+  <label for="profileLocation">Location</label>
+  <input type="text" id="profileLocation" placeholder="City, Country" />
+
+  <button onclick="saveProfile()">Save Profile</button>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+  </div>
+</div>
+
+<nav class="secondary-nav">
+  <!-- ✅ Visible always -->
+  <button class="menu-toggle" onclick="toggleNav()">☰</button>
+
+  <!-- ✅ Initially hidden on mobile -->
+  <div id="navMenu" class="nav-box">
+    <a href="/home.html" class="nav-link">Home</a>
+    <a href="/favorites.html" class="nav-link">Favorites</a>
+    <a href="/mars.html" class="nav-link">Mars Rover</a>
+    <a href="/AsteroidTracker.html" class="nav-link">Asteroid Tracker</a>
+    <a href="/community.html" class="nav-link">Community</a>
+  </div>
+</nav>
+
 </header>
 
 
@@ -1184,16 +1347,16 @@ html, body {
   </footer>
   <script>
   const API_KEY = 'jgJCwjuV9E8w9PBlNCtnEZ3UYmSxZOepexGcdxki';
-  const photoGrid = document.getElementById('photoGrid');
-  const photoModal = document.getElementById('photoModal');
-  const modalImg = document.getElementById('modalImg');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalDetails = document.getElementById('modalDetails');
-  const resultsHeading = document.getElementById('resultsHeading');
-  const loadingSpinner = document.getElementById('loaderWrapper');
+const photoGrid = document.getElementById('photoGrid');
+const photoModal = document.getElementById('photoModal');
+const modalImg = document.getElementById('modalImg');
+const modalTitle = document.getElementById('modalTitle');
+const modalDetails = document.getElementById('modalDetails');
+const resultsHeading = document.getElementById('resultsHeading');
+const loadingSpinner = document.getElementById('loaderWrapper');
 
-  // ✅ Check user login on page load + setup max date
-  window.onload = async () => {
+// ✅ Check user login on page load + setup max date
+window.onload = async () => {
   try {
     const res = await fetch('/api/user', { credentials: 'include' });
     if (!res.ok) {
@@ -1213,94 +1376,93 @@ html, body {
   }
 };
 
+function searchPhotos() {
+  const date = document.getElementById('earthDate').value;
+  const rover = document.getElementById('rover').value;
+  resultsHeading.style.display = 'none';
+  resultsHeading.textContent = '';
+  if (!date) return alert('Please select a date!');
+  fetchPhotos(rover, date);
+}
 
-  function searchPhotos() {
-    const date = document.getElementById('earthDate').value;
-    const rover = document.getElementById('rover').value;
-    resultsHeading.style.display = 'none';
-    resultsHeading.textContent = '';
-    if (!date) return alert('Please select a date!');
-    fetchPhotos(rover, date);
-  }
+function fetchPhotos(rover, date) {
+  loadingSpinner.style.display = 'flex';
+  photoGrid.innerHTML = '';
 
-  function fetchPhotos(rover, date) {
-    loadingSpinner.style.display = 'flex';
-    photoGrid.innerHTML = '';
+  fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+      const photos = data.photos;
+      loadingSpinner.style.display = 'none';
+      photoGrid.innerHTML = '';
 
-    fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${API_KEY}`)
-      .then(res => res.json())
-      .then(data => {
-        const photos = data.photos;
-        loadingSpinner.style.display = 'none';
-        photoGrid.innerHTML = '';
-
-        if (!photos.length) {
-          resultsHeading.style.display = 'none';
-          photoGrid.innerHTML = '<p style="text-align:center;">No photos found for this date.</p>';
-          return;
-        }
-
-        resultsHeading.textContent = `Showing results for ${rover.charAt(0).toUpperCase() + rover.slice(1)} on ${date}`;
-        resultsHeading.style.display = 'block';
-
-        photos.forEach(photo => {
-          const card = document.createElement('div');
-          card.className = 'photo-card';
-          card.innerHTML = `<img src="${photo.img_src}" alt="Mars Photo" />`;
-          card.addEventListener('click', () =>
-            openModal(photo.img_src, `Taken by ${photo.rover.name}`, photo)
-          );
-          photoGrid.appendChild(card);
-        });
-      })
-      .catch(err => {
-        console.error(err);
-        loadingSpinner.style.display = 'none';
+      if (!photos.length) {
         resultsHeading.style.display = 'none';
-        photoGrid.innerHTML = '<p style="text-align:center;">Error loading photos.</p>';
+        photoGrid.innerHTML = '<p style="text-align:center;">No photos found for this date.</p>';
+        return;
+      }
+
+      resultsHeading.textContent = `Showing results for ${rover.charAt(0).toUpperCase() + rover.slice(1)} on ${date}`;
+      resultsHeading.style.display = 'block';
+
+      photos.forEach(photo => {
+        const card = document.createElement('div');
+        card.className = 'photo-card';
+        card.innerHTML = `<img src="${photo.img_src}" alt="Mars Photo" />`;
+        card.addEventListener('click', () =>
+          openModal(photo.img_src, `Taken by ${photo.rover.name}`, photo)
+        );
+        photoGrid.appendChild(card);
       });
-  }
+    })
+    .catch(err => {
+      console.error(err);
+      loadingSpinner.style.display = 'none';
+      resultsHeading.style.display = 'none';
+      photoGrid.innerHTML = '<p style="text-align:center;">Error loading photos.</p>';
+    });
+}
 
-  function openModal(imgSrc, title, photo) {
-    modalImg.src = imgSrc;
-    modalTitle.textContent = title;
-    modalDetails.innerHTML = `
-      <strong>Camera:</strong> ${photo.camera.full_name}<br>
-      <strong>Rover:</strong> ${photo.rover.name}<br>
-      <strong>Launch:</strong> ${photo.rover.launch_date}, <strong>Landing:</strong> ${photo.rover.landing_date}<br>
-      <strong>Date:</strong> ${photo.earth_date}
-    `;
-    photoModal.style.display = 'flex';
-  }
+function openModal(imgSrc, title, photo) {
+  modalImg.src = imgSrc;
+  modalTitle.textContent = title;
+  modalDetails.innerHTML = `
+    <strong>Camera:</strong> ${photo.camera.full_name}<br>
+    <strong>Rover:</strong> ${photo.rover.name}<br>
+    <strong>Launch:</strong> ${photo.rover.launch_date}, <strong>Landing:</strong> ${photo.rover.landing_date}<br>
+    <strong>Date:</strong> ${photo.earth_date}
+  `;
+  photoModal.style.display = 'flex';
+}
 
-  function closeModal() {
-    photoModal.style.display = 'none';
-  }
+function closeModal() {
+  photoModal.style.display = 'none';
+}
 
-  function logout() {
-    document.getElementById('logoutModal').style.display = 'flex';
-  }
+function logout() {
+  document.getElementById('logoutModal').style.display = 'flex';
+}
 
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    fetch('/logout', { method: 'POST', credentials: 'include' })
-      .then(() => window.location.href = '/')
-      .catch(err => console.error('Logout failed:', err));
-  });
+document.getElementById('confirmLogout').addEventListener('click', () => {
+  fetch('/logout', { method: 'POST', credentials: 'include' })
+    .then(() => window.location.href = '/')
+    .catch(err => console.error('Logout failed:', err));
+});
 
-  document.getElementById('cancelLogout').addEventListener('click', () => {
-    document.getElementById('logoutModal').style.display = 'none';
-  });
+document.getElementById('cancelLogout').addEventListener('click', () => {
+  document.getElementById('logoutModal').style.display = 'none';
+});
 
-  function toggleNav() {
-    document.getElementById('navMenu').classList.toggle('show');
-  }
+function toggleNav() {
+  document.getElementById('navMenu').classList.toggle('show');
+}
 
-  function toggleProfileDropdown() {
+function toggleProfileDropdown() {
   const box = document.getElementById('profileBox');
   box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// ✅ Load profile data (name, email, avatar)
+// ✅ Load profile data (name, email, avatar) with fallback icon
 async function loadProfileData() {
   try {
     const res = await fetch('/api/profile', {
@@ -1317,7 +1479,7 @@ async function loadProfileData() {
       document.getElementById('profileBio').value = data.bio || '';
       document.getElementById('profileLocation').value = data.location || '';
 
-      // Set avatar
+      // Set avatar with error fallback
       const avatarContainer = document.getElementById('avatarIcon');
       avatarContainer.innerHTML = '';
 
@@ -1328,6 +1490,22 @@ async function loadProfileData() {
         img.style.width = '100%';
         img.style.height = '100%';
         img.style.borderRadius = '50%';
+
+        // Fallback to icon if image load fails
+        img.onerror = () => {
+          avatarContainer.innerHTML = '';
+          const icon = document.createElement('i');
+          icon.className = 'fas fa-user';
+          icon.style.color = '#00d1ff';
+          icon.style.fontSize = '18px';
+          icon.style.display = 'flex';
+          icon.style.alignItems = 'center';
+          icon.style.justifyContent = 'center';
+          icon.style.width = '100%';
+          icon.style.height = '100%';
+          avatarContainer.appendChild(icon);
+        };
+
         avatarContainer.appendChild(img);
       } else {
         const icon = document.createElement('i');
@@ -1346,7 +1524,6 @@ async function loadProfileData() {
     console.error('❌ Error loading profile:', err);
   }
 }
-
 
 // ✅ Save updated name
 async function saveProfile() {
@@ -1371,6 +1548,7 @@ async function saveProfile() {
     alert('⚠️ Error updating profile.');
   }
 }
+
 
 </script>
 
