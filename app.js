@@ -14,6 +14,8 @@ const User = require('./models/user');
 const Favorite = require('./models/favorite');
 const asteroidRoutes = require('./routes/asteroid');
 const communityRoutes = require('./routes/community');
+const marsSearchRoutes = require('./routes/marsSearch'); // ✅ new route
+
 const { ensureAuthenticated } = require('./middleware/auth');
 
 const app = express();
@@ -47,6 +49,8 @@ require('./passport-config');
 app.use('/api/community', communityRoutes);
 app.use('/api/asteroids', asteroidRoutes);
 app.use('/auth', forgotRoutes);
+app.use('/api/mars-search', marsSearchRoutes); // ✅ connect the route
+
 
 // ✅ Get Authenticated User Info
 app.get('/api/user', (req, res) => {

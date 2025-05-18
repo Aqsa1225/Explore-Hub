@@ -36,12 +36,17 @@ html, body {
     }
 
 .main-header {
-  background: #08092c;
-  box-shadow: 0 4px 10px rgba(0, 209, 255, 0.1);
+  
+  background: linear-gradient(90deg, #1a1f4d, #20296b, #1f7aec);
+  box-shadow: 0 4px 15px rgba(0, 209, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 209, 255, 0.2);
+  backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
+
+
 
 .header-top {
   display: flex;
@@ -459,7 +464,7 @@ html, body {
     .info {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+  align-items: center; /* ✅ ALIGN BUTTON WITH TEXT */
       flex-wrap: wrap;
       margin-bottom: 0.5rem;
       font-size: 0.85rem;
@@ -609,15 +614,46 @@ html, body {
   background: #ff4d4d;
   color: #fff;
   border: none;
-  padding: 6px 14px;
-  font-size: 13px;
+  padding: 6px 14px; /* Keep padding for height */
+  font-size: 12px;
   font-weight: 600;
   font-family: 'Orbitron', sans-serif;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 6px rgba(255, 77, 77, 0.3);
+  /* Remove min-width to shrink length */
+  min-width: unset;
+  width: auto;
 }
+
+@media (max-width: 500px) {
+  .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap; /* Keeps avatar + name/email in one row */
+  }
+
+  .user-details {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 1;
+  }
+
+  .styled-delete-btn {
+    margin-top: 4px;
+    font-size: 11px;
+    padding: 5px 12px;
+    min-width: 70px;
+    max-width: fit-content;
+    border-radius: 40px;
+    align-self: flex-start;
+  }
+}
+
+
 
 .styled-delete-btn:hover {
   background: #d93636;
@@ -1184,18 +1220,21 @@ footer.footer {
 
 @media (max-width: 768px) {
   .profile-box {
-    right: 8px !important;     /* Add space from right edge */
+    top: 48px;
+    right: 0;
     left: auto;
-    width: 90vw;               /* Adjust width for small screens */
-    max-width: 320px;          /* Maintain max width */
+    transform: none;
+    width: 92vw;
+    max-width: 320px;
   }
 
   .profile-box::before {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
+    left: auto;
+    right: 20px;
+    transform: none;
   }
 }
+
 
 @media (max-width: 767px) {
   .mobile-controls {
@@ -1219,6 +1258,86 @@ footer.footer {
 @media (max-width: 768px) {
   .community-container {
     margin-top: 80px !important; /* Make it clearly visible */
+  }
+}
+
+@media (max-width: 600px) {
+  .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap; /* keeps name+avatar to the left */
+  }
+
+  .user-details {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 1;
+  }
+
+  .styled-delete-btn {
+    margin-top: 4px;
+    font-size: 11px;
+    padding: 5px 12px;
+    min-width: 70px;
+    max-width: fit-content;
+    border-radius: 40px;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .styled-delete-btn {
+    align-self: flex-end;
+    margin-top: 4px;
+    font-size: 11px;
+    padding: 5px 12px;
+    min-width: 70px;
+    border-radius: 40px;
+    max-width: fit-content;
+  }
+}
+
+@media (max-width: 400px) {
+  .user-meta div {
+    word-break: break-word;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .user-meta span {
+    font-size: 11px;
+  }
+
+  .info {
+    gap: 6px;
+  }
+
+  .styled-delete-btn {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .post {
+    padding: 0.8rem;
+  }
+
+  .info img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .secondary-nav {
+    margin-top: -50px; /* ✅ Pulls it up a bit */
   }
 }
 

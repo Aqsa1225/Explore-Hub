@@ -6,9 +6,59 @@
   <title>Login & Sign Up</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #0d0d2b, #1a1a40, #2c2c6c, #1a1a2e);
+      background-size: 300% 300%;
+      animation: spaceFlow 15s ease infinite;
+      color: white;
+      overflow: hidden;
+    }
+
+    @keyframes spaceFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-box {
+  box-shadow: 0 0 20px rgba(31, 122, 236, 0.4);
+  background: #111827;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  margin: 20px;
+}
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #1f7aec;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #145cc9;
+    }
+
     .google-btn {
       margin-top: 10px;
-      width: 100%;
       padding: 10px;
       background-color: white;
       color: #444;
@@ -23,20 +73,46 @@
       font-size: 15px;
       transition: 0.3s ease;
     }
+
     .google-btn:hover {
       background-color: #f5f5f5;
     }
+
     .google-icon {
       height: 18px;
     }
+
     .hidden {
       display: none;
     }
+
     .error {
       color: red;
       font-size: 13px;
       text-align: center;
       margin-top: 8px;
+    }
+
+    @media (max-width: 410px) {
+      .form-box {
+        margin: 20px 16px;
+        width: auto;
+      }
+    }
+
+    #backToLogin {
+      margin-top: 12px;
+      background-color: #444;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #backToLogin:hover {
+      background-color: #333;
     }
   </style>
 </head>
@@ -98,140 +174,150 @@
       </form>
 
       <p id="forgotError" class="error"></p>
+      <button type="button" id="backToLogin">← Go Back</button>
     </div>
 
   </div>
 
   <script>
-  // 🔁 Toggle Login / Signup
-  document.getElementById('showSignup').onclick = () => {
-    document.getElementById('loginBox').classList.add('hidden');
-    document.getElementById('signupBox').classList.remove('hidden');
-  };
-  document.getElementById('showLogin').onclick = () => {
-    document.getElementById('signupBox').classList.add('hidden');
-    document.getElementById('loginBox').classList.remove('hidden');
-  };
+    // Toggle Login / Signup
+    document.getElementById('showSignup').onclick = () => {
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('signupBox').classList.remove('hidden');
+    };
 
-  // 🔐 Forgot Password Modal
-  const forgotLink = document.getElementById('forgotLink');
-  const forgotBox = document.getElementById('forgotBox');
-  const forgotForm = document.getElementById('forgotForm');
-  const verifyForm = document.getElementById('verifyForm');
-  const forgotError = document.getElementById('forgotError');
+    document.getElementById('showLogin').onclick = () => {
+      document.getElementById('signupBox').classList.add('hidden');
+      document.getElementById('loginBox').classList.remove('hidden');
+    };
 
-  forgotLink.onclick = () => {
-    document.getElementById('loginBox').classList.add('hidden');
-    forgotBox.classList.remove('hidden');
-  };
+    // Forgot Password Modal
+    const forgotLink = document.getElementById('forgotLink');
+    const forgotBox = document.getElementById('forgotBox');
+    const forgotForm = document.getElementById('forgotForm');
+    const verifyForm = document.getElementById('verifyForm');
+    const forgotError = document.getElementById('forgotError');
 
-  // ✅ Forgot Password - Send OTP
-  forgotForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('forgotEmail').value;
+    forgotLink.onclick = () => {
+      document.getElementById('loginBox').classList.add('hidden');
+      forgotBox.classList.remove('hidden');
+    };
 
-    const res = await fetch('/auth/send-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    });
+    // Go Back to Login
+    document.getElementById('backToLogin').onclick = () => {
+      forgotBox.classList.add('hidden');
+      document.getElementById('loginBox').classList.remove('hidden');
+      forgotForm.classList.remove('hidden');
+      verifyForm.classList.add('hidden');
+      forgotError.textContent = '';
+    };
 
-    const data = await res.json();
-    if (res.ok) {
-      forgotError.textContent = 'OTP sent to your email.';
-      forgotForm.classList.add('hidden');
-      verifyForm.classList.remove('hidden');
-    } else {
-      forgotError.textContent = data.error || 'Failed to send OTP.';
-    }
-  });
+    // Forgot Password - Send OTP
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('forgotEmail').value;
 
-  // ✅ Forgot Password - Verify OTP and Reset Password
-  verifyForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('forgotEmail').value;
-    const otp = document.getElementById('otpInput').value;
-    const newPassword = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (newPassword !== confirmPassword) {
-      forgotError.textContent = 'Passwords do not match.';
-      return;
-    }
-
-    const res = await fetch('/auth/verify-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, otp, newPassword })
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      forgotError.style.color = 'green';
-      forgotError.textContent = '✅ Password reset successfully. You can login now.';
-      setTimeout(() => location.reload(), 3000);
-    } else {
-      forgotError.textContent = data.error || 'Invalid OTP or failed reset.';
-    }
-  });
-
-  // ✅ Login Handler
-  document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    const loginError = document.getElementById('loginError');
-
-    try {
-      const res = await fetch('/login', {
+      const res = await fetch('/auth/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email })
       });
 
       const data = await res.json();
       if (res.ok) {
-        loginError.style.color = 'green';
-        loginError.textContent = '✅ Login successful! Redirecting...';
-        setTimeout(() => window.location.href = '/home.html', 1500);
+        forgotError.textContent = 'OTP sent to your email.';
+        forgotForm.classList.add('hidden');
+        verifyForm.classList.remove('hidden');
       } else {
-        loginError.textContent = data.error || 'Login failed';
+        forgotError.textContent = data.error || 'Failed to send OTP.';
       }
-    } catch (err) {
-      loginError.textContent = 'Something went wrong.';
-    }
-  });
+    });
 
-  // ✅ Signup Handler
-  document.getElementById('signupForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = document.getElementById('signupName').value;
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    const signupError = document.getElementById('signupError');
+    // Forgot Password - Verify OTP and Reset Password
+    verifyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('forgotEmail').value;
+      const otp = document.getElementById('otpInput').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
 
-    try {
-      const res = await fetch('/signup', {
+      if (newPassword !== confirmPassword) {
+        forgotError.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      const res = await fetch('/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ email, otp, newPassword })
       });
 
       const data = await res.json();
       if (res.ok) {
-        signupError.style.color = 'green';
-        signupError.textContent = '✅ Account created! Redirecting...';
-        setTimeout(() => window.location.href = '/home.html', 1500);
+        forgotError.style.color = 'lightgreen';
+        forgotError.textContent = '✅ Password reset successfully. You can login now.';
+        setTimeout(() => location.reload(), 3000);
       } else {
-        signupError.textContent = data.error || 'Signup failed';
+        forgotError.textContent = data.error || 'Invalid OTP or failed reset.';
       }
-    } catch (err) {
-      signupError.textContent = 'Something went wrong.';
-    }
-  });
-</script>
+    });
 
+    // Login Handler
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const loginError = document.getElementById('loginError');
+
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          loginError.style.color = 'lightgreen';
+          loginError.textContent = '✅ Login successful! Redirecting...';
+          setTimeout(() => window.location.href = '/home.html', 1500);
+        } else {
+          loginError.textContent = data.error || 'Login failed';
+        }
+      } catch (err) {
+        loginError.textContent = 'Something went wrong.';
+      }
+    });
+
+    // Signup Handler
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const signupError = document.getElementById('signupError');
+
+      try {
+        const res = await fetch('/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          signupError.style.color = 'lightgreen';
+          signupError.textContent = '✅ Account created! Redirecting...';
+          setTimeout(() => window.location.href = '/home.html', 1500);
+        } else {
+          signupError.textContent = data.error || 'Signup failed';
+        }
+      } catch (err) {
+        signupError.textContent = 'Something went wrong.';
+      }
+    });
+  </script>
 </body>
 </html>

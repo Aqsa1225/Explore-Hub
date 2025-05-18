@@ -35,13 +35,16 @@ html, body {
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .main-header {
-  background: #08092c;
-  box-shadow: 0 4px 10px rgba(0, 209, 255, 0.1);
+   .main-header {
+  background: linear-gradient(90deg, #1a1f4d, #20296b, #1f7aec);
+  box-shadow: 0 4px 15px rgba(0, 209, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 209, 255, 0.2);
+  backdrop-filter: blur(6px);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
+
 
 .header-top {
   display: flex;
@@ -1142,18 +1145,21 @@ h1 i {
 
 @media (max-width: 768px) {
   .profile-box {
-    right: 8px !important;     /* Add space from right edge */
+    top: 48px;
+    right: 0;
     left: auto;
-    width: 90vw;               /* Adjust width for small screens */
-    max-width: 320px;          /* Maintain max width */
+    transform: none;
+    width: 92vw;
+    max-width: 320px;
   }
 
   .profile-box::before {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
+    left: auto;
+    right: 20px;
+    transform: none;
   }
 }
+
 
 @media (max-width: 767px) {
   .mobile-controls {
@@ -1177,6 +1183,12 @@ h1 i {
 @media (max-width: 768px) {
   h1 {
     margin-top: 90px !important; /* Pushes it below sticky headers */
+  }
+}
+
+@media (max-width: 768px) {
+  .secondary-nav {
+    margin-top: -50px; /* ✅ Pulls it up a bit */
   }
 }
 
