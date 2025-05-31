@@ -16,14 +16,14 @@ const Favorite = require('./models/favorite');
 const asteroidRoutes = require('./routes/asteroid');
 const communityRoutes = require('./routes/community');
 const marsSearchRoutes = require('./routes/marsSearch');
-require('./passport-config'); // Make sure this is your Google strategy file
+require('./passport-config');
 
 const { ensureAuthenticated } = require('./middleware/auth');
 
 const app = express();
 const port = 3000;
 
-// ✅ MongoDB Connection
+// ✅ Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB Atlas Connected'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
@@ -50,26 +50,30 @@ app.use('/api/community', communityRoutes);
 app.use('/api/asteroids', asteroidRoutes);
 app.use('/api/mars-search', marsSearchRoutes);
 
-// ✅ Google OAuth Login
-app.get('/auth/google',
-  passport.authenticate('google', {
-    scope: ['profile', 'email'],
-    callbackURL: process.env.GOOGLE_CALLBACK_URL
-  })
-);
+// ✅ Forcefully Pass Google OAuth Callback URL in Routes
 
-// ✅ Google OAuth Callback
-app.get('/auth/google/callback',
-  passport.authenticate('google', {
-    failureRedirect: '/',
-    callbackURL: process.env.GOOGLE_CALLBACK_URL
-  }),
-  (req, res) => {
-    res.redirect('/home.html');
+app.get('/auth/google',
+  (req, res, next) => {
+    passport.authenticate('google', {
+      scope: ['profile', 'email'],
+      callbackURL: process.env.GOOGLE_CALLBACK_URL  // ✅ force it here
+    })(req, res, next);
   }
 );
 
-// ✅ Logout Route
+app.get('/auth/google/callback',
+  (req, res, next) => {
+    passport.authenticate('google', {
+      failureRedirect: '/',
+      callbackURL: process.env.GOOGLE_CALLBACK_URL  // ✅ force here too
+    })(req, res, next);
+  },
+  (req, res) => {
+    res.redirect('/home.html'); // ✅ or change to your frontend route
+  }
+);
+
+// ✅ Logout
 app.post('/logout', (req, res, next) => {
   req.logout(function (err) {
     if (err) return next(err);
@@ -80,7 +84,7 @@ app.post('/logout', (req, res, next) => {
   });
 });
 
-// ✅ Local Signup
+// ✅ Signup
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
@@ -116,7 +120,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// ✅ Local Login
+// ✅ Login
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -136,7 +140,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// ✅ Get Logged-in User Info
+// ✅ Get Current User Info
 app.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ userId: req.user._id, name: req.user.name, email: req.user.email });
@@ -182,7 +186,7 @@ app.put('/api/profile', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// ✅ Favorites CRUD
+// ✅ Favorites
 app.post('/api/like', ensureAuthenticated, async (req, res) => {
   const { title, imgUrl, desc } = req.body;
   const userId = req.user._id;
@@ -222,7 +226,7 @@ app.get('/api/favorites', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// ✅ Public Pages
+// ✅ Serve Pages
 app.get('/favorites.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'favorites.html'));
 });
