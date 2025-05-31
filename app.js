@@ -22,8 +22,8 @@ const app = express();
 const port = 3000;
 
 // ✅ Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/explore-space')
-  .then(() => console.log('✅ MongoDB connected'))
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ MongoDB Atlas Connected'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // ✅ Middleware

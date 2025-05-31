@@ -6,6 +6,8 @@
   <title>Mars Rover Photos</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
 
 * {
@@ -1227,6 +1229,28 @@ html, body {
   }
 }
 
+.download-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.download-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.download-btn i {
+  font-size: 14px;
+}
+
+
   </style>
 </head>
 <body>
@@ -1236,7 +1260,7 @@ html, body {
   <div class="header-top">
   <div class="left-group">
     <div class="logo-wrap">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
+<img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
       <span class="logo-text">Explore Hub</span>
     </div>
   </div>
@@ -1294,6 +1318,8 @@ html, body {
       <option value="spirit">Spirit</option>
     </select>
     <button onclick="searchPhotos()">Search</button>
+    <button onclick="showTimelineModal()">Rover Timeline</button>
+
   </div>
 <h2 id="resultsHeading" style="text-align:center; color:#ffb347; margin: 0 0 30px; display:none;"></h2>
 
@@ -1322,11 +1348,20 @@ html, body {
     </div>
   </div>
 </div>
+
+<div id="timelineModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeTimelineModal()">&times;</span>
+    <h2 id="timelineTitle">Rover Timeline</h2>
+    <div id="timelineDetails" style="font-size: 14px; color: #ccc; margin-top: 10px; line-height: 1.5;"></div>
+  </div>
+</div>
+
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-branding">
         <div class="footer-logo-line">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="footer-logo" />
+<img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
           <span class="footer-title">Explore Hub</span>
         </div>
         <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
@@ -1338,6 +1373,8 @@ html, body {
           <li><a href="/home.html">Home</a></li>
           <li><a href="/favorites.html">Favorites</a></li>
           <li><a href="/mars.html">Mars Rover</a></li>
+          <li><a href="/AsteroidTracker.html">Asteroid Tracker</a></li>
+          <li><a href="/Community.html">Community</a></li>
         </ul>
       </div>
 
@@ -1388,18 +1425,15 @@ function searchPhotos() {
 
   if (!date) return alert('Please select a date!');
 
-  // ✅ 1. Save search to backend
   fetch('/api/mars-search', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
-    body: JSON.stringify({ rover, earthDate: date })  // ✅ Mongoose requires "earthDate"
+    body: JSON.stringify({ rover, earthDate: date })
   }).catch(err => console.error('❌ Error saving search:', err));
 
-  // ✅ 2. Fetch NASA photos
   fetchPhotos(rover, date);
 }
-
 
 function fetchPhotos(rover, date) {
   loadingSpinner.style.display = 'flex';
@@ -1424,7 +1458,14 @@ function fetchPhotos(rover, date) {
       photos.forEach(photo => {
         const card = document.createElement('div');
         card.className = 'photo-card';
-        card.innerHTML = `<img src="${photo.img_src}" alt="Mars Photo" />`;
+        card.innerHTML = `
+          <div style="position: relative;">
+            <img src="${photo.img_src}" alt="Mars Photo" />
+            <button class="download-btn" title="View Full Image" onclick="event.stopPropagation(); window.open('${photo.img_src}', '_blank')">
+              <i class="fa fa-eye"></i>
+            </button>
+          </div>
+        `;
         card.addEventListener('click', () =>
           openModal(photo.img_src, `Taken by ${photo.rover.name}`, photo)
         );
@@ -1437,18 +1478,6 @@ function fetchPhotos(rover, date) {
       resultsHeading.style.display = 'none';
       photoGrid.innerHTML = '<p style="text-align:center;">Error loading photos.</p>';
     });
-}
-
-function saveMarsSearch(rover, date) {
-  fetch('/api/mars-search', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify({ rover, date })
-  })
-  .then(res => res.json())
-  .then(data => console.log('✅ Search saved:', data))
-  .catch(err => console.error('❌ Failed to save search:', err));
 }
 
 function openModal(imgSrc, title, photo) {
@@ -1548,7 +1577,70 @@ async function saveProfile() {
     alert('⚠️ Error updating profile.');
   }
 }
+
+const roverTimelines = {
+  curiosity: {
+    name: "Curiosity",
+    launchDate: "2011-11-26",
+    landingDate: "2012-08-06",
+    landingSite: "Gale Crater",
+    cameras: ["Mastcam", "ChemCam", "MAHLI"],
+    highlights: [
+      "Discovered ancient streambed",
+      "Found complex organic molecules",
+      "Measured radiation levels for future human missions"
+    ]
+  },
+  opportunity: {
+    name: "Opportunity",
+    launchDate: "2003-07-07",
+    landingDate: "2004-01-25",
+    landingSite: "Meridiani Planum",
+    cameras: ["Pancam", "Microscopic Imager"],
+    highlights: [
+      "Operated 15 years (planned for 90 sols)",
+      "Found strong evidence of past water",
+      "Traveled over 45 km"
+    ]
+  },
+  spirit: {
+    name: "Spirit",
+    launchDate: "2003-06-10",
+    landingDate: "2004-01-04",
+    landingSite: "Gusev Crater",
+    cameras: ["Navigation Camera", "Pancam"],
+    highlights: [
+      "Discovered volcanic rocks and soil",
+      "Got stuck in Martian sand",
+      "Helped prove Mars had a wetter past"
+    ]
+  }
+};
+
+function showTimelineModal() {
+  const rover = document.getElementById('rover').value;
+  const data = roverTimelines[rover];
+  if (data) {
+    document.getElementById('timelineTitle').textContent = `${data.name} – Mission Timeline`;
+    document.getElementById('timelineDetails').innerHTML = `
+      <p><strong>Launch Date:</strong> ${data.launchDate}</p>
+      <p><strong>Landing Date:</strong> ${data.landingDate}</p>
+      <p><strong>Landing Site:</strong> ${data.landingSite}</p>
+      <p><strong>Cameras:</strong> ${data.cameras.join(', ')}</p>
+      <p><strong>Mission Highlights:</strong></p>
+      <ul style="margin-left: 16px;">
+        ${data.highlights.map(h => `<li>${h}</li>`).join('')}
+      </ul>
+    `;
+    document.getElementById('timelineModal').style.display = 'flex';
+  }
+}
+
+function closeTimelineModal() {
+  document.getElementById('timelineModal').style.display = 'none';
+}
 </script>
+
 
 
 

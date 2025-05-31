@@ -1346,57 +1346,52 @@ footer.footer {
 </head>
 <body>
 <div class="page-wrapper">
-    <header class="main-header">
-  <div class="header-top">
-  <div class="left-group">
-    <div class="logo-wrap">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="logo-icon" />
-      <span class="logo-text">Explore Hub</span>
-    </div>
-  </div>
-
-  <div class="mobile-controls">
-    <div class="profile-dropdown">
-      <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
-        <i class="fas fa-user"></i>
+  <header class="main-header">
+    <div class="header-top">
+      <div class="left-group">
+        <div class="logo-wrap">
+<img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
+          <span class="logo-text">Explore Hub</span>
+        </div>
       </div>
-      <div class="profile-box" id="profileBox">
-         <h3>User Profile</h3>
-  <label for="profileEmail">Email</label>
-  <input type="email" id="profileEmail" readonly />
 
-  <label for="profileName">Name</label>
-  <input type="text" id="profileName" placeholder="Your name" />
+      <div class="mobile-controls">
+        <div class="profile-dropdown">
+          <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="profile-box" id="profileBox">
+            <h3>User Profile</h3>
+            <label for="profileEmail">Email</label>
+            <input type="email" id="profileEmail" readonly />
 
-  <label for="profileBio">Bio</label>
-  <textarea id="profileBio" rows="2" placeholder="Tell us about yourself"></textarea>
+            <label for="profileName">Name</label>
+            <input type="text" id="profileName" placeholder="Your name" />
 
-  <label for="profileLocation">Location</label>
-  <input type="text" id="profileLocation" placeholder="City, Country" />
+            <label for="profileBio">Bio</label>
+            <textarea id="profileBio" rows="2" placeholder="Tell us about yourself"></textarea>
 
-  <button onclick="saveProfile()">Save Profile</button>
+            <label for="profileLocation">Location</label>
+            <input type="text" id="profileLocation" placeholder="City, Country" />
+
+            <button onclick="saveProfile()">Save Profile</button>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Log Out</button>
       </div>
     </div>
-    <button class="logout-btn" onclick="logout()">Log Out</button>
-  </div>
-</div>
 
-<nav class="secondary-nav">
-  <!-- ✅ Visible always -->
-  <button class="menu-toggle" onclick="toggleNav()">☰</button>
-
-  <!-- ✅ Initially hidden on mobile -->
-  <div id="navMenu" class="nav-box">
-    <a href="/home.html" class="nav-link">Home</a>
-    <a href="/favorites.html" class="nav-link">Favorites</a>
-    <a href="/mars.html" class="nav-link">Mars Rover</a>
-    <a href="/AsteroidTracker.html" class="nav-link">Asteroid Tracker</a>
-    <a href="/community.html" class="nav-link">Community</a>
-  </div>
-</nav>
-
-</header>
-
+    <nav class="secondary-nav">
+      <button class="menu-toggle" onclick="toggleNav()">☰</button>
+      <div id="navMenu" class="nav-box">
+        <a href="/home.html" class="nav-link">Home</a>
+        <a href="/favorites.html" class="nav-link">Favorites</a>
+        <a href="/mars.html" class="nav-link">Mars Rover</a>
+        <a href="/AsteroidTracker.html" class="nav-link">Asteroid Tracker</a>
+        <a href="/community.html" class="nav-link">Community</a>
+      </div>
+    </nav>
+  </header>
 
   <div class="community-container">
     <h1><i class="fas fa-users"></i> Space Community</h1>
@@ -1407,52 +1402,52 @@ footer.footer {
     <div class="posts-list" id="postsContainer"></div>
   </div>
 
-  <!-- ✅ Logout Confirmation Modal -->
-<div class="logout-modal" id="logoutModal">
-  <div class="logout-modal-content">
-    <h2>Confirm Logout</h2>
-    <p>Are you sure you want to logout?</p>
-    <div class="logout-buttons">
-      <button class="yes-btn" id="confirmLogout">Yes</button>
-      <button class="no-btn" id="cancelLogout">No</button>
-    </div>
-  </div>
-</div>
-
-
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-branding">
-      <div class="footer-logo-line">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" class="footer-logo" />
-        <span class="footer-title">Explore Hub</span>
-      </div>
-      <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
-    </div>
-
-    <div class="footer-links">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="/home.html">Home</a></li>
-        <li><a href="/favorites.html">Favorites</a></li>
-        <li><a href="/mars.html">Mars Rover</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-social">
-      <h4>Follow Us</h4>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-github"></i></a>
+  <div class="logout-modal" id="logoutModal">
+    <div class="logout-modal-content">
+      <h2>Confirm Logout</h2>
+      <p>Are you sure you want to logout?</p>
+      <div class="logout-buttons">
+        <button class="yes-btn" id="confirmLogout">Yes</button>
+        <button class="no-btn" id="cancelLogout">No</button>
       </div>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <p>&copy; 2025 Explore Hub. All rights reserved.</p>
-  </div>
-</footer>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-branding">
+        <div class="footer-logo-line">
+<img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
+          <span class="footer-title">Explore Hub</span>
+        </div>
+        <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/home.html">Home</a></li>
+          <li><a href="/favorites.html">Favorites</a></li>
+          <li><a href="/mars.html">Mars Rover</a></li>
+          <li><a href="/AsteroidTracker.html">Asteroid Tracker</a></li>
+          <li><a href="/Community.html">Community</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Explore Hub. All rights reserved.</p>
+    </div>
+  </footer>
 
   <script>
   let currentUser = null;
@@ -1482,11 +1477,7 @@ footer.footer {
           };
           avatarContainer.appendChild(img);
         } else {
-          const icon = document.createElement('i');
-          icon.className = 'fas fa-user';
-          icon.style.color = '#00d1ff';
-          icon.style.fontSize = '18px';
-          avatarContainer.appendChild(icon);
+          avatarContainer.innerHTML = '<i class="fas fa-user" style="color:#00d1ff; font-size:18px;"></i>';
         }
       }
 
@@ -1528,7 +1519,6 @@ footer.footer {
     container.innerHTML = '';
 
     posts.forEach((post, postIndex) => {
-      const avatar = post.userId.avatarUrl || 'https://ui-avatars.com/api/?name=User';
       const isLiked = post.likes?.some(id => id === currentUser?.id) || false;
       const isOwner = (post.userId._id || post.userId) === currentUser?.id;
 
@@ -1546,13 +1536,13 @@ footer.footer {
       postDiv.innerHTML = `
         <div class="info">
           <div class="user-details">
-            <img src="${avatar}" />
+            <div class="profile-icon" style="width:36px;height:36px;" id="avatar-${postIndex}"></div>
             <div class="user-meta">
               <div><strong>${post.userId.name}</strong> (${post.userId.email})</div>
               <span>${new Date(post.createdAt).toLocaleString()}</span>
             </div>
           </div>
-${isOwner ? `<button class="delete-btn styled-delete-btn" onclick="deletePost('${post._id}')">Delete</button>` : ''}
+          ${isOwner ? `<button class="delete-btn styled-delete-btn" onclick="deletePost('${post._id}')">Delete</button>` : ''}
         </div>
         <p>${post.content}</p>
         <div style="display:flex; align-items:center; gap: 10px; margin-top: 0.5rem;">
@@ -1565,7 +1555,29 @@ ${isOwner ? `<button class="delete-btn styled-delete-btn" onclick="deletePost('$
           <div class="comments-list">${commentsHTML}</div>
         </div>
       `;
+
       container.appendChild(postDiv);
+
+      // ✅ Avatar logic
+      const avatarContainer = postDiv.querySelector(`#avatar-${postIndex}`);
+      const avatarUrl = post.userId.avatarUrl;
+
+      if (avatarUrl && avatarUrl.trim() !== '') {
+        const img = document.createElement('img');
+        img.src = avatarUrl;
+        img.alt = 'User Avatar';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.borderRadius = '50%';
+        img.style.objectFit = 'cover';
+        img.onerror = () => {
+          avatarContainer.innerHTML = `<i class="fas fa-user" style="color:#00d1ff; font-size:18px;"></i>`;
+        };
+        avatarContainer.innerHTML = '';
+        avatarContainer.appendChild(img);
+      } else {
+        avatarContainer.innerHTML = `<i class="fas fa-user" style="color:#00d1ff; font-size:18px;"></i>`;
+      }
     });
   }
 
@@ -1577,7 +1589,7 @@ ${isOwner ? `<button class="delete-btn styled-delete-btn" onclick="deletePost('$
       });
 
       if (res.ok) {
-        fetchPosts(); // ✅ Reload full post list to avoid stale document errors
+        fetchPosts();
       }
     } catch (err) {
       console.error('Error toggling like:', err);
@@ -1676,11 +1688,11 @@ ${isOwner ? `<button class="delete-btn styled-delete-btn" onclick="deletePost('$
   document.getElementById('cancelLogout')?.addEventListener('click', () => {
     document.getElementById('logoutModal').style.display = 'none';
   });
-function toggleNav() {
-  const navMenu = document.getElementById('navMenu');
-  navMenu.classList.toggle('show');
-}
 
+  function toggleNav() {
+    const navMenu = document.getElementById('navMenu');
+    navMenu.classList.toggle('show');
+  }
 
   window.onload = getCurrentUser;
 </script>
