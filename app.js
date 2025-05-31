@@ -9,19 +9,21 @@ const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
+// Import routes and models
 const forgotRoutes = require('./routes/forgot');
 const User = require('./models/user');
 const Favorite = require('./models/favorite');
 const asteroidRoutes = require('./routes/asteroid');
 const communityRoutes = require('./routes/community');
-const marsSearchRoutes = require('./routes/marsSearch'); // ✅ new route
+const marsSearchRoutes = require('./routes/marsSearch');
+require('./passport-config'); // Make sure this is your Google strategy file
 
 const { ensureAuthenticated } = require('./middleware/auth');
 
 const app = express();
 const port = 3000;
 
-// ✅ Connect to MongoDB
+// ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB Atlas Connected'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
@@ -32,7 +34,6 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Session Setup
 app.use(session({
   secret: 'your_secret_key',
   resave: false,
@@ -40,70 +41,46 @@ app.use(session({
   cookie: { sameSite: 'lax', secure: false }
 }));
 
-// ✅ Passport Setup
 app.use(passport.initialize());
 app.use(passport.session());
-require('./passport-config');
 
 // ✅ Routes
+app.use('/auth', forgotRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/asteroids', asteroidRoutes);
-app.use('/auth', forgotRoutes);
-app.use('/api/mars-search', marsSearchRoutes); // ✅ connect the route
+app.use('/api/mars-search', marsSearchRoutes);
 
+// ✅ Google OAuth Login
+app.get('/auth/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
+  })
+);
 
-// ✅ Get Authenticated User Info
-app.get('/api/user', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ userId: req.user._id, name: req.user.name, email: req.user.email });
-  } else {
-    res.status(401).json({ message: 'Not authenticated' });
+// ✅ Google OAuth Callback
+app.get('/auth/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/',
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
+  }),
+  (req, res) => {
+    res.redirect('/home.html');
   }
-});
+);
 
-// ✅ Get Profile
-app.get('/api/profile', ensureAuthenticated, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    res.set('Cache-Control', 'no-store');
-    res.json({
-      _id: user._id, // ✅ Add this line
-      email: user.email,
-      fullName: user.name || '',
-      avatarUrl: user.avatarUrl || '/images/default-avatar.png',
-      bio: user.bio || '',
-      location: user.location || ''
+// ✅ Logout Route
+app.post('/logout', (req, res, next) => {
+  req.logout(function (err) {
+    if (err) return next(err);
+    req.session.destroy(() => {
+      res.clearCookie('connect.sid');
+      res.redirect('/');
     });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch profile' });
-  }
+  });
 });
 
-// ✅ Update Profile
-app.put('/api/profile', ensureAuthenticated, async (req, res) => {
-  const { fullName, bio, location } = req.body;
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user._id,
-      {
-        name: fullName,
-        bio: bio || '',
-        location: location || ''
-      },
-      { new: true }
-    );
-    res.json({
-      message: 'Profile updated',
-      fullName: updatedUser.name,
-      bio: updatedUser.bio,
-      location: updatedUser.location
-    });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to update profile', details: err.message });
-  }
-});
-
-// ✅ Signup Route
+// ✅ Local Signup
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
@@ -139,7 +116,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// ✅ Login Route
+// ✅ Local Login
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -159,32 +136,58 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// ✅ Google OAuth
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => {
-    res.redirect('/home.html');
+// ✅ Get Logged-in User Info
+app.get('/api/user', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ userId: req.user._id, name: req.user.name, email: req.user.email });
+  } else {
+    res.status(401).json({ message: 'Not authenticated' });
   }
-);
-
-// ✅ Logout
-app.post('/logout', (req, res, next) => {
-  req.logout(function (err) {
-    if (err) return next(err);
-    req.session.destroy(() => {
-      res.clearCookie('connect.sid');
-      res.redirect('/');
-    });
-  });
 });
 
-// ✅ Favorites Routes
+// ✅ Profile Routes
+app.get('/api/profile', ensureAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    res.set('Cache-Control', 'no-store');
+    res.json({
+      _id: user._id,
+      email: user.email,
+      fullName: user.name || '',
+      avatarUrl: user.avatarUrl || '/images/default-avatar.png',
+      bio: user.bio || '',
+      location: user.location || ''
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+});
+
+app.put('/api/profile', ensureAuthenticated, async (req, res) => {
+  const { fullName, bio, location } = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { name: fullName, bio: bio || '', location: location || '' },
+      { new: true }
+    );
+    res.json({
+      message: 'Profile updated',
+      fullName: updatedUser.name,
+      bio: updatedUser.bio,
+      location: updatedUser.location
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update profile', details: err.message });
+  }
+});
+
+// ✅ Favorites CRUD
 app.post('/api/like', ensureAuthenticated, async (req, res) => {
   const { title, imgUrl, desc } = req.body;
   const userId = req.user._id;
   if (!userId || !title || !imgUrl) return res.status(400).json({ message: 'Missing required fields.' });
+
   try {
     const existing = await Favorite.findOne({ userId, imgUrl });
     if (existing) return res.status(400).json({ message: 'Already liked' });
@@ -200,6 +203,7 @@ app.delete('/api/like', ensureAuthenticated, async (req, res) => {
   const { imgUrl } = req.body;
   const userId = req.user._id;
   if (!userId || !imgUrl) return res.status(400).json({ message: 'Missing required fields.' });
+
   try {
     const deleted = await Favorite.deleteOne({ userId, imgUrl });
     res.status(deleted.deletedCount > 0 ? 200 : 404).json({ message: deleted.deletedCount > 0 ? 'Removed from favorites!' : 'Favorite not found.' });
@@ -218,7 +222,7 @@ app.get('/api/favorites', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// ✅ Serve Pages
+// ✅ Public Pages
 app.get('/favorites.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'favorites.html'));
 });
