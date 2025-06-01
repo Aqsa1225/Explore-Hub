@@ -1,6 +1,7 @@
 // Load environment variables from .env file
 require('dotenv').config();
 
+// Import necessary packages
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -21,20 +22,22 @@ require('./passport-config');
 
 const { ensureAuthenticated } = require('./middleware/auth');
 
+// Initialize Express app
 const app = express();
 const port = 3000;
 
-// ✅ Connect to MongoDB
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB Atlas Connected'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// ✅ Middleware
+// Middleware  setup
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session configuration
 app.use(session({
   secret: 'your_secret_key',
   resave: false,
@@ -42,39 +45,40 @@ app.use(session({
   cookie: { sameSite: 'lax', secure: false }
 }));
 
+// Initialize Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ✅ Routes
+// API Routes
 app.use('/auth', forgotRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/asteroids', asteroidRoutes);
 app.use('/api/mars-search', marsSearchRoutes);
 
-// ✅ Forcefully Pass Google OAuth Callback URL in Routes
-
+// Google OAuth login route with explicit callback URL
 app.get('/auth/google',
   (req, res, next) => {
     passport.authenticate('google', {
       scope: ['profile', 'email'],
-      callbackURL: process.env.GOOGLE_CALLBACK_URL  // ✅ force it here
+      callbackURL: process.env.GOOGLE_CALLBACK_URL 
     })(req, res, next);
   }
 );
 
+// Google OAuth callback handler
 app.get('/auth/google/callback',
   (req, res, next) => {
     passport.authenticate('google', {
       failureRedirect: '/',
-      callbackURL: process.env.GOOGLE_CALLBACK_URL  // ✅ force here too
+      callbackURL: process.env.GOOGLE_CALLBACK_URL 
     })(req, res, next);
   },
   (req, res) => {
-    res.redirect('/home.html'); // ✅ or change to your frontend route
+    res.redirect('/home.html'); 
   }
 );
 
-// ✅ Logout
+// Logout route (clears session and cookie)
 app.post('/logout', (req, res, next) => {
   req.logout(function (err) {
     if (err) return next(err);
@@ -85,7 +89,7 @@ app.post('/logout', (req, res, next) => {
   });
 });
 
-// ✅ Signup
+// User Signup (local)
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
@@ -121,7 +125,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// ✅ Login
+// User Login (local)
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -141,7 +145,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// ✅ Get Current User Info
+// Check if user is authenticated and get user info
 app.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ userId: req.user._id, name: req.user.name, email: req.user.email });
@@ -150,7 +154,7 @@ app.get('/api/user', (req, res) => {
   }
 });
 
-// ✅ Profile Routes
+// Get logged-in user's profile
 app.get('/api/profile', ensureAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -168,6 +172,7 @@ app.get('/api/profile', ensureAuthenticated, async (req, res) => {
   }
 });
 
+// Update user profile
 app.put('/api/profile', ensureAuthenticated, async (req, res) => {
   const { fullName, bio, location } = req.body;
   try {
@@ -187,7 +192,7 @@ app.put('/api/profile', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// ✅ Favorites
+// Add an image to favorites
 app.post('/api/like', ensureAuthenticated, async (req, res) => {
   const { title, imgUrl, desc } = req.body;
   const userId = req.user._id;
@@ -204,6 +209,7 @@ app.post('/api/like', ensureAuthenticated, async (req, res) => {
   }
 });
 
+// Remove an image from favorites
 app.delete('/api/like', ensureAuthenticated, async (req, res) => {
   const { imgUrl } = req.body;
   const userId = req.user._id;
@@ -217,6 +223,7 @@ app.delete('/api/like', ensureAuthenticated, async (req, res) => {
   }
 });
 
+// Get all favorites for the logged-in user
 app.get('/api/favorites', ensureAuthenticated, async (req, res) => {
   const userId = req.user._id;
   try {
@@ -227,16 +234,17 @@ app.get('/api/favorites', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// ✅ Serve Pages
+// Serve protected favorites page
 app.get('/favorites.html', ensureAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'favorites.html'));
 });
 
+// Serve public homepage
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// ✅ Start Server
+// Start Server
 app.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
 });
