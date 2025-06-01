@@ -1,10 +1,13 @@
-/* Global Reset */
+/* ========== GLOBAL STYLES ========== */
+
+/* Reset default spacing and box sizing */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
   
+  /* Main body styling with gradient background and centered content */
   body {
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(to bottom, #0b0c2a, #1e2153); /* Spacey gradient */
@@ -15,11 +18,13 @@
     height: 100vh;
   }
   
+  /* Form container width */
   .container {
     width: 100%;
     max-width: 400px;
   }
   
+  /* Form box with blur, padding, border, and shadow */
   .form-box {
     background-color: rgba(255, 255, 255, 0.05); /* Soft transparent white */
     border: 1px solid #2a2d5c;
@@ -31,12 +36,14 @@
     transition: all 0.3s ease-in-out;
   }
   
+  /* Form heading */
   .form-box h2 {
     margin-bottom: 20px;
     text-align: center;
     color: #00d1ff; /* Neon blue title */
   }
   
+  /* Input fields */
   .form-box input {
     width: 100%;
     padding: 12px;
@@ -48,15 +55,18 @@
     font-size: 15px;
   }
   
+  /* Placeholder color */
   .form-box input::placeholder {
     color: #b5b5b5;
   }
   
+  /* Input focus effect */
   .form-box input:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.15);
   }
   
+  /* Button styling */
   .form-box button {
     width: 100%;
     padding: 12px;
@@ -70,10 +80,12 @@
     transition: background 0.3s ease-in-out;
   }
   
+  /* Button hover effect */
   .form-box button:hover {
     background-color: #00a6d6;
   }
   
+  /* Toggle link for switching forms */
   .toggle-link {
     text-align: center;
     font-size: 14px;
@@ -81,12 +93,14 @@
     color: #d3d3d3;
   }
   
+  /* Link highlight */
   .toggle-link span {
     color: #00c9ff;
     cursor: pointer;
     text-decoration: underline;
   }
   
+  /* General paragraph styling */
   p {
     margin: 5px 0 0 0;
     font-size: 14px;
@@ -94,12 +108,14 @@
     text-align: center;
   }
   
+  /* Hide elements when needed */
   .hidden {
     display: none;
   }
   
-  /* === Space-Themed Admin Panel Styling === */
-/* === Base Layout === */
+ /* ========== ADMIN PANEL STYLES ========== */
+
+/* Admin layout base */
 body.admin-body {
   font-family: 'Orbitron', sans-serif;
   background: linear-gradient(135deg, #0a0f2c, #1a1f4d);
@@ -124,12 +140,14 @@ body.admin-body {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
 }
 
+/* Admin title */
 .admin-header h1 {
   font-size: 32px;
   margin: 0;
   color: #00ffe1;
 }
 
+/* Add user button */
 .add-user-btn {
   background-color: #00ffe1;
   color: #0d112b;
@@ -142,12 +160,13 @@ body.admin-body {
   font-size: 15px;
 }
 
+/* Hover effect for add user button */
 .add-user-btn:hover {
   background-color: #00bfa6;
   color: white;
 }
 
-/* === Admin Form Styling === */
+/* Admin form container */
 .admin-form-container {
   max-width: 550px;
   margin: 70px auto;
@@ -165,6 +184,7 @@ body.admin-body {
   color: #00ffe1;
 }
 
+/* Admin form heading */
 .admin-form-container input {
   width: 100%;
   padding: 14px;
@@ -176,12 +196,14 @@ body.admin-body {
   font-size: 15px;
 }
 
+/* Focus effect for inputs */
 .admin-form-container input:focus {
   outline: none;
   border-color: #00ffe1;
   box-shadow: 0 0 8px #00ffe1;
 }
 
+/* Submit button */
 .admin-form-container button {
   width: 100%;
   padding: 14px;
@@ -195,6 +217,7 @@ body.admin-body {
   font-size: 16px;
 }
 
+/* Hover for submit button */
 .admin-form-container button:hover {
   background-color: #00bfa6;
   color: white;
