@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const addForm = document.getElementById('addUserForm');
   const editForm = document.getElementById('editUserForm');
 
-  // ✅ Load users into table
+  // Load users into table
   if (table) {
     try {
       const users = await fetch('/users').then(res => res.json());
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           return;
         }
 
-        console.log("Edit Link:", `edit-user.html?id=${user._id}`); // ✅ Debug
+        console.log("Edit Link:", `edit-user.html?id=${user._id}`); // Debug
 
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // ✅ Add User
+  // Add User
   if (addForm) {
     addForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // ✅ Edit User
+  // Edit User
   if (editForm) {
     const params = new URLSearchParams(window.location.search);
     const id = decodeURIComponent(params.get('id'));
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// ✅ Delete User
+// Delete User
 async function deleteUser(id) {
   if (confirm('Delete this user?')) {
     try {
