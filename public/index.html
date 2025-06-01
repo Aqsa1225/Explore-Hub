@@ -6,6 +6,7 @@
   <title>Login & Sign Up</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* Body styling: center content with animated background */
     body {
       margin: 0;
       padding: 0;
@@ -20,13 +21,13 @@
       color: white;
       overflow: hidden;
     }
-
+    /* Keyframes for moving gradient background */
     @keyframes spaceFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
+    /* Form container box */
     .form-box {
   box-shadow: 0 0 20px rgba(31, 122, 236, 0.4);
   background: #111827;
@@ -36,7 +37,7 @@
   max-width: 450px;
   margin: 20px;
 }
-
+    /* Input and button base styles */
     input, button {
       width: 100%;
       padding: 10px;
@@ -45,18 +46,18 @@
       border: none;
       font-size: 14px;
     }
-
+    /* Main button styling */
     button {
       background-color: #1f7aec;
       color: white;
       font-weight: bold;
       cursor: pointer;
     }
-
+    /* Button hover effect */
     button:hover {
       background-color: #145cc9;
     }
-
+    /* Google login button styling */
     .google-btn {
       margin-top: 10px;
       padding: 10px;
@@ -73,33 +74,33 @@
       font-size: 15px;
       transition: 0.3s ease;
     }
-
+    /* Google button hover */
     .google-btn:hover {
       background-color: #f5f5f5;
     }
-
+    /* Google icon size */
     .google-icon {
       height: 18px;
     }
-
+    /* Hide elements when needed */
     .hidden {
       display: none;
     }
-
+    /* Error message styling */
     .error {
       color: red;
       font-size: 13px;
       text-align: center;
       margin-top: 8px;
     }
-
+    /* Responsive: smaller screen adjustments */
     @media (max-width: 410px) {
       .form-box {
         margin: 20px 16px;
         width: auto;
       }
     }
-
+    /* "Back to login" button */
     #backToLogin {
       margin-top: 12px;
       background-color: #444;
@@ -110,7 +111,7 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
+    /* Hover for "Back to login" */
     #backToLogin:hover {
       background-color: #333;
     }
@@ -119,29 +120,35 @@
 <body>
   <div class="container">
 
-    <!-- Login Form -->
+     <!-- =================== -->
+    <!-- Login Form Section -->
+    <!-- =================== -->
     <div class="form-box" id="loginBox">
       <h2>Login</h2>
+      <!-- Login form with email & password -->
       <form id="loginForm">
         <input type="email" id="loginEmail" placeholder="Email" required />
         <input type="password" id="loginPassword" placeholder="Password" required />
         <button type="submit">Login</button>
         <p id="loginError" class="error"></p>
       </form>
-
+      <!-- Forgot password link -->
       <p id="forgotLink" style="text-align:center; margin-top: 8px; cursor: pointer; color: #1f7aec;">Forgot Password?</p>
-
+      <!-- Google login button -->
       <a href="/auth/google" class="google-btn">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="google-icon" alt="Google Icon">
         Continue with Google
       </a>
-
+      <!-- Link to open Sign Up form -->
       <p class="toggle-link">Don't have an account? <span id="showSignup">Sign up</span></p>
     </div>
 
-    <!-- Sign Up Form -->
+    <!-- ===================== -->
+    <!-- Sign Up Form Section -->
+    <!-- ===================== -->
     <div class="form-box hidden" id="signupBox">
       <h2>Sign Up</h2>
+      <!-- Sign up form with name, email & password -->
       <form id="signupForm">
         <input type="text" id="signupName" placeholder="Name" required />
         <input type="email" id="signupEmail" placeholder="Email" required />
@@ -149,31 +156,35 @@
         <button type="submit">Sign Up</button>
         <p id="signupError" class="error"></p>
       </form>
-
+      <!-- Google sign up button -->
       <a href="/auth/google" class="google-btn">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="google-icon" alt="Google Icon">
         Continue with Google
       </a>
-
+      <!-- Link to go back to Login form -->
       <p class="toggle-link">Already have an account? <span id="showLogin">Login</span></p>
     </div>
 
-    <!-- Forgot Password Modal -->
+    <!-- ============================ -->
+    <!-- Forgot Password Form Modal -->
+    <!-- ============================ -->
     <div class="form-box hidden" id="forgotBox">
       <h2>Reset Password</h2>
+      <!-- Form to send OTP to email -->
       <form id="forgotForm">
         <input type="email" id="forgotEmail" placeholder="Enter your email" required />
         <button type="submit">Send OTP</button>
       </form>
-
+      <!-- Form to enter OTP and new password -->
       <form id="verifyForm" class="hidden">
         <input type="text" id="otpInput" placeholder="Enter OTP" required />
         <input type="password" id="newPassword" placeholder="New Password" required />
         <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
         <button type="submit">Reset Password</button>
       </form>
-
+      <!-- Error message shown here -->
       <p id="forgotError" class="error"></p>
+      <!-- Button to go back to login form -->
       <button type="button" id="backToLogin">← Go Back</button>
     </div>
 
@@ -306,16 +317,16 @@
           body: JSON.stringify({ name, email, password })
         });
 
-        const data = await res.json();
+        const data = await res.json(); // Convert response to JSON
         if (res.ok) {
           signupError.style.color = 'lightgreen';
           signupError.textContent = '✅ Account created! Redirecting...';
-          setTimeout(() => window.location.href = '/home.html', 1500);
+          setTimeout(() => window.location.href = '/home.html', 1500);  // Redirect to home page after 1.5 seconds
         } else {
-          signupError.textContent = data.error || 'Signup failed';
+          signupError.textContent = data.error || 'Signup failed';  // If signup failed, show error message from server or fallback message
         }
       } catch (err) {
-        signupError.textContent = 'Something went wrong.';
+        signupError.textContent = 'Something went wrong.'; // If there’s a network or unexpected error
       }
     });
   </script>
