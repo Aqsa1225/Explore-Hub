@@ -1,10 +1,12 @@
+// Import required modules
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./models/user');
 
-// ✅ Log the callback URL to verify .env is loading correctly
+// Log the callback URL to verify .env is loading correctly
 console.log('✅ Using Google OAuth Callback URL:', process.env.GOOGLE_CALLBACK_URL);
 
+// Configure Google OAuth strategy
 passport.use(new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -20,7 +22,7 @@ passport.use(new GoogleStrategy(
         return done(new Error('No email found in Google profile'), null);
       }
 
-      // ✅ Check if user already exists
+      // Check if user already exists
       let user = await User.findOne({ email });
 
       if (user) {
@@ -32,7 +34,7 @@ passport.use(new GoogleStrategy(
         return done(null, user);
       }
 
-      // ✅ Create new user
+      // Create new user
       const newUser = await User.create({
         name: profile.displayName,
         email,
@@ -49,12 +51,12 @@ passport.use(new GoogleStrategy(
   }
 ));
 
-// ✅ Serialize user to session
+// Save user ID to session (called when user logs in)
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-// ✅ Deserialize user from session
+// Retrieve full user from DB using the ID stored in session
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
