@@ -1,3 +1,4 @@
+// Import dependencies
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
       const postObj = post.toObject();
       postObj.comments = postObj.comments.map(c => ({
         ...c,
-        userId: c.userId?.toString() // ✅ Ensure comment.userId is a string
+        userId: c.userId?.toString() // Ensure comment.userId is a string
       }));
       return postObj;
     });
@@ -28,7 +29,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✍️ Create a new post
+// Route to create a new post (only for authenticated users)
 router.post('/', ensureAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -48,7 +49,7 @@ router.post('/', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// 🗑 Delete a post (only if owner)
+// Route to delete a post (only allowed if the post belongs to the user)
 router.delete('/:id', ensureAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -66,7 +67,7 @@ router.delete('/:id', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// 💬 Add a comment
+// Route to add a comment to a post
 router.post('/:id/comment', ensureAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -90,7 +91,7 @@ router.post('/:id/comment', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// ❌ Delete a comment (only by author)
+// Route to delete a specific comment by index (only allowed by the comment author)
 router.delete('/:postId/comment/:commentIndex', ensureAuthenticated, async (req, res) => {
   try {
     const { postId, commentIndex } = req.params;
@@ -113,7 +114,7 @@ router.delete('/:postId/comment/:commentIndex', ensureAuthenticated, async (req,
   }
 });
 
-// ❤️ Like / Unlike a post
+// Route to like or unlike a post
 router.post('/:id/like', ensureAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -123,9 +124,9 @@ router.post('/:id/like', ensureAuthenticated, async (req, res) => {
     const alreadyLiked = post.likes.some(id => id.toString() === userId);
 
     if (alreadyLiked) {
-      post.likes = post.likes.filter(id => id.toString() !== userId);
+      post.likes = post.likes.filter(id => id.toString() !== userId);  // Unlike the post
     } else {
-      post.likes.push(new mongoose.Types.ObjectId(userId));
+      post.likes.push(new mongoose.Types.ObjectId(userId)); // Like the post
     }
 
     await post.save();
@@ -135,5 +136,5 @@ router.post('/:id/like', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ error: 'Failed to like/unlike post' });
   }
 });
-
+// Export the router
 module.exports = router;
