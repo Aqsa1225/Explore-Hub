@@ -10,35 +10,42 @@
 
   <style>
 
+/* Apply box-sizing to all elements for consistent sizing */
 * {
   box-sizing: border-box;
 }
+
+/* Reset default margin/padding and prevent horizontal scroll */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
 }
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(-45deg, #2c0f0f, #3d1a1a, #1b1b2f, #5e1e1e);
-      background-size: 500% 500%;
-      animation: marsBG 20s ease infinite;
-      color: white;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-    }
 
-    @keyframes marsBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+/* Body Styling: Mars-themed animated gradient background */
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(-45deg, #2c0f0f, #3d1a1a, #1b1b2f, #5e1e1e); /* Mars tones */
+  background-size: 500% 500%;
+  animation: marsBG 20s ease infinite;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
 
-  .main-header {
+/* Animation for the background gradient */
+@keyframes marsBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Main header with sticky top, blur effect, and space-themed gradient */
+.main-header {
   background: linear-gradient(90deg, #1a1f4d, #20296b, #1f7aec);
   box-shadow: 0 4px 15px rgba(0, 209, 255, 0.3);
   border-bottom: 1px solid rgba(0, 209, 255, 0.2);
@@ -48,14 +55,16 @@ html, body {
   z-index: 1000;
 }
 
+/* Header top section: logo, profile, logout */
 .header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Responsive wrapping on smaller screens */
 }
 
+/* Secondary navigation bar: sticky below main header */
 .secondary-nav {
   background: #0d102b;
   padding: 10px 30px;
@@ -63,7 +72,7 @@ html, body {
   align-items: center;
   justify-content: center;
   position: sticky;
-  top: 66px;
+  top: 66px; /* Adjusted below main header */
   z-index: 900;
   box-shadow: 0 4px 10px rgba(0, 255, 255, 0.06);
   backdrop-filter: blur(6px);
@@ -71,6 +80,7 @@ html, body {
   border-bottom: 1px solid #1a1f4d;
 }
 
+/* Container for nav content with max width */
 .nav-container {
   display: flex;
   align-items: center;
@@ -79,11 +89,13 @@ html, body {
   max-width: 1200px;
 }
 
+/* Navigation links wrapper with spacing */
 .nav-box {
   display: flex;
   gap: 32px;
 }
 
+/* Individual navigation link styling */
 .nav-link {
   color: #ffffff;
   font-size: 15px;
@@ -93,10 +105,12 @@ html, body {
   position: relative;
 }
 
+/* Hover effect for nav links */
 .nav-link:hover {
   color: #00d1ff;
 }
 
+/* Animated underline on hover */
 .nav-link::after {
   content: '';
   display: block;
@@ -111,7 +125,7 @@ html, body {
   width: 100%;
 }
 
-
+/* Profile dropdown container inside the header */
 .profile-dropdown {
   position: relative;
   display: flex;
@@ -119,19 +133,21 @@ html, body {
   margin-left: 16px;
 }
 
+/* Circular profile icon with border and hover styling */
 .profile-icon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 2px solid #00d1ff;
+  border: 2px solid #00d1ff; /* Cyan border */
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #0d112b;
+  background-color: #0d112b; /* Dark background */
   cursor: pointer;
 }
 
+/* Avatar image styling inside the profile icon */
 .profile-icon img {
   width: 100%;
   height: 100%;
@@ -139,27 +155,30 @@ html, body {
   object-fit: cover;
 }
 
+/* Default user icon inside the profile circle (if no image) */
 .profile-icon i {
   color: #00d1ff;
   font-size: 18px;
 }
 
-
+/* Profile dropdown content box */
 .profile-box {
   position: absolute;
   top: 50px;
   right: 12px;
   width: 320px;
-  background: #10142a;
+  background: #10142a; /* Dark panel background */
   border-radius: 14px;
   padding: 20px;
   box-shadow: 0 12px 40px rgba(0, 255, 255, 0.12);
   border: 1px solid #00d1ff33;
-  display: none;
+  display: none; /* Hidden by default */
   flex-direction: column;
   z-index: 2000;
-  animation: slideFade 0.3s ease;
+  animation: slideFade 0.3s ease; /* Smooth fade-in */
 }
+
+/* Little arrow at the top of the profile box */
 .profile-box::before {
   content: '';
   position: absolute;
@@ -167,11 +186,10 @@ html, body {
   right: 20px;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 10px solid #10142a;
+  border-bottom: 10px solid #10142a; /* Matches box background */
 }
 
-
-
+/* Entry animation for the profile box */
 @keyframes slideFade {
   from {
     opacity: 0;
@@ -183,8 +201,7 @@ html, body {
   }
 }
 
-
-
+/* Profile title */
 .profile-box h3 {
   margin-bottom: 12px;
   font-size: 18px;
@@ -192,6 +209,7 @@ html, body {
   text-align: center;
 }
 
+/* Labels for form fields */
 .profile-box label {
   font-size: 12px;
   margin: 6px 0 2px;
@@ -199,6 +217,7 @@ html, body {
   font-weight: 500;
 }
 
+/* Input and textarea fields inside the profile box */
 .profile-box input,
 .profile-box textarea {
   width: 100%;
@@ -212,12 +231,14 @@ html, body {
   transition: box-shadow 0.3s ease;
 }
 
+/* Input/textarea focus effect */
 .profile-box input:focus,
 .profile-box textarea:focus {
   outline: none;
   box-shadow: 0 0 0 2px #00d1ff;
 }
 
+/* Save button styling */
 .profile-box button {
   background: linear-gradient(135deg, #00d1ff, #1f7aec);
   color: #0b0c2a;
@@ -230,28 +251,34 @@ html, body {
   transition: all 0.3s ease;
 }
 
+/* Hover effect for save button */
 .profile-box button:hover {
   background: #00a8d4;
   transform: translateY(-1px);
 }
 
+
+/* Container for profile icon and logout button */
 .mobile-controls {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* Logo wrapper with icon and brand text side-by-side */
 .logo-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* Logo image size */
 .logo-icon {
   width: 36px;
   height: 36px;
 }
 
+/* Logo text styling */
 .logo-text {
   color: #00d1ff;
   font-size: 20px;
@@ -259,7 +286,7 @@ html, body {
   white-space: nowrap;
 }
 
-
+/* Hamburger menu button for mobile view */
 .menu-toggle {
   background-color: #1a1f4d;
   color: white;
@@ -268,13 +295,16 @@ html, body {
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  display: none; /* hidden by default */
+  display: none; /* Hidden on desktop */
 }
+
+/* Wrapper around menu toggle for spacing */
 .menu-toggle-wrap {
   padding: 0 20px;
   margin-top: 4px;
 }
 
+/* Logout button base style */
 .logout-btn {
   background: #00d1ff;
   color: #0b0c2a;
@@ -286,12 +316,13 @@ html, body {
   font-size: 14px;
 }
 
-
+/* Navigation box (menu container) */
 .nav-box {
   display: flex;
   gap: 20px;
 }
 
+/* Navigation link base style */
 .nav-link {
   color: white;
   font-size: 15px;
@@ -299,18 +330,18 @@ html, body {
   transition: color 0.3s ease;
 }
 
+/* Navigation link hover effect */
 .nav-link:hover {
   color: #00d1ff;
 }
 
-
+/* Mobile toggle class to stack nav links vertically */
 .nav-box.show {
   display: flex;
   flex-direction: column;
 }
 
-
-
+/* Underline animation for nav links */
 .nav-menu .nav-link::after {
   content: '';
   position: absolute;
@@ -322,15 +353,18 @@ html, body {
   transition: width 0.3s ease;
 }
 
+/* Expand underline on hover */
 .nav-menu .nav-link:hover::after {
   width: 100%;
 }
 
+/* Container for elements like profile icon and logout */
 .action-section {
   display: flex;
   align-items: center;
 }
 
+/* Enhanced gradient style for logout button */
 .logout-btn {
   background: linear-gradient(135deg, #00d1ff, #0099cc);
   color: #0b0c2a;
@@ -343,75 +377,85 @@ html, body {
   transition: all 0.3s ease;
 }
 
+/* Hover effect for logout button */
 .logout-btn:hover {
   background: #00a8d4;
   transform: translateY(-1px);
 }
 
+/* Main container holding all page content */
 .page-wrapper {
   flex: 1;
   display: flex;
-  padding-bottom: 220px;
-
   flex-direction: column;
+  padding-bottom: 220px; /* Adds space for footer */
 }
+
+/* Ensures flexible spacing after page content */
 .page-wrapper::after {
   content: '';
   flex-grow: 1;
 }
 
+/* Page title styling */
+.page-title {
+  text-align: center;
+  font-size: 30px;
+  margin: 20px 0;
+  color: #ffb347;
+}
 
-    .page-title {
-      text-align: center;
-      font-size: 30px;
-      margin: 20px 0;
-      color: #ffb347;
-    }
+/* Container for search input and filter controls */
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 30px 40px;
+}
 
-    .search-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin: 0 30px 40px;
-    }
+/* Styling for date input and dropdown */
+input[type="date"],
+select {
+  padding: 10px 14px;
+  font-size: 16px;
+  background: #2a1a1a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(255, 94, 87, 0.3);
+}
 
-    input[type="date"], select {
-      padding: 10px 14px;
-      font-size: 16px;
-      background: #2a1a1a;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 0 6px rgba(255, 94, 87, 0.3);
-    }
+/* Calendar icon inversion for dark background */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
 
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1);
-      cursor: pointer;
-    }
+/* General button styling */
+button {
+  padding: 10px 22px;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #ff5e57, #ff9966);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(255, 94, 87, 0.2);
+}
 
-    button {
-      padding: 10px 22px;
-      font-size: 15px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(to right, #ff5e57, #ff9966);
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.25s ease-in-out;
-      box-shadow: 0 4px 10px rgba(255, 94, 87, 0.2);
-    }
+/* Button hover effect */
+button:hover {
+  background: linear-gradient(to right, #ff785a, #ffc199);
+  box-shadow: 0 6px 14px rgba(255, 94, 87, 0.3);
+}
 
-    button:hover {
-      background: linear-gradient(to right, #ff785a, #ffc199);
-      box-shadow: 0 6px 14px rgba(255, 94, 87, 0.3);
-    }
-
+/* Grid layout for displaying photo cards */
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 per row */
+  grid-template-columns: repeat(4, 1fr); /* 4 cards per row on large screens */
   gap: 24px;
   padding: 0 40px 60px;
   max-width: 1280px;
@@ -419,6 +463,7 @@ html, body {
   justify-items: center;
 }
 
+/* Individual photo card styling */
 .photo-card {
   width: 100%;
   max-width: 280px;
@@ -429,15 +474,15 @@ html, body {
   backdrop-filter: blur(6px);
   transition: transform 0.3s ease;
   box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.03);
- 
-
 }
 
+/* Hover effect for photo cards */
 .photo-card:hover {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(255, 94, 87, 0.3);
 }
 
+/* Photo styling inside the card */
 .photo-card img {
   width: 100%;
   height: 100%;
@@ -475,47 +520,52 @@ html, body {
   }
 }
 
- .loader-wrapper {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 3000;
-    }
+ /* Loader overlay that covers the entire screen when active */
+.loader-wrapper {
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75); /* Semi-transparent dark background */
+  z-index: 3000; /* High z-index to appear on top of all content */
+}
 
-    .loader {
-      border: 8px solid rgba(255, 255, 255, 0.2);
-      border-top: 8px solid #ffb347;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-    }
+/* Circular spinning loader animation */
+.loader {
+  border: 8px solid rgba(255, 255, 255, 0.2);
+  border-top: 8px solid #ffb347; /* Colored top to create spinning effect */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+/* Spin animation keyframes */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      animation: fadeIn 0.3s ease;
-    }
+/* Full-screen modal overlay for displaying content */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Dark overlay */
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Appears above normal content */
+  animation: fadeIn 0.3s ease; /* Fade effect on open */
+}
 
-    .modal-content {
-  background: rgba(27, 27, 47, 0.95);
+/* Modal content box */
+.modal-content {
+  background: rgba(27, 27, 47, 0.95); /* Semi-transparent background */
   padding: 16px 20px;
   border-radius: 14px;
   max-width: 400px;
@@ -525,10 +575,11 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: modalZoom 0.3s ease-out;
+  animation: modalZoom 0.3s ease-out; /* Zoom in effect */
   text-align: center;
 }
 
+/* Image inside modal */
 .modal-content img {
   width: 100%;
   max-height: 240px;
@@ -537,6 +588,7 @@ html, body {
   margin-bottom: 12px;
 }
 
+/* Modal heading */
 .modal-content h2 {
   color: #ffb347;
   margin: 0;
@@ -544,6 +596,7 @@ html, body {
   font-weight: 600;
 }
 
+/* Modal paragraph/details text */
 #modalDetails {
   font-size: 13px;
   color: #ccc;
@@ -551,72 +604,80 @@ html, body {
   line-height: 1.5;
 }
 
+/* Close button inside modal */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
 
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 24px;
-      color: white;
-      cursor: pointer;
-    }
+/* Zoom-in animation for modal */
+@keyframes modalZoom {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
-    @keyframes modalZoom {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
+/* Fade-in animation for modal overlay */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+   /* Fullscreen overlay for logout confirmation modal */
+.logout-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
+  backdrop-filter: blur(6px); /* Glass effect */
+  z-index: 2000; /* Above most content */
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s; /* Smooth fade-in */
+}
 
-    .logout-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(6px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 0.5s;
-    }
+/* Content box inside the logout modal */
+.logout-modal-content {
+  background: #1a1f4d; /* Deep blue background */
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 15px #00ffe1; /* Neon glow effect */
+  animation: modalZoom 0.5s; /* Pop-in animation */
+}
 
-    .logout-modal-content {
-      background: #1a1f4d;
-      padding: 30px 40px;
-      border-radius: 15px;
-      text-align: center;
-      color: white;
-      box-shadow: 0 0 15px #00ffe1;
-      animation: modalZoom 0.5s;
-    }
+/* Logout modal title */
+.logout-modal-content h2 {
+  margin-bottom: 10px;
+  color: #00ffe1; /* Bright neon blue */
+}
 
-    .logout-modal-content h2 {
-      margin-bottom: 10px;
-      color: #00ffe1;
-    }
+/* Button container for logout options */
+.logout-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
 
-    .logout-buttons {
-      margin-top: 20px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
+/* Base style for both Yes and No buttons */
+.logout-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    .logout-buttons button {
-      padding: 10px 20px;
-      font-size: 16px;
-      font-family: 'Orbitron', sans-serif;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .yes-btn {
+/* Yes button styling */
+.yes-btn {
   background-color: #00d1ff !important;
   color: #0b0c2a !important;
   font-weight: bold;
@@ -624,54 +685,62 @@ html, body {
   background-image: none !important;
 }
 
+/* No button styling */
 .no-btn {
-  background-color: #d9534f !important;
+  background-color: #d9534f !important; /* Bootstrap danger red */
   color: white !important;
   font-weight: bold;
   box-shadow: none !important;
   background-image: none !important;
 }
 
+/* Hover effect for Yes button */
 .yes-btn:hover {
   background-color: #00a8d4 !important;
 }
 
+/* Hover effect for No button */
 .no-btn:hover {
   background-color: #c9302c !important;
 }
 
-    .footer {
-  background: #000000;
-  color: #ffffff;
+  /* =========================
+   Footer Main Container
+========================= */
+.footer {
+  background: #000000; /* Black footer background */
+  color: #ffffff; /* White text color */
   font-family: 'Orbitron', sans-serif;
   padding: 20px 40px;
-  border-top: 1px solid #1a1f4d;
-  margin-top: 134px !important;
+  border-top: 1px solid #1a1f4d; /* Subtle top border */
+  margin-top: 134px !important; /* Ensures spacing from main content */
 }
 
+/* Layout of footer sections */
 .footer-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allows items to stack on smaller screens */
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 40px;
   gap: 20px;
-  text-align: left; /* ✅ aligns text inside sections properly */
+  text-align: left; /* Ensures text is left-aligned in each section */
 }
 
-
-/* Branding (logo + text) */
+/* =========================
+   Branding Section (Left)
+========================= */
 .footer-branding {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* ✅ aligns logo + text to left */
+  align-items: flex-start;
   text-align: left;
   max-width: 240px;
 }
 
-
+/* Logo line inside branding */
 .footer-logo-line {
   display: flex;
   align-items: center;
@@ -679,24 +748,30 @@ html, body {
   justify-content: center;
 }
 
+/* Logo image */
 .footer-logo {
   width: 32px;
   height: auto;
 }
 
-
+/* Branding title */
 .footer-title {
   font-size: 16px;
   font-weight: bold;
-  color: #00d1ff;
+  color: #00d1ff; /* Accent blue */
 }
 
+/* Tagline below branding title */
 .footer-tagline {
   font-size: 12px;
   color: #ffffff;
 }
 
-/* Quick Links */
+/* =========================
+   Quick Links and Socials
+========================= */
+
+/* Section titles */
 .footer-links h4,
 .footer-social h4 {
   color: #00d1ff;
@@ -704,61 +779,77 @@ html, body {
   margin-bottom: 8px;
 }
 
+/* List styling for links */
 .footer-links ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 .footer-links ul li {
   margin-bottom: 6px;
 }
+
 .footer-links ul li a {
   font-size: 13px;
   color: #ffffff;
   text-decoration: none;
   transition: color 0.3s;
 }
+
+/* Hover effect for links */
 .footer-links ul li a:hover {
   color: #00d1ff;
 }
 
-/* Social Section */
+/* Social icons container */
 .footer-social {
   min-width: 120px;
 }
+
+/* Social icon row */
 .social-icons {
   display: flex;
   gap: 12px;
 }
+
+/* Individual social icon styling */
 .social-icons a {
   color: #ffffff;
   font-size: 16px;
   transition: color 0.3s;
 }
+
 .social-icons a:hover {
   color: #00d1ff;
 }
 
-/* Bottom Bar */
+/* =========================
+   Bottom Footer Bar
+========================= */
 .footer-bottom {
   text-align: center;
   font-size: 12px;
-  color: #ffc506;
+  color: #ffc506; /* Yellow-gold text */
   padding-top: 10px;
   margin-top: 20px;
   border-top: 1px solid #1a1f4d;
 }
 
+/* =========================
+   Mobile Menu Toggle (Hidden by default)
+========================= */
 .menu-toggle {
-      display: none;
-      font-size: 26px;
-      background: none;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+  display: none; /* Visible only on small screens */
+  font-size: 26px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
-    /* ✅ Responsive Styles */
+
+    /* Responsive Styles */
 @media (max-width: 1024px) {
   .main-header .container {
     flex-wrap: wrap;
@@ -1032,50 +1123,7 @@ html, body {
 
 /* ========== SMALL SCREEN FIX (≤ 614px) ========== */
 @media (max-width: 614px) {
-  /* ✅ Search container fix */
-  .search-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 10px auto 20px; /* ✅ top:10px | bottom:20px */
-  padding: 0 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-
-
-  #searchInput {
-    width: 100%;
-    max-width: 100%;
-    padding: 12px 16px;
-    font-size: 15px;
-    border-radius: 50px;
-    border: 2px solid #00d1ff;
-    background: #0d112b;
-    color: white;
-  }
-
-  #searchButton {
-    width: auto;
-    min-width: 120px;
-    max-width: 200px;
-    align-self: center;
-    padding: 12px 20px;
-    font-size: 15px;
-    font-weight: bold;
-    border-radius: 50px;
-    border: none;
-    background-color: #00d1ff;
-    color: #0b0c2a;
-    transition: background-color 0.3s ease;
-  }
-
-  #searchButton:hover {
-    background-color: #00a8d4;
-  }
-
-  /* ✅ Nav box alignment fix */
+  
   .nav-box {
     display: none;
     flex-direction: column;
@@ -1116,7 +1164,7 @@ html, body {
   }
 
   .logo-text {
-    font-size: 16px; /* optional: shrink Explore Hub text a bit */
+    font-size: 16px; /* Shrink Explore Hub text a bit */
   }
 
   .menu-toggle {
@@ -1151,7 +1199,7 @@ html, body {
     top: 100%;
     left: 10px;
     right: 10px;
-    max-width: calc(100% - 20px); /* ✅ Prevent overflow */
+    max-width: calc(100% - 20px); /* Prevent overflow */
     background: #10142a;
     border-radius: 12px;
     padding: 16px 20px;
@@ -1160,7 +1208,7 @@ html, body {
     flex-direction: column;
     gap: 12px;
     z-index: 1000;
-    overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 
   .nav-box.show {
@@ -1225,7 +1273,7 @@ html, body {
 
 @media (max-width: 768px) {
   .secondary-nav {
-    margin-top: -50px; /* ✅ Pulls it up a bit */
+    margin-top: -50px; /* Pulls it up a bit */
   }
 }
 
@@ -1254,22 +1302,27 @@ html, body {
   </style>
 </head>
 <body>
-
+  <!-- Wrapper for the full page content -->
   <div class="page-wrapper">
+     <!-- Main Header -->
     <header class="main-header">
+  <!-- Top section of the header with logo and user controls -->
   <div class="header-top">
+  <!-- Logo Section (Left Side) -->
   <div class="left-group">
     <div class="logo-wrap">
 <img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
       <span class="logo-text">Explore Hub</span>
     </div>
   </div>
-
+<!-- Mobile Controls: Profile & Logout -->
   <div class="mobile-controls">
+    <!-- Profile Avatar and Dropdown -->
     <div class="profile-dropdown">
       <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
         <i class="fas fa-user"></i>
       </div>
+      <!-- Profile Info Box -->
       <div class="profile-box" id="profileBox">
          <h3>User Profile</h3>
   <label for="profileEmail">Email</label>
@@ -1287,15 +1340,16 @@ html, body {
   <button onclick="saveProfile()">Save Profile</button>
       </div>
     </div>
+    <!-- Logout Button -->
     <button class="logout-btn" onclick="logout()">Log Out</button>
   </div>
 </div>
-
+  <!-- Navigation Menu -->
 <nav class="secondary-nav">
-  <!-- ✅ Visible always -->
+  <!-- Menu toggle button for mobile -->
   <button class="menu-toggle" onclick="toggleNav()">☰</button>
 
-  <!-- ✅ Initially hidden on mobile -->
+  <!-- Navigation links -->
   <div id="navMenu" class="nav-box">
     <a href="/home.html" class="nav-link">Home</a>
     <a href="/favorites.html" class="nav-link">Favorites</a>
@@ -1307,9 +1361,9 @@ html, body {
 
 </header>
 
-
+  <!-- Page Title -->
   <h1 class="page-title">Mars Rover Photos</h1>
-
+<!-- Search Bar Section -->
   <div class="search-container">
     <input type="date" id="earthDate" />
     <select id="rover">
@@ -1321,13 +1375,15 @@ html, body {
     <button onclick="showTimelineModal()">Rover Timeline</button>
 
   </div>
-<h2 id="resultsHeading" style="text-align:center; color:#ffb347; margin: 0 0 30px; display:none;"></h2>
-
+  <!-- Results Heading (hidden initially) -->
+  <h2 id="resultsHeading" style="text-align:center; color:#ffb347; margin: 0 0 30px; display:none;"></h2>
+  <!-- Photo Results Grid -->
   <div class="photo-grid" id="photoGrid"></div>
-  
+   <!-- Loading Spinner (shown while photos load) -->
  <div class="loader-wrapper" id="loaderWrapper">
       <div class="loader"></div>
     </div>
+  <!-- Modal for Full Photo View -->
   <div class="modal" id="photoModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -1336,7 +1392,7 @@ html, body {
       <p id="modalDetails"></p>
     </div>
   </div>
-
+  <!-- Logout Confirmation Modal -->
   <div id="logoutModal" class="logout-modal">
     <div class="logout-modal-content">
       <h2>Confirm Logout</h2>
@@ -1348,7 +1404,7 @@ html, body {
     </div>
   </div>
 </div>
-
+<!-- Timeline Modal for Rover Missions -->
 <div id="timelineModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeTimelineModal()">&times;</span>
@@ -1356,17 +1412,18 @@ html, body {
     <div id="timelineDetails" style="font-size: 14px; color: #ccc; margin-top: 10px; line-height: 1.5;"></div>
   </div>
 </div>
-
+   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
+      <!-- Branding Section -->
       <div class="footer-branding">
         <div class="footer-logo-line">
-<img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
+           <img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
           <span class="footer-title">Explore Hub</span>
         </div>
         <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
       </div>
-
+      <!-- Quick Links -->
       <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
@@ -1377,7 +1434,7 @@ html, body {
           <li><a href="/Community.html">Community</a></li>
         </ul>
       </div>
-
+      <!-- Social Media Icons -->
       <div class="footer-social">
         <h4>Follow Us</h4>
         <div class="social-icons">
@@ -1388,13 +1445,15 @@ html, body {
       </div>
     </div>
   
-
+    <!-- Footer Bottom Line -->
     <div class="footer-bottom">
       <p>&copy; 2025 Explore Hub. All rights reserved.</p>
     </div>
   </footer>
  <script>
+// NASA API key
 const API_KEY = 'jgJCwjuV9E8w9PBlNCtnEZ3UYmSxZOepexGcdxki';
+// DOM elements
 const photoGrid = document.getElementById('photoGrid');
 const photoModal = document.getElementById('photoModal');
 const modalImg = document.getElementById('modalImg');
@@ -1402,7 +1461,7 @@ const modalTitle = document.getElementById('modalTitle');
 const modalDetails = document.getElementById('modalDetails');
 const resultsHeading = document.getElementById('resultsHeading');
 const loadingSpinner = document.getElementById('loaderWrapper');
-
+// On page load: check if user is authenticated and load profile data
 window.onload = async () => {
   try {
     const res = await fetch('/api/user', { credentials: 'include' });
@@ -1416,6 +1475,7 @@ window.onload = async () => {
   }
 };
 
+// Search for Mars photos based on selected rover and date
 function searchPhotos() {
   const date = document.getElementById('earthDate').value;
   const rover = document.getElementById('rover').value;
@@ -1424,7 +1484,7 @@ function searchPhotos() {
   resultsHeading.textContent = '';
 
   if (!date) return alert('Please select a date!');
-
+ // Save search to backend
   fetch('/api/mars-search', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -1434,7 +1494,7 @@ function searchPhotos() {
 
   fetchPhotos(rover, date);
 }
-
+// Fetch Mars rover photos from NASA API
 function fetchPhotos(rover, date) {
   loadingSpinner.style.display = 'flex';
   photoGrid.innerHTML = '';
@@ -1445,16 +1505,16 @@ function fetchPhotos(rover, date) {
       const photos = data.photos;
       loadingSpinner.style.display = 'none';
       photoGrid.innerHTML = '';
-
+      // If no photos found
       if (!photos.length) {
         resultsHeading.style.display = 'none';
         photoGrid.innerHTML = '<p style="text-align:center;">No photos found for this date.</p>';
         return;
       }
-
+      // Display result heading
       resultsHeading.textContent = `Showing results for ${rover.charAt(0).toUpperCase() + rover.slice(1)} on ${date}`;
       resultsHeading.style.display = 'block';
-
+      // Create cards for each photo
       photos.forEach(photo => {
         const card = document.createElement('div');
         card.className = 'photo-card';
@@ -1479,7 +1539,7 @@ function fetchPhotos(rover, date) {
       photoGrid.innerHTML = '<p style="text-align:center;">Error loading photos.</p>';
     });
 }
-
+// Open the photo modal with details
 function openModal(imgSrc, title, photo) {
   modalImg.src = imgSrc;
   modalTitle.textContent = title;
@@ -1490,34 +1550,34 @@ function openModal(imgSrc, title, photo) {
     <strong>Date:</strong> ${photo.earth_date}`;
   photoModal.style.display = 'flex';
 }
-
+// Close the photo modal
 function closeModal() {
   photoModal.style.display = 'none';
 }
-
+// Show logout modal
 function logout() {
   document.getElementById('logoutModal').style.display = 'flex';
 }
-
+// Confirm logout
 document.getElementById('confirmLogout').addEventListener('click', () => {
   fetch('/logout', { method: 'POST', credentials: 'include' })
     .then(() => window.location.href = '/')
     .catch(err => console.error('Logout failed:', err));
 });
-
+// Cancel logout modal
 document.getElementById('cancelLogout').addEventListener('click', () => {
   document.getElementById('logoutModal').style.display = 'none';
 });
-
+// Toggle navigation menu for mobile
 function toggleNav() {
   document.getElementById('navMenu').classList.toggle('show');
 }
-
+// Toggle profile dropdown
 function toggleProfileDropdown() {
   const box = document.getElementById('profileBox');
   box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
 }
-
+// Load user profile info into input fields
 async function loadProfileData() {
   try {
     const res = await fetch('/api/profile', {
@@ -1534,7 +1594,7 @@ async function loadProfileData() {
 
       const avatarContainer = document.getElementById('avatarIcon');
       avatarContainer.innerHTML = '';
-
+      // Show avatar image or fallback icon
       if (data.avatarUrl && data.avatarUrl.trim() !== '' && data.avatarUrl !== '/images/default-avatar.png') {
         const img = document.createElement('img');
         img.src = data.avatarUrl;
@@ -1554,7 +1614,7 @@ async function loadProfileData() {
     console.error('❌ Error loading profile:', err);
   }
 }
-
+// Save updated profile info
 async function saveProfile() {
   const name = document.getElementById('profileName').value;
   const bio = document.getElementById('profileBio').value;
@@ -1577,7 +1637,7 @@ async function saveProfile() {
     alert('⚠️ Error updating profile.');
   }
 }
-
+// Static data for timeline modal (for each Mars rover)
 const roverTimelines = {
   curiosity: {
     name: "Curiosity",
@@ -1616,7 +1676,7 @@ const roverTimelines = {
     ]
   }
 };
-
+// Show mission timeline modal for selected rover
 function showTimelineModal() {
   const rover = document.getElementById('rover').value;
   const data = roverTimelines[rover];
@@ -1635,7 +1695,7 @@ function showTimelineModal() {
     document.getElementById('timelineModal').style.display = 'flex';
   }
 }
-
+// Close the mission timeline modal
 function closeTimelineModal() {
   document.getElementById('timelineModal').style.display = 'none';
 }
