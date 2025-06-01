@@ -7,16 +7,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
-   
+/* Apply border-box model to all elements */
 * {
   box-sizing: border-box;
 }
+/* Reset default margin and padding, prevent horizontal scroll */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
 }
+/* Body styling: gradient background, font, layout setup */
    body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
@@ -31,13 +33,13 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Faster background gradient animation */
+/* Keyframes for animated gradient background */
 @keyframes gradientBG {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
+/* Main wrapper for all page content */
 .page-wrapper {
   width: 100%;
   max-width: 100%;
@@ -47,8 +49,7 @@ html, body {
   flex-direction: column;
 }
 
-
-
+/* Preloader screen that shows while page is loading */
 #preloader {
   position: fixed;
   top: 0; left: 0;
@@ -63,18 +64,18 @@ html, body {
   color: #00d1ff;
   transition: opacity 0.4s ease;
 }
-
+/* Fade out preloader when it's hidden */
 #preloader.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-/* Content over background */
+/* Ensure these sections appear above background elements */
 header, .hero, .search-container, .results, footer {
   position: relative;
   z-index: 1;
 }
-
+/* Full-width container styling for layout sections */
 .main-header,
 .footer,
 .favorites-container {
@@ -82,45 +83,43 @@ header, .hero, .search-container, .results, footer {
   box-sizing: border-box;
 }
 
-
-/* UPDATED HEADER */
-/* Updated header styling */
-/* Professional Header Design */
-/* ========== Fixed Header ========== */
+/* Main header styling: gradient background with blur and sticky position */
 .main-header {
-  background: linear-gradient(90deg, #1a1f4d, #20296b, #1f7aec);
-  box-shadow: 0 4px 15px rgba(0, 209, 255, 0.3);
-  border-bottom: 1px solid rgba(0, 209, 255, 0.2);
-  backdrop-filter: blur(6px);
-  position: sticky;
+  background: linear-gradient(90deg, #1a1f4d, #20296b, #1f7aec); /* Smooth gradient */
+  box-shadow: 0 4px 15px rgba(0, 209, 255, 0.3); /* Soft glow */
+  border-bottom: 1px solid rgba(0, 209, 255, 0.2); /* Subtle border */
+  backdrop-filter: blur(6px); /* Glassmorphism effect */
+  position: sticky; /* Sticks to top while scrolling */
   top: 0;
-  z-index: 1000;
+  z-index: 1000; /* Stay above other content */
 }
 
-
+/* Top part of the header: contains logo and profile controls */
 .header-top {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Space between logo and controls */
   align-items: center;
   padding: 12px 20px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allows wrapping on small screens */
 }
 
+/* Secondary navigation bar under header */
 .secondary-nav {
-  background: #0d102b;
+  background: #0d102b; /* Dark background */
   padding: 10px 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: sticky;
-  top: 66px;
+  top: 66px; /* Slightly below main header */
   z-index: 900;
-  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.06); /* Subtle shadow */
+  backdrop-filter: blur(6px); /* Soft blur */
   border-top: 1px solid #1a1f4d;
   border-bottom: 1px solid #1a1f4d;
 }
 
+/* Container for aligning nav links and toggle button */
 .nav-container {
   display: flex;
   align-items: center;
@@ -129,11 +128,13 @@ header, .hero, .search-container, .results, footer {
   max-width: 1200px;
 }
 
+/* Box that holds all navigation links */
 .nav-box {
   display: flex;
-  gap: 32px;
+  gap: 32px; /* Space between links */
 }
 
+/* Navigation link styling */
 .nav-link {
   color: #ffffff;
   font-size: 15px;
@@ -143,10 +144,12 @@ header, .hero, .search-container, .results, footer {
   position: relative;
 }
 
+/* Hover effect: change text color */
 .nav-link:hover {
   color: #00d1ff;
 }
 
+/* Underline effect animation */
 .nav-link::after {
   content: '';
   display: block;
@@ -157,35 +160,41 @@ header, .hero, .search-container, .results, footer {
   margin-top: 4px;
 }
 
+/* Expand underline on hover */
 .nav-link:hover::after {
   width: 100%;
 }
 
+/* Right side of header: profile icon and logout */
 .mobile-controls {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+
+/* Logo wrapper: holds icon and brand text */
 .logo-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; /* Space between logo and text */
 }
 
+/* Logo image size */
 .logo-icon {
   width: 36px;
   height: 36px;
 }
 
+/* Logo text style */
 .logo-text {
   color: #00d1ff;
   font-size: 20px;
   font-weight: bold;
-  white-space: nowrap;
+  white-space: nowrap; /* Prevent text wrap */
 }
 
-
+/* Hamburger menu button (mobile nav toggle) */
 .menu-toggle {
   background-color: #1a1f4d;
   color: white;
@@ -194,13 +203,16 @@ header, .hero, .search-container, .results, footer {
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  display: none; /* hidden by default */
+  display: none; /* Hidden by default, shown in responsive views */
 }
+
+/* Optional wrapper around menu toggle */
 .menu-toggle-wrap {
   padding: 0 20px;
   margin-top: 4px;
 }
 
+/* Logout button base styling */
 .logout-btn {
   background: #00d1ff;
   color: #0b0c2a;
@@ -212,15 +224,13 @@ header, .hero, .search-container, .results, footer {
   font-size: 14px;
 }
 
-
-
-
-
+/* Action section wrapper (e.g., for logout and profile) */
 .action-section {
   display: flex;
   align-items: center;
 }
 
+/* Gradient-styled logout button with hover effect */
 .logout-btn {
   background: linear-gradient(135deg, #00d1ff, #0099cc);
   color: #0b0c2a;
@@ -233,12 +243,13 @@ header, .hero, .search-container, .results, footer {
   transition: all 0.3s ease;
 }
 
+/* Hover effect for logout button */
 .logout-btn:hover {
   background: #00a8d4;
   transform: translateY(-1px);
 }
 
-
+/* Profile dropdown container (holds avatar and profile box) */
 .profile-dropdown {
   position: relative;
   display: flex;
@@ -246,6 +257,7 @@ header, .hero, .search-container, .results, footer {
   margin-left: 16px;
 }
 
+/* Circular profile icon container */
 .profile-icon {
   width: 36px;
   height: 36px;
@@ -259,6 +271,7 @@ header, .hero, .search-container, .results, footer {
   cursor: pointer;
 }
 
+/* If avatar image exists */
 .profile-icon img {
   width: 100%;
   height: 100%;
@@ -266,12 +279,13 @@ header, .hero, .search-container, .results, footer {
   object-fit: cover;
 }
 
+/* If using default icon (no uploaded image) */
 .profile-icon i {
   color: #00d1ff;
   font-size: 18px;
 }
 
-
+/* Profile dropdown box (hidden by default) */
 .profile-box {
   position: absolute;
   top: 50px;
@@ -287,6 +301,8 @@ header, .hero, .search-container, .results, footer {
   z-index: 2000;
   animation: slideFade 0.3s ease;
 }
+
+/* Little arrow at the top of the profile box */
 .profile-box::before {
   content: '';
   position: absolute;
@@ -297,8 +313,7 @@ header, .hero, .search-container, .results, footer {
   border-bottom: 10px solid #10142a;
 }
 
-
-
+/* Animation for profile dropdown appearing */
 @keyframes slideFade {
   from {
     opacity: 0;
@@ -311,21 +326,21 @@ header, .hero, .search-container, .results, footer {
 }
 
 
-
+/* Profile dropdown title */
 .profile-box h3 {
   margin-bottom: 12px;
   font-size: 18px;
   color: #00d1ff;
   text-align: center;
 }
-
+/* Labels for form fields in the profile box */
 .profile-box label {
   font-size: 12px;
   margin: 6px 0 2px;
   color: #a9dfff;
   font-weight: 500;
 }
-
+/* Input and textarea fields in profile form */
 .profile-box input,
 .profile-box textarea {
   width: 100%;
@@ -338,13 +353,13 @@ header, .hero, .search-container, .results, footer {
   font-size: 13px;
   transition: box-shadow 0.3s ease;
 }
-
+/* Focus effect for input fields */
 .profile-box input:focus,
 .profile-box textarea:focus {
   outline: none;
   box-shadow: 0 0 0 2px #00d1ff;
 }
-
+/* Save button inside profile box */
 .profile-box button {
   background: linear-gradient(135deg, #00d1ff, #1f7aec);
   color: #0b0c2a;
@@ -356,44 +371,39 @@ header, .hero, .search-container, .results, footer {
   font-size: 14px;
   transition: all 0.3s ease;
 }
-
+/* Hover effect for save button */
 .profile-box button:hover {
   background: #00a8d4;
   transform: translateY(-1px);
 }
 
-  
+  /* Favorites section container padding */
     .favorites-container {
-      padding: 20px 20px 40px; /* 🆙 Move heading up */
+      padding: 20px 20px 40px; /* Move heading up */
     }
+    /* Favorites page heading style */
     .favorites-container h1 {
   text-align: center;
-  margin-top: 10px; /* 🆙 Moved more up */
+  margin-top: 10px; /* Moved more up */
   margin-bottom: 30px; /* Good space before cards */
   font-size: 36px;
-  color: #ffffff; /* 🤍 Pure White color */
+  color: #ffffff; /* White color */
   letter-spacing: 1px;
   text-shadow: 0 0 10px #00ffe1; /* Subtle glow */
 }
 
 
-  
+/* Grid layout for favorite cards */
 .favorites-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 💡 4 cards per row */
+  grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   justify-items: center; /* center cards when less than 4 */
 }
-
-
-
-
-
-
-  
+/* Card wrapper style */  
 .card {
   background-color: #1a1f4d;
   border: 1px solid #00ffe1;
@@ -410,14 +420,12 @@ header, .hero, .search-container, .results, footer {
   padding: 0; /* Remove padding to prevent background gap */
   box-sizing: border-box;
 }
-
-
-
-
+/* Hover animation on card */
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 0 12px #00ffe1;
     }
+    /* Image inside the card */
     .card img {
   flex: 1;
   width: 100%;
@@ -427,7 +435,7 @@ header, .hero, .search-container, .results, footer {
   margin: 0;
   padding: 0;
 }
-
+/* Description text inside the card */
 .card p {
   height: 60px; /* Fixed height */
   margin: 0;
@@ -438,7 +446,7 @@ header, .hero, .search-container, .results, footer {
   font-size: 15px;
   padding: 10px;
 }
-
+/* View Full Image button styling */
 .view-btn {
   margin: 8px auto 12px;
   padding: 6px 14px;
@@ -453,7 +461,7 @@ header, .hero, .search-container, .results, footer {
   font-family: 'Orbitron', sans-serif;
   width: fit-content;
 }
-
+/* Hover effect for view button */
 .view-btn:hover {
   background-color: #005eff;
   transform: scale(1.05);
@@ -480,7 +488,7 @@ header, .hero, .search-container, .results, footer {
     }
     .remove-btn:hover { background-color: darkred; }
   
-    /* Modal */
+    /* Fullscreen overlay for image modal */
     .modal {
       position: fixed;
       top: 0; left: 0;
@@ -491,6 +499,7 @@ header, .hero, .search-container, .results, footer {
       align-items: center;
       z-index: 2000;
     }
+    /* Modal content box styling */
     .modal-content {
       background: #1a1f4d;
       width: 90%;
@@ -505,17 +514,20 @@ header, .hero, .search-container, .results, footer {
       flex-direction: column;
       position: relative;
     }
+    /* Modal image */
     .modal-content img {
       width: 100%;
       height: 200px;
       object-fit: contain;
       border-radius: 10px;
     }
+    /* Modal title text */
     #modalTitle {
       margin: 15px 0 5px;
       color: #00ffe1;
       font-size: 20px;
     }
+    /* Modal description text */
     #modalDesc {
       font-size: 14px;
       padding: 10px;
@@ -524,6 +536,7 @@ header, .hero, .search-container, .results, footer {
       text-align: left;
       line-height: 1.4;
     }
+    /* Close button (top right X) */
     .close-btn {
       position: absolute;
       top: 15px;
@@ -532,7 +545,9 @@ header, .hero, .search-container, .results, footer {
       cursor: pointer;
       color: white;
     }
-   /* Logout Modal */
+   /* ======================
+    Logout Confirmation Modal
+     ========================= */
 .logout-modal {
   display: none;
   position: fixed;
@@ -545,7 +560,7 @@ header, .hero, .search-container, .results, footer {
   align-items: center;
   animation: fadeIn 0.5s;
 }
-
+/* Modal box for logout confirmation */
 .logout-modal-content {
   background: #1a1f4d;
   padding: 30px 40px;
@@ -555,19 +570,19 @@ header, .hero, .search-container, .results, footer {
   box-shadow: 0 0 15px #00ffe1;
   animation: slideDown 0.5s;
 }
-
+/* Modal heading */
 .logout-modal-content h2 {
   margin-bottom: 10px;
   color: #00ffe1;
 }
-
+/* Button group layout */
 .logout-buttons {
   margin-top: 20px;
   display: flex;
   gap: 20px;
   justify-content: center;
 }
-
+/* Base style for logout buttons */
 .logout-buttons button {
   padding: 10px 20px;
   font-size: 16px;
@@ -577,19 +592,19 @@ header, .hero, .search-container, .results, footer {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
+/* Yes/Confirm button */
 .yes-btn {
   background-color: #00d1ff;
   color: #0b0c2a;
   font-weight: bold;
 }
-
+/* No/Cancel button */
 .no-btn {
   background-color: #d9534f;
   color: white;
   font-weight: bold;
 }
-
+/* Hover effects */
 .yes-btn:hover {
   background-color: #00a8d4;
 }
@@ -610,7 +625,7 @@ header, .hero, .search-container, .results, footer {
   to {transform: translateY(0); opacity: 1;}
 }
 
-    /* ===== FOOTER STYLES ===== */
+/* ===== FOOTER STYLES ===== */
 .footer {
   background: #000000;
   color: #ffffff;
@@ -619,16 +634,17 @@ header, .hero, .search-container, .results, footer {
   border-top: 1px solid #1a1f4d;
   margin-top: 355px !important;
   opacity: 0;
-  pointer-events: none; /* optional for cleaner fade-in */
+  pointer-events: none; /* For cleaner fade-in */
   transition: opacity 0.4s ease-in-out;
 
 }
-
+/* Show footer when .show class is added (for animations or JS triggers) */
 footer.show {
   opacity: 1;
   pointer-events: auto;
 
 }
+/* Footer container layout */
 .footer-container {
   display: flex;
   justify-content: space-between;
@@ -640,7 +656,7 @@ footer.show {
   gap: 20px;
   text-align: left;
 }
-
+/* Branding section (logo + title + tagline) */
 .footer-branding {
   display: flex;
   flex-direction: column;
@@ -648,7 +664,7 @@ footer.show {
   text-align: left;
   max-width: 240px;
 }
-
+/* Logo and title side-by-side */
 .footer-logo-line {
   display: flex;
   align-items: center;
@@ -659,25 +675,25 @@ footer.show {
   width: 32px;
   height: auto;
 }
-
+/* Title text in footer */
 .footer-title {
   font-size: 16px;
   font-weight: bold;
   color: #00d1ff;
 }
-
+/* Tagline text in footer */
 .footer-tagline {
   font-size: 12px;
   color: #ffffff;
 }
-
+/* Section titles for Links and Social */
 .footer-links h4,
 .footer-social h4 {
   color: #00d1ff;
   font-size: 14px;
   margin-bottom: 8px;
 }
-
+/* Remove list styling for footer links */
 .footer-links ul {
   list-style: none;
   padding: 0;
@@ -687,7 +703,7 @@ footer.show {
 .footer-links ul li {
   margin-bottom: 6px;
 }
-
+/* Footer link styles */
 .footer-links ul li a {
   font-size: 13px;
   color: #ffffff;
@@ -698,7 +714,7 @@ footer.show {
 .footer-links ul li a:hover {
   color: #00d1ff;
 }
-
+/* Social section minimum width */
 .footer-social {
   min-width: 120px;
 }
@@ -717,7 +733,7 @@ footer.show {
 .social-icons a:hover {
   color: #00d1ff;
 }
-
+/* Bottom bar (copyright/info) */
 .footer-bottom {
   text-align: center;
   font-size: 12px;
@@ -727,8 +743,9 @@ footer.show {
   border-top: 1px solid #1a1f4d;
 }
 
-/* ✅ Responsive Styles */
+/* Responsive Styles */
 @media (max-width: 1024px) {
+   /* Make main header wrap neatly */
   .main-header .container {
     flex-wrap: wrap;
     justify-content: space-between;
@@ -753,7 +770,6 @@ footer.show {
   }
 }
 
-/* Tablet & Mobile Fixes (768px and below) */
 /* === RESPONSIVE FIXES FOR TABLETS & MOBILES (768px and below) === */
 @media (max-width: 768px) {
 
@@ -971,14 +987,14 @@ footer.show {
     margin-top: 10px;
   }
 }
-
+/* Responsive Footer Styles for Tablets and Smaller Screens */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-
+  /* Center-align branding section (logo and text) */
   .footer-branding {
     align-items: center;
     text-align: center;
@@ -989,11 +1005,11 @@ footer.show {
     align-items: center;
     text-align: center;
   }
-
+  /* Remove default list padding to center list items */
   .footer-links ul {
     padding-left: 0;
   }
-
+   /* Center-align social icons */
   .social-icons {
     justify-content: center;
   }
@@ -1002,11 +1018,11 @@ footer.show {
 
 /* ========== SMALL SCREEN FIX (≤ 614px) ========== */
 @media (max-width: 614px) {
-  /* ✅ Search container fix */
+  /* Search container fix */
   .search-container {
   width: 100%;
   max-width: 400px;
-  margin: 10px auto 20px; /* ✅ top:10px | bottom:20px */
+  margin: 10px auto 20px; /* top:10px | bottom:20px */
   padding: 0 14px;
   display: flex;
   flex-direction: column;
@@ -1045,7 +1061,7 @@ footer.show {
     background-color: #00a8d4;
   }
 
-  /* ✅ Nav box alignment fix */
+  /* Nav box alignment fix */
   .nav-box {
     display: none;
     flex-direction: column;
@@ -1086,7 +1102,7 @@ footer.show {
   }
 
   .logo-text {
-    font-size: 16px; /* optional: shrink Explore Hub text a bit */
+    font-size: 16px; /* Shrink Explore Hub text a bit */
   }
 
   .menu-toggle {
@@ -1095,7 +1111,7 @@ footer.show {
   }
 }
 
-/* 🔷 From 956px to 769px → 3 cards */
+/* From 956px to 769px → 3 cards */
 @media (max-width: 955px) {
   .favorites-grid {
     justify-content: center;
@@ -1108,7 +1124,7 @@ footer.show {
 }
 
 
-/* 🔷 From 768px to 600px → 2 cards */
+/* From 768px to 600px → 2 cards */
 @media (max-width: 768px) {
   .card {
     width: calc(50% - 20px); /* 2 cards per row */
@@ -1119,7 +1135,7 @@ footer.show {
 
 
 
-/* 🔷 Below 600px → 1 card full width */
+/* Below 600px → 1 card full width */
 @media (max-width: 599px) {
   .card {
     width: 100%;
@@ -1127,43 +1143,43 @@ footer.show {
   }
 }
 
-
+/* Tablet View: Show 2 cards per row on screens ≤ 768px */
 @media (max-width: 768px) {
   .favorites-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* Mobile View: Show 1 card per row on screens ≤ 480px */
 @media (max-width: 480px) {
   .favorites-grid {
     grid-template-columns: 1fr;
   }
 }
-
+/* Medium Screens: Show 3 cards per row and fix card width on screens ≤ 985px */
 @media (max-width: 985px) {
   .favorites-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 🔥 force 3 cards per row */
+    grid-template-columns: repeat(3, 1fr); /* force 3 cards per row */
     gap: 20px;
     justify-items: center;
   }
-
   .card {
-    width: 280px; /* ✅ fixed width for consistent design */
+    width: 280px; /* fixed width for consistent design */
   }
 }
-
+/* Adjust favorites grid to 2 columns on screens ≤ 899px */
 @media (max-width: 899px) {
   .favorites-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
+/* Add side padding to favorites container on screens ≤ 949px */
 @media (max-width: 949px) {
   .favorites-container {
     padding: 20px 16px 40px; /* left and right padding added */
   }
 }
-
+/* Mobile View: One column layout with spacing tweaks on screens ≤ 585px */
 @media (max-width: 585px) {
   .favorites-container {
     padding: 20px 12px;
@@ -1177,18 +1193,18 @@ footer.show {
 
   .card {
     width: 100%;
-    max-width: 320px; /* ✅ Prevents too-stretched cards */
+    max-width: 320px; /* Prevents too-stretched cards */
     box-sizing: border-box;
   }
 
   .card img {
-    object-fit: cover;   /* ✅ Keeps image aspect */
+    object-fit: cover;   /* Keeps image aspect */
     height: 240px;
     width: 100%;
   }
 }
 
-
+/* Responsive Navigation for Tablets and Mobiles */
 @media (max-width: 768px) {
   .secondary-nav {
     position: relative;
@@ -1215,7 +1231,7 @@ footer.show {
     top: 100%;
     left: 10px;
     right: 10px;
-    max-width: calc(100% - 20px); /* ✅ Prevent overflow */
+    max-width: calc(100% - 20px); /*  Prevent overflow */
     background: #10142a;
     border-radius: 12px;
     padding: 16px 20px;
@@ -1224,7 +1240,7 @@ footer.show {
     flex-direction: column;
     gap: 12px;
     z-index: 1000;
-    overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 
   .nav-box.show {
@@ -1243,7 +1259,7 @@ footer.show {
     color: #00d1ff;
   }
 }
-
+/* Adjust profile dropdown box layout for smaller screens (≤768px) */
 @media (max-width: 768px) {
   .profile-box {
     top: 48px;
@@ -1261,7 +1277,7 @@ footer.show {
   }
 }
 
-
+/* Adjust profile dropdown and controls for mobile screens (≤767px) */
 @media (max-width: 767px) {
   .mobile-controls {
     width: auto;
@@ -1280,16 +1296,16 @@ footer.show {
     margin-top: 0; /* Remove forced vertical spacing */
   }
 }
-
+/* Add top padding to prevent overlap with fixed headers (on small screens ≤768px) */
 @media (max-width: 768px) {
   .favorites-container {
     padding-top: 110px !important;
   }
 }
-
+/* Shift the secondary navigation upwards slightly (on small screens ≤768px) */
 @media (max-width: 768px) {
   .secondary-nav {
-    margin-top: -50px; /* ✅ Pulls it up a bit */
+    margin-top: -50px; /* Pulls it up a bit */
   }
 }
 
@@ -1300,21 +1316,27 @@ footer.show {
 </head>
 
 <body>
+   <!-- Main wrapper for the entire page -->
   <div class="page-wrapper">
+    <!-- HEADER SECTION -->
     <header class="main-header">
+  <!-- Top header: logo, profile icon, logout button -->
   <div class="header-top">
+  <!-- Left side: Logo and brand name -->
   <div class="left-group">
     <div class="logo-wrap">
 <img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
       <span class="logo-text">Explore Hub</span>
     </div>
   </div>
-
+  <!-- Right side: profile dropdown and logout button -->
   <div class="mobile-controls">
+    <!-- Profile Icon + Dropdown -->
     <div class="profile-dropdown">
       <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
         <i class="fas fa-user"></i>
       </div>
+      <!-- Hidden dropdown for editing profile -->
       <div class="profile-box" id="profileBox">
          <h3>User Profile</h3>
   <label for="profileEmail">Email</label>
@@ -1332,15 +1354,16 @@ footer.show {
   <button onclick="saveProfile()">Save Profile</button>
       </div>
     </div>
+    <!-- Logout button -->
     <button class="logout-btn" onclick="logout()">Log Out</button>
   </div>
 </div>
-
+ <!-- Navigation Bar -->
 <nav class="secondary-nav">
-  <!-- ✅ Visible always -->
+  <!-- Hamburger menu for mobile -->
   <button class="menu-toggle" onclick="toggleNav()">☰</button>
 
-  <!-- ✅ Initially hidden on mobile -->
+  <!-- Navigation links -->
   <div id="navMenu" class="nav-box">
     <a href="/home.html" class="nav-link">Home</a>
     <a href="/favorites.html" class="nav-link">Favorites</a>
@@ -1353,14 +1376,16 @@ footer.show {
 </header>
 
 
-
+<!-- FAVORITES SECTION -->
 <div class="favorites-container">
   <h1>Your Favorite Posts</h1>
+  <!-- Loading spinner while favorites are being fetched -->
   <div id="loadingSpinner" style="text-align:center; width: 100%;">Loading favorites...</div>
+  <!-- Favorite cards will be rendered here dynamically -->
   <div id="favoritesContainer" class="favorites-grid"></div>
 </div>
 
-<!-- Modal -->
+<!-- IMAGE MODAL FOR VIEWING FAVORITE DETAILS -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
@@ -1370,7 +1395,6 @@ footer.show {
   </div>
 </div>
 
-<!-- Logout Confirmation Modal -->
 <!-- Logout Confirmation Modal -->
 <div id="logoutModal" class="logout-modal">
   <div class="logout-modal-content">
@@ -1386,7 +1410,9 @@ footer.show {
 
 
 <footer class="footer">
+  <!-- Top part of footer: branding, links, social -->
   <div class="footer-container">
+    <!-- Footer branding and logo -->
     <div class="footer-branding">
       <div class="footer-logo-line">
 <img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
@@ -1394,7 +1420,7 @@ footer.show {
       </div>
       <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
     </div>
-
+    <!-- Quick navigation links in the footer -->
     <div class="footer-links">
       <h4>Quick Links</h4>
       <ul>
@@ -1405,7 +1431,7 @@ footer.show {
         <li><a href="/Community.html">Community</a></li>
       </ul>
     </div>
-
+    <!-- Social media icons section -->
     <div class="footer-social">
       <h4>Follow Us</h4>
       <div class="social-icons">
@@ -1415,7 +1441,7 @@ footer.show {
       </div>
     </div>
   </div>
-
+ <!-- Bottom copyright -->
   <div class="footer-bottom">
     <p>&copy; 2025 Explore Hub. All rights reserved.</p>
   </div>
@@ -1424,13 +1450,14 @@ footer.show {
 
 
 <script>
-  const favoritesContainer = document.getElementById('favoritesContainer');
+// Get DOM elements used throughout the script
+const favoritesContainer = document.getElementById('favoritesContainer');
 const modal = document.getElementById('modal');
 const modalImg = document.getElementById('modalImg');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
 
-// ✅ Fetch user session
+  // Check if user is logged in (session)
 async function checkUserSession() {
   try {
     const res = await fetch('/api/user', { credentials: 'include' });
@@ -1443,7 +1470,7 @@ async function checkUserSession() {
     window.location.href = '/';
   }
 }
-
+  // Fetch and display user's favorite images
 function fetchFavorites() {
   const spinner = document.getElementById('loadingSpinner');
   const footer = document.querySelector('footer');
@@ -1453,12 +1480,13 @@ function fetchFavorites() {
     .then(response => response.json())
     .then(data => {
       spinner.style.display = 'none';
-      footer.classList.add('show'); // ✅ Show footer even on success
-
+      footer.classList.add('show'); // Always show footer
+       // Show message if no favorites
       if (data.length === 0) {
         favoritesContainer.innerHTML = '<p>No favorites added yet.</p>';
       } else {
         favoritesContainer.innerHTML = '';
+        // Loop through each favorite item
         data.forEach(favorite => {
           const favoriteCard = document.createElement('div');
           favoriteCard.className = 'card';
@@ -1467,6 +1495,7 @@ function fetchFavorites() {
             <p>${favorite.title}</p>
             <button class="remove-btn" onclick="removeFavorite('${favorite.imgUrl}', this)">✖</button>
           `;
+           // Show modal on card click (but not remove button)
           favoriteCard.addEventListener('click', (e) => {
             if (e.target.closest('.remove-btn')) return;
             showModal(favorite.imgUrl, favorite.title, favorite.desc || 'No description available.');
@@ -1478,12 +1507,12 @@ function fetchFavorites() {
     .catch(error => {
       console.error('Error fetching favorites:', error);
       spinner.style.display = 'none';
-      footer.classList.add('show'); // ✅ Also show on error
+      footer.classList.add('show'); // Also show on error
       favoritesContainer.innerHTML = '<p style="color:red;">Failed to load favorites.</p>';
     });
 }
 
-// ✅ Show modal
+// Display modal with image details
 function showModal(imgUrl, title, desc) {
   modal.style.display = 'flex';
   modalImg.src = imgUrl;
@@ -1491,7 +1520,7 @@ function showModal(imgUrl, title, desc) {
   modalDesc.textContent = desc;
 }
 
-// ✅ Remove favorite + Notify Home Page
+ // Remove favorite image and update UI
 function removeFavorite(imgUrl, buttonElement) {
   fetch('/api/like', {
     method: 'DELETE',
@@ -1503,7 +1532,7 @@ function removeFavorite(imgUrl, buttonElement) {
   .then(data => {
     console.log(data.message);
     buttonElement.parentElement.remove();
-    // 🆕 Notify Home Page
+     // Notify other pages about changes using localStorage
     localStorage.setItem('favoritesChanged', Date.now());
   })
   .catch(error => {
@@ -1511,27 +1540,27 @@ function removeFavorite(imgUrl, buttonElement) {
   });
 }
 
-// ✅ Logout confirmation modal
+// Logout confirmation modal
 function logout() {
   document.getElementById('logoutModal').style.display = 'flex';
 }
-
+// Confirm logout and redirect to homepage
 document.getElementById('confirmLogout').addEventListener('click', () => {
   fetch('/logout', { method: 'POST', credentials: 'include' })
     .then(() => window.location.href = '/')
     .catch(err => console.error('Logout failed:', err));
 });
-
+// Cancel logout modal
 document.getElementById('cancelLogout').addEventListener('click', () => {
   document.getElementById('logoutModal').style.display = 'none';
 });
-
+// Toggle visibility of the profile dropdown box
 function toggleProfileDropdown() {
   const box = document.getElementById('profileBox');
   box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// ✅ Load profile data (name, email, avatar)
+// Load profile data (name, email, avatar)
 async function loadProfileData() {
   try {
     const res = await fetch('/api/profile', {
@@ -1577,7 +1606,7 @@ async function loadProfileData() {
 
         avatarContainer.appendChild(img);
       } else {
-        const icon = document.createElement('i');
+        const icon = document.createElement('i'); // Default avatar icon
         icon.className = 'fas fa-user';
         icon.style.color = '#00d1ff';
         icon.style.fontSize = '18px';
@@ -1594,7 +1623,7 @@ async function loadProfileData() {
   }
 }
 
-// ✅ Save updated profile data
+// Save updated profile data
 async function saveProfile() {
   const name = document.getElementById('profileName').value;
   const bio = document.getElementById('profileBio').value;
@@ -1618,10 +1647,10 @@ async function saveProfile() {
   }
 }
 
-// ✅ Run on page load
+// Run on page load
 window.onload = async () => {
   await checkUserSession();
-  await loadProfileData(); // ✅ This will now load profile data properly
+  await loadProfileData(); // This will now load profile data properly
 };
 
 function toggleNav() {
