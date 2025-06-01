@@ -5,23 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Asteroid Tracker</title>
 
-
+  <!-- Font Awesome 5 – for using icons like user, logout, etc. -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+  <!-- Google Font – Orbitron for futuristic, space-themed headings -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <!-- Chart.js – used for drawing dynamic asteroid count bar charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jsPDF – library for generating PDF files in the browser -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- jsPDF-AutoTable – plugin for adding tables to PDF reports -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
   <style>
+    /* Reset default spacing */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-   
+/* Set full width and disable horizontal scroll */ 
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
 }
-
+    /* Body background with animated gradient and Orbitron font */
     body {
       font-family: 'Orbitron', sans-serif;
       color: #fff;
@@ -30,11 +34,13 @@ html, body {
       animation: gradientBG 10s ease infinite;
       overflow-x: hidden;
     }
+    /* Animate gradient background */
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    /* Main sticky header with shadow and blur */
    .main-header {
   background: linear-gradient(90deg, #1a1f4d, #20296b, #1f7aec);
   box-shadow: 0 4px 15px rgba(0, 209, 255, 0.3);
@@ -45,7 +51,7 @@ html, body {
   z-index: 1000;
 }
 
-
+/* Header top: space between logo and icons */
 .header-top {
   display: flex;
   justify-content: space-between;
@@ -53,7 +59,7 @@ html, body {
   padding: 12px 20px;
   flex-wrap: wrap;
 }
-
+/* Secondary nav bar below main header */
 .secondary-nav {
   background: #0d102b;
   padding: 10px 30px;
@@ -68,7 +74,7 @@ html, body {
   border-top: 1px solid #1a1f4d;
   border-bottom: 1px solid #1a1f4d;
 }
-
+/* Navigation layout */
 .nav-container {
   display: flex;
   align-items: center;
@@ -76,12 +82,12 @@ html, body {
   width: 100%;
   max-width: 1200px;
 }
-
+/* Nav links group */
 .nav-box {
   display: flex;
   gap: 32px;
 }
-
+/* Nav link styling */
 .nav-link {
   color: #ffffff;
   font-size: 15px;
@@ -90,7 +96,7 @@ html, body {
   transition: all 0.3s ease;
   position: relative;
 }
-
+/* Hover underline effect */
 .nav-link:hover {
   color: #00d1ff;
 }
@@ -108,6 +114,7 @@ html, body {
 .nav-link:hover::after {
   width: 100%;
 }
+/* Mobile icon and logo styles */
 .mobile-controls {
   display: flex;
   align-items: center;
@@ -131,7 +138,7 @@ html, body {
   font-weight: bold;
   white-space: nowrap;
 }
-
+/* Profile icon + image */
 .profile-dropdown {
   position: relative;
   display: flex;
@@ -164,7 +171,7 @@ html, body {
   font-size: 18px;
 }
 
-
+/* Profile dropdown box */
 .profile-box {
   position: absolute;
   top: 50px;
@@ -180,6 +187,7 @@ html, body {
   z-index: 2000;
   animation: slideFade 0.3s ease;
 }
+/* Small arrow for dropdown */
 .profile-box::before {
   content: '';
   position: absolute;
@@ -190,8 +198,7 @@ html, body {
   border-bottom: 10px solid #10142a;
 }
 
-
-
+/* Dropdown animation */
 @keyframes slideFade {
   from {
     opacity: 0;
@@ -219,6 +226,7 @@ html, body {
   font-weight: 500;
 }
 
+/* Profile form inputs and button */
 .profile-box input,
 .profile-box textarea {
   width: 100%;
@@ -255,7 +263,7 @@ html, body {
   transform: translateY(-1px);
 }
 
-
+/* Hamburger menu toggle for mobile */
 .menu-toggle {
   background-color: #1a1f4d;
   color: white;
@@ -270,7 +278,7 @@ html, body {
   padding: 0 20px;
   margin-top: 4px;
 }
-
+/* Logout button */
 .logout-btn {
   background: #00d1ff;
   color: #0b0c2a;
@@ -540,13 +548,13 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px; /* 👈 tighter spacing between icon and text */
-  flex-wrap: wrap; /* 👈 allows wrapping on small screens */
+  gap: 6px; /* tighter spacing between icon and text */
+  flex-wrap: wrap; /* allows wrapping on small screens */
 }
 
 h1 i {
   color: #00d1ff;
-  font-size: 26px; /* 👈 slightly smaller on mobile */
+  font-size: 26px; /* slightly smaller on mobile */
 }
 
 @media (max-width: 400px) {
@@ -583,13 +591,13 @@ h1 i {
 .search-box input[type="date"],
 .search-box button {
   width: 100%;
-  max-width: 240px; /* ✅ Prevents calendar input from stretching too wide */
+  max-width: 240px; /* Prevents calendar input from stretching too wide */
   margin-bottom: 12px;
   padding: 10px 12px;
   border-radius: 8px;
   border: none;
   font-family: 'Orbitron', sans-serif;
-  font-size: 13px; /* ✅ Slightly smaller font for compact UI */
+  font-size: 13px; /* Slightly smaller font for compact UI */
 }
 
 .search-box input[type="date"] {
@@ -616,7 +624,7 @@ h1 i {
 
 @media (max-width: 600px) {
   .search-box input[type="date"] {
-    max-width: 220px; /* ✅ Adjust this as needed */
+    max-width: 220px; 
     font-size: 12px;
   }
 }
@@ -656,6 +664,7 @@ h1 i {
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
     }
+    /* Asteroid cards */
     .asteroid-card {
       background: rgba(255, 255, 255, 0.08);
       padding: 16px;
@@ -719,7 +728,7 @@ h1 i {
   background: #00aacc;
 }
 
-/* ✅ Responsive Styles */
+/* Responsive Styles */
 @media (max-width: 1024px) {
   .main-header .container {
     flex-wrap: wrap;
@@ -995,11 +1004,11 @@ h1 i {
 
 /* ========== SMALL SCREEN FIX (≤ 614px) ========== */
 @media (max-width: 614px) {
-  /* ✅ Search container fix */
+  /* Search container fix */
   .search-container {
   width: 100%;
   max-width: 400px;
-  margin: 10px auto 20px; /* ✅ top:10px | bottom:20px */
+  margin: 10px auto 20px; /* top:10px | bottom:20px */
   padding: 0 14px;
   display: flex;
   flex-direction: column;
@@ -1038,7 +1047,7 @@ h1 i {
     background-color: #00a8d4;
   }
 
-  /* ✅ Nav box alignment fix */
+  /* Nav box alignment fix */
   .nav-box {
     display: none;
     flex-direction: column;
@@ -1079,7 +1088,7 @@ h1 i {
   }
 
   .logo-text {
-    font-size: 16px; /* optional: shrink Explore Hub text a bit */
+    font-size: 16px; /* shrink Explore Hub text a bit */
   }
 
   .menu-toggle {
@@ -1114,7 +1123,7 @@ h1 i {
     top: 100%;
     left: 10px;
     right: 10px;
-    max-width: calc(100% - 20px); /* ✅ Prevent overflow */
+    max-width: calc(100% - 20px); /* Prevent overflow */
     background: #10142a;
     border-radius: 12px;
     padding: 16px 20px;
@@ -1123,7 +1132,7 @@ h1 i {
     flex-direction: column;
     gap: 12px;
     z-index: 1000;
-    overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 
   .nav-box.show {
@@ -1188,7 +1197,7 @@ h1 i {
 
 @media (max-width: 768px) {
   .secondary-nav {
-    margin-top: -50px; /* ✅ Pulls it up a bit */
+    margin-top: -50px; 
   }
 }
 
@@ -1196,23 +1205,30 @@ h1 i {
   </style>
 </head>
 <body>
+   <!-- Main wrapper for the whole page -->
   <div class="page-wrapper">
+    <!-- Header section with logo, profile, and navigation -->
     <header class="main-header">
+  <!-- Top part of header with logo and profile section -->
   <div class="header-top">
+  <!-- Left side: logo -->
   <div class="left-group">
     <div class="logo-wrap">
 <img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
       <span class="logo-text">Explore Hub</span>
     </div>
   </div>
-
+<!-- Right side: profile and logout -->
   <div class="mobile-controls">
+    <!-- Profile icon and dropdown -->
     <div class="profile-dropdown">
       <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
         <i class="fas fa-user"></i>
       </div>
+      <!-- Profile dropdown box -->
       <div class="profile-box" id="profileBox">
          <h3>User Profile</h3>
+  <!-- Profile form -->
   <label for="profileEmail">Email</label>
   <input type="email" id="profileEmail" readonly />
 
@@ -1224,19 +1240,19 @@ h1 i {
 
   <label for="profileLocation">Location</label>
   <input type="text" id="profileLocation" placeholder="City, Country" />
-
+  <!-- Logout button -->
   <button onclick="saveProfile()">Save Profile</button>
       </div>
     </div>
     <button class="logout-btn" onclick="logout()">Log Out</button>
   </div>
 </div>
-
+<!-- Navigation bar with links -->
 <nav class="secondary-nav">
-  <!-- ✅ Visible always -->
+ 
   <button class="menu-toggle" onclick="toggleNav()">☰</button>
 
-  <!-- ✅ Initially hidden on mobile -->
+ <!-- Navigation links -->
   <div id="navMenu" class="nav-box">
     <a href="/home.html" class="nav-link">Home</a>
     <a href="/favorites.html" class="nav-link">Favorites</a>
@@ -1247,32 +1263,33 @@ h1 i {
 </nav>
 
 </header>
-
+  <!-- Main content container -->
   <div class="container">
 <h1><i class="fas fa-meteor"></i> Asteroid Tracker</h1>
-
+    <!-- Search and chart layout -->
     <div class="flex-layout">
+      <!-- Search box with date input and export buttons -->
       <div class="search-box">
         <input type="date" id="dateInput" />
         <button onclick="searchAsteroids()">Search</button>
         <div id="alertBox" class="alert"></div>
 
-        <!-- ✅ Export buttons moved inside search-box below search button -->
+        <!-- Export buttons -->
         <div class="export-buttons">
           <button onclick="exportCSV()">Export CSV</button>
           <button onclick="exportPDF()">Export PDF</button>
         </div>
       </div>
-
+      <!-- Asteroid chart -->
       <div class="chart-wrapper">
         <h3 style="text-align:center; color:#00ffff;">Asteroid Counts - Last 7 Days</h3>
         <canvas id="countChart"></canvas>
       </div>
     </div>
-
+    <!-- Cards to display asteroid data -->
     <div class="card-container" id="asteroidList"></div>
   </div>
-
+  <!-- Modal popup for asteroid details -->
   <div class="modal" id="asteroidModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -1280,7 +1297,7 @@ h1 i {
       <p id="modalDetails"></p>
     </div>
   </div>
-
+  <!-- Logout confirmation modal -->
   <div id="logoutModal" class="logout-modal">
     <div class="logout-modal-content">
       <h2>Confirm Logout</h2>
@@ -1293,6 +1310,7 @@ h1 i {
   </div>
 </div>
 
+ <!-- Footer with logo, quick links, and social icons -->
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-branding">
@@ -1302,7 +1320,7 @@ h1 i {
       </div>
       <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
     </div>
-
+    <!-- Footer navigation links -->
     <div class="footer-links">
       <h4>Quick Links</h4>
       <ul>
@@ -1314,7 +1332,7 @@ h1 i {
 
       </ul>
     </div>
-
+    <!-- Social media links -->
     <div class="footer-social">
       <h4>Follow Us</h4>
       <div class="social-icons">
@@ -1324,7 +1342,7 @@ h1 i {
       </div>
     </div>
   </div>
-
+  <!-- Footer bottom text -->
   <div class="footer-bottom">
     <p>&copy; 2025 Explore Hub. All rights reserved.</p>
   </div>
@@ -1332,7 +1350,9 @@ h1 i {
 
 
 <script>
-  const API_KEY = 'jgJCwjuV9E8w9PBlNCtnEZ3UYmSxZOepexGcdxki';
+// NASA API Key
+const API_KEY = 'jgJCwjuV9E8w9PBlNCtnEZ3UYmSxZOepexGcdxki';
+// Get references to DOM elements
 const chartCanvas = document.getElementById('countChart');
 const asteroidList = document.getElementById('asteroidList');
 const modal = document.getElementById('asteroidModal');
@@ -1341,6 +1361,7 @@ const modalDetails = document.getElementById('modalDetails');
 const alertBox = document.getElementById('alertBox');
 let asteroidChart = null;
 
+// Run when the page loads
 window.onload = async () => {
   try {
     const res = await fetch('/api/user', { credentials: 'include' });
@@ -1349,14 +1370,12 @@ window.onload = async () => {
       return;
     }
 
-    // ✅ Load and display user profile info
     await loadProfileData();
 
-    // ✅ Set today's date as max
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dateInput').setAttribute('max', today);
 
-    // ✅ Load your chart data or graphs
+     // Load 7-day asteroid chart
     loadChart();
   } catch (err) {
     console.error('❌ Authentication check failed:', err);
@@ -1364,10 +1383,11 @@ window.onload = async () => {
   }
 };
 
+// Load asteroid data from the last 7 days and draw chart
 function loadChart() {
   const today = new Date();
   const start = new Date(today);
-  start.setDate(today.getDate() - 6);
+  start.setDate(today.getDate() - 6); // Go back 6 days for 7-day range
   const startDate = start.toISOString().split('T')[0];
   const endDate = today.toISOString().split('T')[0];
 
@@ -1376,12 +1396,13 @@ function loadChart() {
     .then(data => {
       const labels = [];
       const counts = [];
+      // Loop through each day and collect asteroid counts
       for (let d = new Date(start); d <= today; d.setDate(d.getDate() + 1)) {
         const key = d.toISOString().split('T')[0];
         labels.push(key);
         counts.push(data.near_earth_objects[key]?.length || 0);
       }
-
+      // Recreate chart if it already exists
       if (asteroidChart) asteroidChart.destroy();
       asteroidChart = new Chart(chartCanvas, {
         type: 'bar',
@@ -1406,6 +1427,7 @@ function loadChart() {
     });
 }
 
+// Search asteroid data for a specific date
 function searchAsteroids() {
   const date = document.getElementById('dateInput').value;
   if (!date) return alert('Please select a date.');
@@ -1424,7 +1446,7 @@ function searchAsteroids() {
 
       let hasHazard = false;
       const saveData = [];
-
+      // Display asteroid cards and prepare data for backend save
       asteroids.forEach(a => {
         if (a.is_potentially_hazardous_asteroid) hasHazard = true;
         const close = a.close_approach_data[0];
@@ -1461,7 +1483,7 @@ function searchAsteroids() {
         console.log('Asteroids saved:', result.saved || result.message);
       })
       .catch(err => console.error('Failed to save asteroids:', err));
-
+       // Show alert if any are hazardous
       alertBox.style.display = 'block';
       alertBox.classList.add(hasHazard ? 'danger' : 'safe');
       alertBox.textContent = hasHazard
@@ -1470,6 +1492,7 @@ function searchAsteroids() {
     });
 }
 
+// Show asteroid detail modal
 function openModal(asteroid) {
   const data = asteroid.close_approach_data[0];
   modalTitle.textContent = asteroid.name;
@@ -1482,11 +1505,11 @@ function openModal(asteroid) {
   `;
   modal.style.display = 'flex';
 }
-
+// Close modal
 function closeModal() {
   modal.style.display = 'none';
 }
-
+// Export asteroid data to CSV
 function exportCSV() {
   const cards = document.querySelectorAll('.asteroid-card');
   if (!cards.length) return alert('No asteroid data to export.');
@@ -1507,6 +1530,7 @@ function exportCSV() {
   document.body.removeChild(link);
 }
 
+// Export asteroid data to PDF
 function exportPDF() {
   const cards = document.querySelectorAll('.asteroid-card');
   if (!cards.length) return alert('No asteroid data to export.');
@@ -1531,30 +1555,35 @@ function exportPDF() {
   doc.save("asteroid_data.pdf");
 }
 
+// Show logout confirmation modal
 function logout() {
   document.getElementById('logoutModal').style.display = 'flex';
 }
 
+// Confirm logout and redirect to login page
 document.getElementById('confirmLogout').addEventListener('click', () => {
   fetch('/logout', { method: 'POST', credentials: 'include' })
     .then(() => window.location.href = '/')
     .catch(err => console.error('Logout failed:', err));
 });
 
+// Cancel logout
 document.getElementById('cancelLogout').addEventListener('click', () => {
   document.getElementById('logoutModal').style.display = 'none';
 });
 
+// Toggle navigation menu on small screens
 function toggleNav() {
   document.getElementById('navMenu').classList.toggle('show');
 }
 
+// Toggle profile dropdown visibility
 function toggleProfileDropdown() {
   const box = document.getElementById('profileBox');
   box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// ✅ Load profile data (name, email, avatar) with fallback icon
+// Load profile data (name, email, avatar) with fallback icon
 async function loadProfileData() {
   try {
     const res = await fetch('/api/profile', {
@@ -1617,7 +1646,7 @@ async function loadProfileData() {
   }
 }
 
-// ✅ Save updated profile info
+// Save updated profile info
 async function saveProfile() {
   const name = document.getElementById('profileName').value;
   const bio = document.getElementById('profileBio').value;
