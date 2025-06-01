@@ -706,7 +706,7 @@ header, .hero, .search-container, .results, footer {
 
     
 
-/* ✅ Responsive Styles */
+/* Responsive Styles */
 @media (max-width: 1024px) {
   .main-header .container {
     flex-wrap: wrap;
@@ -1808,7 +1808,7 @@ function toggleProfileDropdown() {
   box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// ✅ Load profile data (name, email, avatar)
+// Load profile data (name, email, avatar)
 async function loadProfileData() {
   try {
     const res = await fetch('/api/profile', {
