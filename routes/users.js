@@ -1,11 +1,12 @@
+// Import required modules
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const { ensureAuthenticated } = require('../middleware/auth'); // ✅ Import this middleware
+const { ensureAuthenticated } = require('../middleware/auth'); 
 
-// ✅ Get all users
+// GET /api/users - Get all users
 router.get('/', async (req, res) => {
   try {
     const users = await User.find();
@@ -15,10 +16,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ Get user by ID
+// GET /api/users/:id - Get a single user by ID
 router.get('/:id', async (req, res) => {
   const userId = req.params.id;
-
+   // Validate MongoDB ObjectId
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ error: 'Invalid user ID format' });
   }
@@ -32,7 +33,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ✅ Add new user
+// POST /api/users - Add a new user
 router.post('/', async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -45,17 +46,18 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ Update user
+// PUT /api/users/:id - Update user information
 router.put('/:id', async (req, res) => {
   const userId = req.params.id;
   const { name, email, password } = req.body;
-
+    // Validate user ID
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ error: 'Invalid user ID format' });
   }
 
   try {
     const updateData = { name, email };
+    // If password is provided, hash it before update
     if (password) {
       updateData.password = await bcrypt.hash(password, 10);
     }
@@ -69,10 +71,10 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ✅ Delete user
+// DELETE /api/users/:id - Delete a user by ID
 router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
-
+    // Validate user ID format
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ error: 'Invalid user ID format' });
   }
@@ -87,7 +89,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// ✅ GET /profile - Logged in user's profile
+// GET /api/users/profile - Get profile info of the logged-in user
 router.get('/profile', ensureAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -100,5 +102,5 @@ router.get('/profile', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch profile' });
   }
 });
-
+// Export the router
 module.exports = router;
