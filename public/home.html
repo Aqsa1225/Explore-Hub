@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-
+/* Ensures consistent box sizing across elements */
 * {
   box-sizing: border-box;
 }
@@ -17,7 +17,7 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevents horizontal scroll */
 }
 
 body {
@@ -130,7 +130,7 @@ header, .hero, .search-container, .results, footer {
   padding: 12px 20px;
   flex-wrap: wrap;
 }
-
+/* Fixed secondary bar below the main nav */
 .secondary-nav {
   background: #0d102b;
   padding: 10px 30px;
@@ -186,7 +186,7 @@ header, .hero, .search-container, .results, footer {
   width: 100%;
 }
 
-
+/* Hamburger menu icon for mobile view */
 .menu-toggle {
   display: none;
   font-size: 20px;
@@ -299,9 +299,7 @@ header, .hero, .search-container, .results, footer {
 
 
 
-
-
-/* Other parts you already had */
+/* === Hero Section (Top Banner Area) === */
 .hero {
   text-align: center;
   padding: 60px 20px 40px;
@@ -318,8 +316,9 @@ header, .hero, .search-container, .results, footer {
   margin: 0 auto;
   color: #e0e0e0;
 }
+/* === Search Section (Search Bar + Button) === */
 .search-container {
-  margin: 20px auto; /* 🆙 Less margin from top */
+  margin: 20px auto; /* Less margin from top */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -370,37 +369,45 @@ header, .hero, .search-container, .results, footer {
 
 
 
+/* === Results Grid (Cards Container) === */
 .results {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 40px 20px;
+  display: grid; /* Enables CSS Grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  gap: 20px; /* Space between cards */
+  padding: 40px 20px; /* Outer spacing for the grid area */
 }
+
+/* === Individual Card Styling === */
 .card {
-  background-color: #1a1f4d;
-  border: 1px solid #00ffe1;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #1a1f4d; /* Dark card background */
+  border: 1px solid #00ffe1; /* Glowing border */
+  border-radius: 12px; /* Rounded corners */
+  overflow: hidden; /* Hides content that overflows the card */
+  cursor: pointer; /* Cursor changes to pointer on hover */
+  position: relative; /* Needed for absolute-positioned like button */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover animation */
 }
+
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 12px #00ffe1;
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 0 12px #00ffe1; /* Glowing effect on hover */
 }
+
 .card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
+  width: 100%; /* Full width of the card */
+  height: 200px; /* Fixed height for image */
+  object-fit: cover; /* Ensures image fills space without distortion */
+  display: block; /* Removes small gaps below image */
 }
+
 .card p {
-  padding: 10px;
+  padding: 10px; /* Inner spacing */
   font-size: 14px;
-  height: 80px;
-  overflow-y: auto;
+  height: 80px; /* Fixed height to keep cards uniform */
+  overflow-y: auto; /* Scroll if content exceeds height */
 }
+
+/* === Like Button Styling === */
 .like-btn {
   position: absolute;
   top: 10px;
@@ -412,34 +419,40 @@ header, .hero, .search-container, .results, footer {
   cursor: pointer;
   transition: color 0.3s, transform 0.3s;
 }
+
 .like-btn i {
-  border: 2px solid white;
-  border-radius: 50%;
+  border: 2px solid white; /* Adds a white circle outline */
+  border-radius: 50%; /* Makes it circular */
   padding: 5px;
   transition: color 0.3s, transform 0.3s;
 }
+
 .like-btn.liked i {
-  color: red;
-  transform: scale(1.1);
+  color: red; /* Highlights liked state */
+  transform: scale(1.1); /* Slightly enlarges the icon */
 }
+
 .like-btn:hover i {
-  transform: scale(1.2);
+  transform: scale(1.2); /* Enlarges icon on hover */
 }
+
+/* === Modal Overlay Styling === */
 .modal {
   position: fixed;
-  top: 0; 
+  top: 0;
   left: 0;
   width: 100%; 
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 3000; /* 🛠 Add this line */
+  background: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
+  display: none; /* Hidden by default */
+  justify-content: center; /* Centers modal horizontally */
+  align-items: center; /* Centers modal vertically */
+  z-index: 3000; /* High stacking order to appear above everything */
 }
 
+/* === Modal Content Box === */
 .modal-content {
-  background: #1a1f4d;
+  background: #1a1f4d; /* Matches card theme */
   width: 90%;
   max-width: 600px;
   height: 500px;
@@ -452,25 +465,31 @@ header, .hero, .search-container, .results, footer {
   display: flex;
   flex-direction: column;
 }
+
 .modal-content img {
   width: 100%;
   height: 200px;
-  object-fit: contain;
+  object-fit: contain; /* Shows full image without cutting it off */
   border-radius: 10px;
 }
+
+/* === Modal Text === */
 #modalTitle {
   margin: 15px 0 5px;
-  color: #00ffe1;
+  color: #00ffe1; /* Highlight color */
   font-size: 20px;
 }
+
 #modalDesc {
   font-size: 14px;
   padding: 10px;
   overflow-y: auto;
   max-height: 180px;
   text-align: left;
-  line-height: 1.4;
+  line-height: 1.4; /* Improves readability */
 }
+
+/* === Close Button (X Icon) === */
 .close-btn {
   position: absolute;
   top: 15px;
@@ -479,6 +498,7 @@ header, .hero, .search-container, .results, footer {
   cursor: pointer;
   color: white;
 }
+
 
 /* Logout Modal */
 .logout-modal {
@@ -559,123 +579,130 @@ header, .hero, .search-container, .results, footer {
 }
 
 
+/* === Footer Section === */
 .footer {
-  background: #000000;
-  color: #ffffff;
-  font-family: 'Orbitron', sans-serif;
-  padding: 20px 40px;
-  border-top: 1px solid #1a1f4d;
-  margin-top: 135px !important;
+  background: #000000; /* Solid black background */
+  color: #ffffff; /* White text */
+  font-family: 'Orbitron', sans-serif; /* Space-themed font */
+  padding: 20px 40px; /* Inner spacing */
+  border-top: 1px solid #1a1f4d; /* Subtle top border */
+  margin-top: 135px !important; /* Separates footer from main content */
 }
 
+/* === Footer Content Container === */
 .footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex; /* Horizontal layout for columns */
+  justify-content: space-between; /* Space between columns */
+  align-items: flex-start; /* Align items to top */
+  flex-wrap: wrap; /* Wraps items on smaller screens */
+  max-width: 1200px; /* Restricts maximum width */
+  margin: 0 auto; /* Centers the container */
   padding: 20px 40px;
-  gap: 20px;
-  text-align: left; /* ✅ aligns text inside sections properly */
+  gap: 20px; /* Space between columns */
+  text-align: left; /* Aligns text inside each section to the left */
 }
 
-
-/* Branding (logo + text) */
+/* === Branding Section (Logo + App Name) === */
 .footer-branding {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* ✅ aligns logo + text to left */
+  flex-direction: column; /* Stacks logo and text vertically */
+  align-items: flex-start; /* Aligns logo/text to the left */
   text-align: left;
   max-width: 240px;
 }
 
-
 .footer-logo-line {
   display: flex;
   align-items: center;
-  gap: 8px;
-  justify-content: center;
+  gap: 8px; /* Space between logo and text */
+  justify-content: center; /* Centers them inside the line */
 }
 
 .footer-logo {
   width: 32px;
-  height: auto;
+  height: auto; /* Maintains aspect ratio */
 }
-
 
 .footer-title {
   font-size: 16px;
   font-weight: bold;
-  color: #00d1ff;
+  color: #00d1ff; /* Accent color for brand name */
 }
 
 .footer-tagline {
   font-size: 12px;
-  color: #ffffff;
+  color: #ffffff; /* Subtle tagline in white */
 }
 
-/* Quick Links */
+/* === Quick Links Section === */
 .footer-links h4,
 .footer-social h4 {
-  color: #00d1ff;
+  color: #00d1ff; /* Headings in accent color */
   font-size: 14px;
   margin-bottom: 8px;
 }
 
 .footer-links ul {
-  list-style: none;
+  list-style: none; /* Removes bullets */
   padding: 0;
   margin: 0;
 }
+
 .footer-links ul li {
-  margin-bottom: 6px;
+  margin-bottom: 6px; /* Space between links */
 }
+
 .footer-links ul li a {
   font-size: 13px;
   color: #ffffff;
   text-decoration: none;
-  transition: color 0.3s;
-}
-.footer-links ul li a:hover {
-  color: #00d1ff;
+  transition: color 0.3s; /* Smooth color change on hover */
 }
 
-/* Social Section */
-.footer-social {
-  min-width: 120px;
+.footer-links ul li a:hover {
+  color: #00d1ff; /* Accent color on hover */
 }
+
+/* === Social Media Section === */
+.footer-social {
+  min-width: 120px; /* Ensures enough space */
+}
+
 .social-icons {
   display: flex;
-  gap: 12px;
+  gap: 12px; /* Space between icons */
 }
+
 .social-icons a {
-  color: #ffffff;
+  color: #ffffff; /* Default icon color */
   font-size: 16px;
   transition: color 0.3s;
 }
+
 .social-icons a:hover {
-  color: #00d1ff;
+  color: #00d1ff; /* Icon color on hover */
 }
 
-/* Bottom Bar */
+/* === Footer Bottom Bar === */
 .footer-bottom {
   text-align: center;
   font-size: 12px;
-  color: #ffc506;
+  color: #ffc506; /* Highlighted copyright */
   padding-top: 10px;
   margin-top: 20px;
-  border-top: 1px solid #1a1f4d;
+  border-top: 1px solid #1a1f4d; /* Top border to separate from upper content */
 }
 
+/* === (Optional) Menu Toggle for Mobile Nav === */
 .menu-toggle {
-      display: none;
-      font-size: 26px;
-      background: none;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+  display: none; /* Hidden by default (used in nav) */
+  font-size: 26px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
 
     
 
@@ -951,11 +978,11 @@ header, .hero, .search-container, .results, footer {
 
 /* ========== SMALL SCREEN FIX (≤ 614px) ========== */
 @media (max-width: 614px) {
-  /* ✅ Search container fix */
+  /* Search container fix */
   .search-container {
   width: 100%;
   max-width: 400px;
-  margin: 10px auto 20px; /* ✅ top:10px | bottom:20px */
+  margin: 10px auto 20px; /* top:10px | bottom:20px */
   padding: 0 14px;
   display: flex;
   flex-direction: column;
@@ -994,7 +1021,7 @@ header, .hero, .search-container, .results, footer {
     background-color: #00a8d4;
   }
 
-  /* ✅ Nav box alignment fix */
+  /* Nav box alignment fix */
   .nav-box {
     display: none;
     flex-direction: column;
@@ -1046,55 +1073,56 @@ header, .hero, .search-container, .results, footer {
 
 
 
+/* === Space News Section Container === */
 .space-news {
-  max-width: 950px;
-  margin: 60px auto;
-  padding: 40px 30px;
-  background: linear-gradient(145deg, #0e1229, #0b0c2a);
-  border-radius: 20px;
-  border: 1px solid rgba(0, 255, 225, 0.08);
-  box-shadow: 0 10px 40px rgba(0, 255, 225, 0.05);
-  backdrop-filter: blur(6px);
+  max-width: 950px; /* Limits overall width */
+  margin: 60px auto; /* Centers with top/bottom spacing */
+  padding: 40px 30px; /* Inner padding */
+  background: linear-gradient(145deg, #0e1229, #0b0c2a); /* Gradient background for space feel */
+  border-radius: 20px; /* Rounded corners */
+  border: 1px solid rgba(0, 255, 225, 0.08); /* Soft glowing border */
+  box-shadow: 0 10px 40px rgba(0, 255, 225, 0.05); /* Outer glow */
+  backdrop-filter: blur(6px); /* Slight blur for glass effect */
   text-align: center;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Includes padding and border in total width/height */
 }
 
-
-
+/* === Section Title === */
 .space-news h2 {
   font-size: 26px;
   margin-bottom: 10px;
   font-weight: 700;
-  display: flex;
+  display: flex; /* Allows icon and text side by side */
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap; /* ✅ Allow wrapping on smaller screens */
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  gap: 10px; /* Space between icon and text */
+  flex-wrap: wrap; /* Allows wrapping on small screens */
+  text-transform: uppercase; /* Makes text all caps */
+  letter-spacing: 1px; /* Adds spacing between letters */
   color: white;
 }
 
 .space-news h2 i {
-  font-size: 20px;
-  color: #1f7aec;
-  margin-right: 4px; /* ✅ Optional: smaller spacing */
+  font-size: 20px; /* Icon size */
+  color: #1f7aec; /* Blue accent */
+  margin-right: 4px; /* Spacing between icon and heading */
 }
 
-
+/* === Gradient Text Headings === */
 .gradient-heading {
-  background: linear-gradient(90deg, #8e2de2, #4facfe, #00ffe1);
-  -webkit-background-clip: text;
+  background: linear-gradient(90deg, #8e2de2, #4facfe, #00ffe1); /* Vibrant gradient */
+  -webkit-background-clip: text; /* Safari & Chrome */
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: transparent;
+  color: transparent; /* Text inherits gradient instead of solid color */
 }
 
+/* === Subtitle Below Heading === */
 .space-subtitle {
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 30px;
-  background: linear-gradient(90deg, #8e2de2, #4facfe, #00ffe1);
+  background: linear-gradient(90deg, #8e2de2, #4facfe, #00ffe1); /* Matches heading */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1102,47 +1130,53 @@ header, .hero, .search-container, .results, footer {
   letter-spacing: 0.5px;
 }
 
+/* === News List Container === */
 .news-list {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  flex-direction: column; /* Stack each news item vertically */
+  gap: 30px; /* Space between items */
 }
 
+/* === Individual News Item Card === */
 .news-item {
-  background: #0c1128;
-  border: 1px solid #00d1ff;
-  border-radius: 14px;
-  padding: 24px 28px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 255, 225, 0.05);
+  background: #0c1128; /* Deep space background */
+  border: 1px solid #00d1ff; /* Light blue border */
+  border-radius: 14px; /* Smooth rounded edges */
+  padding: 24px 28px; /* Inner spacing */
+  transition: all 0.3s ease; /* Smooth transition on hover */
+  box-shadow: 0 2px 10px rgba(0, 255, 225, 0.05); /* Soft glow */
 }
 
+/* === News Item Hover Effect === */
 .news-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 255, 225, 0.08);
-  border-color: #1de9b6;
+  transform: translateY(-6px); /* Subtle lift on hover */
+  box-shadow: 0 12px 28px rgba(0, 255, 225, 0.08); /* Enhanced shadow glow */
+  border-color: #1de9b6; /* Bright border highlight on hover */
 }
 
+/* === News Headline Link === */
 .news-item a {
   font-size: 20px;
-  color: #00ffe1;
+  color: #00ffe1; /* Aqua blue */
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
   margin-bottom: 10px;
-  display: inline-block;
+  display: inline-block; /* Allows margin to apply */
 }
 
 .news-item a:hover {
-  color: #1f7aec;
+  color: #1f7aec; /* Darker blue on hover */
   text-decoration: underline;
 }
 
+/* === News Summary Text === */
 .news-item p {
   font-size: 15px;
-  color: #d1d1d1;
-  line-height: 1.7;
+  color: #d1d1d1; /* Light grey for contrast */
+  line-height: 1.7; /* Comfortable reading line spacing */
 }
+
 
 
 @media (max-width: 1024px) {
@@ -1170,74 +1204,75 @@ header, .hero, .search-container, .results, footer {
   }
 }
 
-
-
-
-
-
+/* === "View Full" Button === */
 .view-full-btn {
-  display: inline-block;
-  margin: 5px 10px 10px;
-  padding: 6px 14px;
-  font-size: 13px;
-  background: #1f7aec;
-  color: #ffffff;
-  border-radius: 20px;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block; /* Allows setting padding/margin like a block element */
+  margin: 5px 10px 10px; /* Top, right/left, bottom spacing */
+  padding: 6px 14px; /* Inner space for click area */
+  font-size: 13px; /* Smaller text size */
+  background: #1f7aec; /* Bright blue background */
+  color: #ffffff; /* White text */
+  border-radius: 20px; /* Rounded pill shape */
+  text-decoration: none; /* Removes underline */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effects */
 }
 
 .view-full-btn:hover {
-  background-color: #005eff;
-  transform: scale(1.05);
+  background-color: #005eff; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight zoom-in effect */
 }
 
 
-
+/* === Loader Overlay (Full Screen) === */
 .loader-wrapper {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 4000;
-    }
+  display: none; /* Hidden by default */
+  justify-content: center; /* Center spinner horizontally */
+  align-items: center; /* Center spinner vertically */
+  position: fixed; /* Stays on top of the page */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75); /* Semi-transparent dark overlay */
+  z-index: 4000; /* Very high so it's above all other content */
+}
 
-    .loader {
-      border: 8px solid rgba(255, 255, 255, 0.2);
-      border-top: 8px solid #00d1ff;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-    }
+/* === Loader Spinner Circle === */
+.loader {
+  border: 8px solid rgba(255, 255, 255, 0.2); /* Faded outer circle */
+  border-top: 8px solid #00d1ff; /* Highlighted animated arc */
+  border-radius: 50%; /* Makes it a perfect circle */
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite; /* Continuous spinning animation */
+}
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+/* === Keyframes for Spinner Rotation === */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
+
+/* === Profile Dropdown (Top Right Avatar Section) === */
 .profile-dropdown {
-  position: relative;
+  position: relative; /* Needed to position the dropdown box */
   display: flex;
   align-items: center;
-  margin-left: 16px;
+  margin-left: 16px; /* Space from adjacent elements */
 }
 
+/* === Profile Icon Circle (Avatar or Icon) === */
 .profile-icon {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  border: 2px solid #00d1ff;
+  border-radius: 50%; /* Makes it circular */
+  border: 2px solid #00d1ff; /* Glowing border */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  background-color: #0d112b;
+  overflow: hidden; /* Hide overflow if image is too big */
+  background-color: #0d112b; /* Dark inner background */
   cursor: pointer;
 }
 
@@ -1253,7 +1288,7 @@ header, .hero, .search-container, .results, footer {
   font-size: 18px;
 }
 
-
+/* === Profile Dropdown Box (Appears on Icon Click) === */
 .profile-box {
   position: absolute;
   top: 50px;
@@ -1269,6 +1304,7 @@ header, .hero, .search-container, .results, footer {
   z-index: 2000;
   animation: slideFade 0.3s ease;
 }
+/* Dropdown arrow pointer */
 .profile-box::before {
   content: '';
   position: absolute;
@@ -1279,8 +1315,7 @@ header, .hero, .search-container, .results, footer {
   border-bottom: 10px solid #10142a;
 }
 
-
-
+/* === Dropdown Animation === */
 @keyframes slideFade {
   from {
     opacity: 0;
@@ -1292,8 +1327,7 @@ header, .hero, .search-container, .results, footer {
   }
 }
 
-
-
+/* === Profile Box Content === */
 .profile-box h3 {
   margin-bottom: 12px;
   font-size: 18px;
@@ -1307,7 +1341,7 @@ header, .hero, .search-container, .results, footer {
   color: #a9dfff;
   font-weight: 500;
 }
-
+/* Input and Textarea Fields */
 .profile-box input,
 .profile-box textarea {
   width: 100%;
@@ -1326,7 +1360,7 @@ header, .hero, .search-container, .results, footer {
   outline: none;
   box-shadow: 0 0 0 2px #00d1ff;
 }
-
+/* Save/Update Button */
 .profile-box button {
   background: linear-gradient(135deg, #00d1ff, #1f7aec);
   color: #0b0c2a;
@@ -1343,7 +1377,7 @@ header, .hero, .search-container, .results, footer {
   background: #00a8d4;
   transform: translateY(-1px);
 }
-
+/* === Responsive Adjustments (≤ 768px) === */
 @media (max-width: 768px) {
   .secondary-nav {
     position: relative;
@@ -1370,7 +1404,7 @@ header, .hero, .search-container, .results, footer {
     top: 100%;
     left: 10px;
     right: 10px;
-    max-width: calc(100% - 20px); /* ✅ Prevent overflow */
+    max-width: calc(100% - 20px); /* Prevent overflow */
     background: #10142a;
     border-radius: 12px;
     padding: 16px 20px;
@@ -1379,7 +1413,7 @@ header, .hero, .search-container, .results, footer {
     flex-direction: column;
     gap: 12px;
     z-index: 1000;
-    overflow-x: hidden; /* ✅ Prevent horizontal scroll */
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 
   .nav-box.show {
@@ -1419,7 +1453,7 @@ header, .hero, .search-container, .results, footer {
 
 @media (max-width: 768px) {
   .secondary-nav {
-    margin-top: -50px; /* ✅ Pulls it up a bit */
+    margin-top: -50px; 
   }
 }
 
@@ -1429,16 +1463,17 @@ header, .hero, .search-container, .results, footer {
 
 <body>
   <div class="page-wrapper">
-    <!-- 🔹 Top Header: Logo + Profile + Logout -->
-<header class="main-header">
+<!-- Header Section: Logo, Profile, and Navigation -->
+ <header class="main-header">
   <div class="header-top">
+  <!-- Left Side: Logo -->
   <div class="left-group">
     <div class="logo-wrap">
 <img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
       <span class="logo-text">Explore Hub</span>
     </div>
   </div>
-
+   <!-- Right Side: Profile Icon and Logout Button -->
   <div class="mobile-controls">
     <div class="profile-dropdown">
       <div id="avatarIcon" class="profile-icon" onclick="toggleProfileDropdown()">
@@ -1461,15 +1496,16 @@ header, .hero, .search-container, .results, footer {
   <button onclick="saveProfile()">Save Profile</button>
       </div>
     </div>
+    <!-- Logout Button -->
     <button class="logout-btn" onclick="logout()">Log Out</button>
   </div>
 </div>
-
+  <!-- Navigation Bar -->
 <nav class="secondary-nav">
-  <!-- ✅ Visible always -->
+<!-- Mobile Menu Toggle -->
   <button class="menu-toggle" onclick="toggleNav()">☰</button>
 
-  <!-- ✅ Initially hidden on mobile -->
+  <!-- Navigation Links -->
   <div id="navMenu" class="nav-box">
     <a href="/home.html" class="nav-link">Home</a>
     <a href="/favorites.html" class="nav-link">Favorites</a>
@@ -1482,28 +1518,29 @@ header, .hero, .search-container, .results, footer {
 </header>
 
 
-
+    <!-- Hero Section -->
     <div class="hero" id="heroSection">
       <h1>Explore Space with NASA</h1>
       <p>Discover stunning images from space using NASA's Image Library API. Search planets, galaxies, or missions.</p>
     </div>
-
+    <!-- Search Bar -->
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search...">
       <button id="searchButton">Search</button>
     </div>
+<!-- Latest Space News Section -->
 <div class="space-news" id="spaceNews">
 <h2><i class="fas fa-rocket"></i> <span class="gradient-heading">Latest Space News</span></h2>
   <p class="space-subtitle">Powered by space exploration updates</p>
   <div class="news-list" id="newsList"></div>
 </div>
-
+<!-- Loading Spinner -->
  <div class="loader-wrapper" id="loaderWrapper">
       <div class="loader"></div>
     </div>
-
+    <!-- Results Section for NASA Images -->
     <div class="results" id="resultsContainer"></div>
-
+    <!-- Modal to Show Full Image and Description -->
     <div class="modal" id="modal">
       <div class="modal-content">
         <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
@@ -1524,10 +1561,11 @@ header, .hero, .search-container, .results, footer {
         </div>
       </div>
     </div>
-  </div> <!-- ✅ page-wrapper closes here -->
-
+  </div> <!-- page-wrapper closes here -->
+  <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-container">
+      <!-- Footer Branding -->
       <div class="footer-branding">
         <div class="footer-logo-line">
         <img src="/logo.png" class="logo-icon" alt="Explore Hub Logo" />
@@ -1535,7 +1573,7 @@ header, .hero, .search-container, .results, footer {
         </div>
         <p class="footer-tagline">Powered by NASA APIs to bring the universe closer.</p>
       </div>
-
+       <!-- Quick Navigation Links -->
       <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
@@ -1547,7 +1585,7 @@ header, .hero, .search-container, .results, footer {
 
         </ul>
       </div>
-
+      <!-- Social Media Icons -->
       <div class="footer-social">
         <h4>Follow Us</h4>
         <div class="social-icons">
@@ -1557,7 +1595,7 @@ header, .hero, .search-container, .results, footer {
         </div>
       </div>
     </div>
-
+    <!-- Footer Bottom -->
     <div class="footer-bottom">
       <p>&copy; 2025 Explore Hub. All rights reserved.</p>
     </div>
@@ -1567,6 +1605,7 @@ header, .hero, .search-container, .results, footer {
 
 
  <script>
+// Get elements from the page
 const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
 const resultsContainer = document.getElementById('resultsContainer');
@@ -1578,11 +1617,11 @@ const heroSection = document.getElementById('heroSection');
 const newsList = document.getElementById('newsList');
 const newsSection = document.getElementById('spaceNews');
 const loaderWrapper = document.getElementById('loaderWrapper');
-
+// Track liked images, user ID, and last searched query
 let likedImages = [];
 let userId = null;
 let lastQuery = '';
-
+// Get current logged-in user
 async function getLoggedInUser() {
   try {
     const res = await fetch('/api/user', { credentials: 'include' });
@@ -1597,7 +1636,7 @@ async function getLoggedInUser() {
     window.location.href = '/';
   }
 }
-
+// Clean NASA image description text
 function cleanDescription(desc) {
   if (!desc) return '';
   let cleanText = desc.replace(/http[s]?:\/\/\S+/g, '');
@@ -1605,7 +1644,7 @@ function cleanDescription(desc) {
   cleanText = cleanText.replace(/\n/g, ' ').replace(/\r/g, '').replace(/\s+/g, ' ').trim();
   return cleanText.length > 300 ? cleanText.substring(0, 300) + '...' : cleanText;
 }
-
+// Fetch user's liked images from backend
 async function fetchFavorites() {
   try {
     const res = await fetch('/api/favorites', { credentials: 'include' });
@@ -1615,14 +1654,14 @@ async function fetchFavorites() {
     console.error('Failed to fetch favorites', error);
   }
 }
-
+// Render image cards
 function renderCards(items) {
   resultsContainer.innerHTML = '';
   if (!items.length) {
     resultsContainer.innerHTML = `<p style="text-align:center;">No results found.</p>`;
     return;
   }
-
+  // Display up to 20 results
   items.slice(0, 20).forEach(item => {
     if (!item.data || !item.data[0] || !item.links || !item.links[0] || !item.links[0].href) return;
 
@@ -1631,7 +1670,7 @@ function renderCards(items) {
     const rawDesc = item.data[0].description;
     const desc = cleanDescription(rawDesc);
     const isLiked = likedImages.includes(imgUrl);
-
+    // Create card element
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -1642,7 +1681,7 @@ function renderCards(items) {
         <i class="fas fa-heart"></i>
       </button>
     `;
-
+    // Open modal on card click
     card.addEventListener('click', (e) => {
       if (e.target.closest('.like-btn') || e.target.classList.contains('view-full-btn')) return;
       modal.style.display = 'flex';
@@ -1654,7 +1693,7 @@ function renderCards(items) {
     resultsContainer.appendChild(card);
   });
 }
-
+// Fetch images from NASA API based on search
 async function fetchNASAImages(query) {
   heroSection.style.display = 'none';
   newsSection.style.display = 'none';
@@ -1674,7 +1713,7 @@ async function fetchNASAImages(query) {
     loaderWrapper.style.display = 'none';
   }
 }
-
+// Handle like/unlike image
 async function likeImage(event, title, imgUrl, desc, btn) {
   event.stopPropagation();
   if (!userId) {
@@ -1700,7 +1739,7 @@ async function likeImage(event, title, imgUrl, desc, btn) {
     });
 
     const data = await res.json();
-
+    // Update local liked list
     if (res.ok) {
       likedImages = isAlreadyLiked
         ? likedImages.filter(url => url !== imgUrl)
@@ -1714,7 +1753,7 @@ async function likeImage(event, title, imgUrl, desc, btn) {
     console.error('Error sending like/unlike:', error);
   }
 }
-
+// Fetch and display space news
 async function fetchSpaceNews() {
   try {
     const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=10');
@@ -1736,7 +1775,7 @@ async function fetchSpaceNews() {
     newsSection.style.display = "none";
   }
 }
-
+// Refresh favorites and images when tab is re-opened
 document.addEventListener('visibilitychange', async () => {
   if (document.visibilityState === 'visible') {
     await fetchFavorites();
@@ -1745,25 +1784,25 @@ document.addEventListener('visibilitychange', async () => {
     }
   }
 });
-
+// Open logout confirmation modal
 function logout() {
   document.getElementById('logoutModal').style.display = 'flex';
 }
-
+// Confirm logout
 document.getElementById('confirmLogout').addEventListener('click', () => {
   fetch('/logout', { method: 'POST', credentials: 'include' })
     .then(() => window.location.href = '/')
     .catch(err => console.error('Logout failed:', err));
 });
-
+// Cancel logout
 document.getElementById('cancelLogout').addEventListener('click', () => {
   document.getElementById('logoutModal').style.display = 'none';
 });
-
+// Toggle mobile navigation menu
 function toggleNav() {
   document.getElementById('navMenu').classList.toggle('show');
 }
-
+// Toggle profile dropdown
 function toggleProfileDropdown() {
   const box = document.getElementById('profileBox');
   box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
@@ -1832,7 +1871,7 @@ async function loadProfileData() {
   }
 }
 
-// ✅ Save updated name
+// Save updated name
 async function saveProfile() {
   const name = document.getElementById('profileName').value;
   const bio = document.getElementById('profileBio').value;
@@ -1856,14 +1895,14 @@ async function saveProfile() {
   }
 }
 
-// ✅ Page load sequence
+// Page load sequence
 window.onload = async () => {
   await getLoggedInUser();
   await fetchSpaceNews();
   await fetchFavorites();
   await loadProfileData();
 };
-
+// Handle search input and button
 searchInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') fetchNASAImages(searchInput.value);
 });
