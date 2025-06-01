@@ -6,7 +6,7 @@ const Post = require('../models/Post');
 const User = require('../models/user');
 const { ensureAuthenticated } = require('../middleware/auth');
 
-// 🔁 Get all posts with user info and comments (comment.userId as string)
+// Get all posts with user info and comments (comment.userId as string)
 router.get('/', async (req, res) => {
   try {
     const posts = await Post.find()
